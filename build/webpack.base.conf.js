@@ -22,7 +22,12 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'assets': resolve('src/assets'),
+      'components': resolve('src/components'),
+      'scss': resolve('src/scss'),
+      'router': resolve('src/router'),
+      'muse-components': 'muse-ui/src'
     }
   },
   module: {
@@ -33,7 +38,7 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
-        test: /\.js$/,
+        test: /muse-ui.src.*?js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
       },

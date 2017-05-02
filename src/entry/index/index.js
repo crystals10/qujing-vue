@@ -4,7 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from '../../router'
 
-Vue.config.productionTip = false
+import 'muse-components/styles/base.less'
+import appBar from 'muse-components/appBar'
+Vue.use(appBar)
 
 /* eslint-disable no-new */
 new Vue({
