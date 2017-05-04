@@ -26,6 +26,7 @@ module.exports = {
       'assets': resolve('src/assets'),
       'components': resolve('src/components'),
       'scss': resolve('src/scss'),
+      'mixin': resolve('src/mixins'),
       'router': resolve('src/router'),
       'muse-components': 'muse-ui/src'
     }

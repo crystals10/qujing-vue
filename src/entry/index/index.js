@@ -2,11 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from '../../router'
+import router from 'router'
+import 'scss/index.scss'
+import Muse from '@/mixins/Muse.js'
 
-import 'muse-components/styles/base.less'
-import appBar from 'muse-components/appBar'
-Vue.use(appBar)
+Vue.use(Muse)
 
 /* eslint-disable no-new */
 new Vue({

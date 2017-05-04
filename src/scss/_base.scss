@@ -1,0 +1,30 @@
+@import '_reset.scss';
+@import '_mixin.scss';
+@import '_variables.scss';
+html{
+  font-family:"PingFangSC-Regular","Helvetica Neue", Helvetica, "Lantinghei SC", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-feature-settings: 'kern' 1;
+  text-rendering: geometricPrecision;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+//清除浮动
+.clearfix{
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+  *zoom:1;
+}
+
+//禁止选择文本
+.select-no{
+  -moz-user-select:none;
+  -webkit-user-select:none;
+}
