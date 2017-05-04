@@ -5,6 +5,7 @@ html{
   font-family:"PingFangSC-Regular","Helvetica Neue", Helvetica, "Lantinghei SC", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
   font-feature-settings: 'kern' 1;
   text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;/* 让字体变得平滑*/
   font-size: 14px;
   line-height: 1.5;
   letter-spacing: 1px;
