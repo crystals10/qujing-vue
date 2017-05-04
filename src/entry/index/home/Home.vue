@@ -3,11 +3,9 @@
     <banner></banner>
     <category></category>
     <search></search>
-    <skill-card></skill-card>
-    <skill-card></skill-card>
-    <skill-card></skill-card>
-    <skill-card></skill-card>
-    <skill-card></skill-card>
+    <template v-for='item in m_skill_datas'>
+      <skill-card></skill-card>
+    </template>
   </div>
 </template>
 <script>
@@ -19,7 +17,7 @@ export default {
   name: "home",
   data: function data() {
     return {
-
+      m_skill_datas: [1,2,3,4,5]
     }
   },
   components: {
