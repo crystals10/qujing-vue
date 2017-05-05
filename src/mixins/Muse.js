@@ -11,6 +11,7 @@ import muRaisedButton from 'muse-components/raisedButton'
 import muTextField from 'muse-components/textField'
 import muAvatar from 'muse-components/avatar'
 import muIcon from 'muse-components/icon'
+import muDialog from 'muse-components/dialog'
 import muTabs from 'muse-components/tabs/tabs'
 import muTab from 'muse-components/tabs/tab'
 import muDivider from 'muse-components/divider'
@@ -45,6 +46,7 @@ Muse.install = function (Vue, options) {
   Vue.component(muStepLabel.name, muStepLabel)
   Vue.component(muStepContent.name, muStepContent)
   Vue.component(muStep.name, muStep)
+  Vue.component(muDialog.name, muDialog)
 }
 
 export default Muse

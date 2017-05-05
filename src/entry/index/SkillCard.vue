@@ -15,7 +15,7 @@
       <p class='info-item'>
         <mu-icon value='attach_money'></mu-icon><span>80元/1小时</span>
       </p>
-      <mu-flat-button label='查看详情' class='detail' labelClass='detail-label'/>
+      <mu-flat-button label='查看详情' to='/detail' class='detail' labelClass='detail-label'/>
     </div>
   </div>
 </template>
@@ -42,6 +42,8 @@ export default {
   border-radius: 4px;
   padding-left: 70px;
   position: relative;
+  box-shadow: 3px 3px 6px #ddd,
+              -3px -3px 6px #ddd;
   &:before{
     content: '';
     height:16px;
@@ -51,6 +53,7 @@ export default {
     position: absolute;
     top:-8px;
     left:62px;
+    box-shadow: inset 0 -3px 6px #ddd;
   }
   &:after{
     content: '';
@@ -61,6 +64,7 @@ export default {
     position: absolute;
     bottom:-8px;
     left:62px;
+    box-shadow: inset 3px 0px 6px #ddd;
   }
   &:first-child{
     margin-top: 0;
@@ -77,7 +81,7 @@ export default {
     }
   }
   .skill-card-content{
-    border-left: 1px dashed #ddd;
+    border-left: 1px dashed $primary-color;
     padding-left: 10px;
     position: relative;
     .header{

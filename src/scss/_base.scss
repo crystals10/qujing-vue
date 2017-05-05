@@ -30,3 +30,21 @@ body{
   -moz-user-select:none;
   -webkit-user-select:none;
 }
+.txt-center{
+  text-align: center;
+}
+.txt-right{
+  text-align: right;
+}
+.txt-small{
+  font-size: 12px;
+}
+.txt-big{
+  font-size: 16px;
+}
+.txt-em{
+  font-weight: bold;
+}
+.txt-primary{
+  color: $primary-color;
+}
