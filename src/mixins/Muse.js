@@ -9,6 +9,7 @@ import muFlatButton from 'muse-components/flatButton'
 import muFloatButton from 'muse-components/floatButton'
 import muRaisedButton from 'muse-components/raisedButton'
 import muTextField from 'muse-components/textField'
+import muSelectField from 'muse-components/selectField'
 import muAvatar from 'muse-components/avatar'
 import muIcon from 'muse-components/icon'
 import muDialog from 'muse-components/dialog'
@@ -21,6 +22,8 @@ import muStepper from 'muse-components/stepper/stepper'
 import muStep from 'muse-components/stepper/step'
 import muStepContent from 'muse-components/stepper/stepContent'
 import muStepLabel from 'muse-components/stepper/stepLabel'
+import muMenuItem from 'muse-components/menu/menuItem'
+import muSlider from 'muse-components/slider'
 
 let Muse = {}
 
@@ -35,6 +38,7 @@ Muse.install = function (Vue, options) {
   Vue.component(muFloatButton.name, muFloatButton)
   Vue.component(muRaisedButton.name, muRaisedButton)
   Vue.component(muTextField.name, muTextField)
+  Vue.component(muSelectField.name, muSelectField)
   Vue.component(muAvatar.name, muAvatar)
   Vue.component(muIcon.name, muIcon)
   Vue.component(muTabs.name, muTabs)
@@ -47,6 +51,8 @@ Muse.install = function (Vue, options) {
   Vue.component(muStepContent.name, muStepContent)
   Vue.component(muStep.name, muStep)
   Vue.component(muDialog.name, muDialog)
+  Vue.component(muMenuItem.name, muMenuItem)
+  Vue.component(muSlider.name, muSlider)
 }
 
 export default Muse

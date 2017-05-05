@@ -1,13 +1,17 @@
 <template>
   <div class="skill-card-item">
     <div class="avatar-wrap">
-      <mu-avatar src='http://www.muse-ui.org/images/uicon.jpg' :size='46' ></mu-avatar>
-      <p class="name">掐断</p>
+      <mu-avatar class="mu-avatar-back" src='http://www.muse-ui.org/images/uicon.jpg' :size='46' />
+      <p class="name txt-primary">掐断</p>
+      <p class='txt-center txt-primary'>9.5分</p>
     </div>
     <div class="skill-card-content">
       <p class="header">做一款互联网产品没有你想象中</p>
       <p class='info-item'>
         <mu-icon value='person_pin_circle'></mu-icon><span>冰岩作坊前队长</span>
+      </p>
+      <p class='info-item'>
+        <mu-icon value='loyalty'></mu-icon><span>互联网、学习</span>
       </p>
       <p class='info-item'>
         <mu-icon value='bookmark_border'></mu-icon><span>15人想见</span>
@@ -23,19 +27,14 @@
 export default {
   name: "skill-card",
   data: function data() {
-    return {
-
-    }
+    return {}
   }
 }
 </script>
 <style lang="scss">
 @import '../../scss/_variables.scss';
 .skill-card-item{
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  width:96%;
+  margin: 10px auto;
   background-color: #fff;
   padding:10px;
   position: relative;
@@ -44,6 +43,9 @@ export default {
   position: relative;
   box-shadow: 3px 3px 6px #ddd,
               -3px -3px 6px #ddd;
+  &:first-child{
+    margin-top: 0;
+  }
   &:before{
     content: '';
     height:16px;
@@ -66,14 +68,20 @@ export default {
     left:62px;
     box-shadow: inset 3px 0px 6px #ddd;
   }
-  &:first-child{
-    margin-top: 0;
-  }
   .avatar-wrap{
     position: absolute;
     top:10px;
     left:10px;
     width:46px;
+    .mu-avatar-back{
+      border-radius: 50%;
+      background-color: $primary-color;
+      box-shadow: 3px 3px 3px #eee,
+                  -3px -3px 3px #eee;
+    }
+    p{
+      margin-bottom: 6px;
+    }
     .name{
       font-size: 15px;
       font-weight: bold;
@@ -94,8 +102,8 @@ export default {
       line-height: 22px;
       .mu-icon{
         vertical-align: middle;
-        font-size: 16px;
-        color: #666;
+        font-size: 14px;
+        color: #999;
         padding-right: 4px;
       }
       span{

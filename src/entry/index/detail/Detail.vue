@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <mu-float-button class="yue-button" icon='add'></mu-float-button>
+    <mu-float-button to="/order" class="yue-button" icon='add'></mu-float-button>
   </div>
 </template>
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div id="receive-card" clas='message-card'>
+  <div id="message-card" clas='message-card'>
     <template>
       <img v-if='m_status==1' src="../../../assets/agree.png" class="status-img" alt="">
       <img v-else-if='m_status==2' src="../../../assets/reject.png" class="status-img" alt="">
@@ -80,107 +80,5 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '../../../scss/_variables.scss';
-#receive-card{
-  margin: 0 auto 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  position: relative;
-  &:last-child{
-    margin-bottom: 0;
-  }
-  .status-img{
-    top:10px;
-    right:10px;
-    width:50px;
-    position: absolute;
-  }
-  .card-top{
-    min-height: 60px;
-    position: relative;
-    border-bottom: 1px dashed $primary-color;
-    .card-tag{
-      width:140px;
-      height:40px;
-      position: absolute;
-      top:0;
-      left:50%;
-      transform: translateX(-50%);
-      background-color: $primary-color;
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
-      color: #fff;
-    }
-    .top-line{
-      width: 90%;
-      margin: auto;
-      height: 50px;
-      border-bottom: 1px dashed $primary-color;
-    }
-    .card-content{
-      padding: 10px 0;
-      width:86%;
-      margin: auto;
-      .tip{
-        color: #aaa;
-        font-size: 13px;
-      }
-    }
-  }
-  .card-bottom{
-    min-height: 40px;
-    position: relative;
-    .button-wrap{
-      text-align: center;
-      padding:10px 0;
-      background-color: #fff;
-      .button{
-        margin-right: 40px;
-        &:last-child{
-          margin-right: 0;
-        }
-      }
-      .button-label{
-        font-size: 12px;
-      }
-    }
-    &:before{
-      content: '';
-      height:20px;
-      width:20px;
-      border-radius: 50%;
-      background-color: $background-color;
-      position: absolute;
-      top:-10px;
-      left:-10px;
-    }
-    &:after{
-      content: '';
-      height:20px;
-      width:20px;
-      border-radius: 50%;
-      background-color: $background-color;
-      position: absolute;
-      top:-10px;
-      right:-10px;
-    }
-  }
-  .status-wrap{
-    padding: 10px 20px 0;
-    .button-over-label{
-      text-decoration: underline;
-    }
-  }
-  .card-footer{
-    padding-top: 4px;
-    font-style: italic;
-    color: #aaa;
-  }
-}
-.reject-reason{
-  .dialog-body{
-    padding-bottom: 0 !important;
-    padding-top: 15px !important;
-  }
-}
+@import '../../../scss/message.scss';
 </style>

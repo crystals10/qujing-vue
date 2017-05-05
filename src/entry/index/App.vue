@@ -18,6 +18,6 @@ export default {
 <style lang="scss" scoped>
 #app {
   position: relative;
-  padding-bottom: 56px;
+  padding-bottom: 50px;
 }
 </style>

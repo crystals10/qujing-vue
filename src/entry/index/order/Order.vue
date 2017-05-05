@@ -15,8 +15,11 @@
   <div class="order-stepper-content">
     <template v-if="activeStep == 0">
       <div class="order-stepper-form">
+        <mu-select-field label='选择您请教行家的具体技能' fullWidth v-model='m_select_value' labelClass="input-label" inputClass='input-content'>
+          <mu-menu-item v-for="text,index in m_skills" :key="index" :value="index" :title="text" />
+        </mu-select-field>
         <mu-text-field label='个人情况描述' labelClass="input-label" inputClass='input-content' multiLine fullWidth :rows="2" :rowsMax="8" :maxLength="400" />
-        <mu-text-field label='联系方式：手机/微信/QQ' labelClass="input-label" inputClass='input-content'  fullWidth/>
+        <mu-text-field label='联系方式（微信号）：' labelClass="input-label" inputClass='input-content'  fullWidth/>
       </div>
     </template>
     <template v-if="activeStep == 1">
@@ -39,7 +42,9 @@ export default {
   name: 'order',
   data () {
     return {
-      activeStep: 0
+      activeStep: 0,
+      m_select_value: 0,
+      m_skills:['做一款互联网产品没有你想象的那么难','两小时教你如何搭建取经这个网站及其后台']
     }
   },
   methods: {
@@ -73,7 +78,7 @@ export default {
     background-color: #fff;
   }
   .order-stepper-form{
-    .input-content{
+    .input-content,.mu-dropDown-menu-text-overflow,{
       font-size: 14px;
       color: $primary-color;
     }

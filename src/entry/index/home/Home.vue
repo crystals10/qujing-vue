@@ -3,9 +3,11 @@
     <banner></banner>
     <category></category>
     <search></search>
-    <template v-for='item in m_skill_datas'>
-      <skill-card></skill-card>
-    </template>
+    <div class="skill-card-wrap">
+      <template v-for='item in m_skill_datas'>
+        <skill-card></skill-card>
+      </template>
+    </div>
   </div>
 </template>
 <script>
@@ -28,5 +30,8 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
+.skill-card-wrap{
+  padding:10px;
+}
 </style>

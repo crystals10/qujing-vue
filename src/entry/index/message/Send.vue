@@ -1,5 +1,5 @@
 <template>
-  <div id="send-card" clas='message-card'>
+  <div id="message-card" clas='message-card'>
     <template>
       <img v-if='m_status==1' src="../../../assets/agree.png" class="status-img" alt="">
       <img v-else-if='m_status==2' src="../../../assets/reject.png" class="status-img" alt="">
@@ -46,6 +46,14 @@
     <div class="card-footer txt-center txt-small">
         <p class='power-by'>POWERED BY BINGYAN STUDIO</p>
     </div>
+    <mu-dialog dialogClass="reject-reason" bodyClass='dialog-body' :open='m_dialog'>
+      <mu-text-field label='请您评价此次约见：' inputClass="reject-input" multiLine fullWidth :rows="2" :rowsMax="4" :maxLength="100"/>
+      <div class="score-wrap">
+        <p class="score-title"> 你给这个行家打几分呢？(<span class="txt-big txt-em txt-primary">{{m_score}}</span>分)</p>
+        <mu-slider class="score-slider" :max=10 :min=1 :step=1 v-model='m_score' />
+      </div>
+      <mu-flat-button label="确定" slot="actions" @click='f_comment' primary/>
+    </mu-dialog>
   </div>
 </template>
 <script>
@@ -60,130 +68,22 @@ export default {
       m_order_create_time: this.data.order_create_time,
       m_skill_intro: this.data.skill_intro,
       m_reject_reason: this.data.reject_reason,
-      m_dialog: false
+      m_dialog: false,
+      m_score: 10
     }
   },
   props: ['data'],
   methods:{
     f_over: function () {
+      this. m_dialog = true
+    },
+    f_comment: function () {
+      this.m_dialog = false
       this.m_status = 3
     }
   }
 }
 </script>
 <style lang="scss">
-@import '../../../scss/_variables.scss';
-#send-card{
-  margin: 0 auto 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  position: relative;
-  box-shadow: 3px 3px 6px #ddd,
-              -3px -3px 6px #ddd;
-  &:last-child{
-    margin-bottom: 0;
-  }
-  .status-img{
-    top:10px;
-    right:10px;
-    width:50px;
-    position: absolute;
-  }
-  .card-top{
-    min-height: 60px;
-    position: relative;
-    border-bottom: 1px dashed $primary-color;
-    .card-tag{
-      width:140px;
-      height:40px;
-      position: absolute;
-      top:0;
-      left:50%;
-      transform: translateX(-50%);
-      background-color: $primary-color;
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
-      color: #fff;
-    }
-    .top-line{
-      width: 90%;
-      margin: auto;
-      height: 50px;
-      border-bottom: 1px dashed $primary-color;
-    }
-    .card-content{
-      padding: 10px 0;
-      width:86%;
-      margin: auto;
-      .tip{
-        color: #aaa;
-        font-size: 13px;
-      }
-    }
-  }
-  .card-bottom{
-    min-height: 40px;
-    position: relative;
-    .button-wrap{
-      text-align: center;
-      padding:10px 0;
-      background-color: #fff;
-      .button{
-        margin-right: 40px;
-        &:last-child{
-          margin-right: 0;
-        }
-      }
-      .button-label{
-        font-size: 12px;
-      }
-    }
-    &:before{
-      content: '';
-      height:20px;
-      width:20px;
-      border-radius: 50%;
-      background-color: $background-color;
-      position: absolute;
-      top:-10px;
-      left:-10px;
-      box-shadow: inset -3px 0px 6px #ddd;
-    }
-    &:after{
-      content: '';
-      height:20px;
-      width:20px;
-      border-radius: 50%;
-      background-color: $background-color;
-      position: absolute;
-      top:-10px;
-      right:-10px;
-      box-shadow: inset 3px 0px 6px #ddd;
-    }
-  }
-  .status-wrap{
-    padding: 10px 20px 0;
-    p:first-child{
-      margin-bottom: 8px;
-    }
-    .reject-reason{
-      font-size: 13px;
-      color: #aaa;
-    }
-    .button-over-label{
-      text-decoration: underline;
-    }
-  }
-  .card-footer{
-    padding-top: 4px;
-    font-style: italic;
-    color: #aaa;
-  }
-}
-.reject-reason{
-  .dialog-body{
-    padding-bottom: 0 !important;
-    padding-top: 15px !important;
-  }
-}
+@import '../../../scss/message.scss';
 </style>

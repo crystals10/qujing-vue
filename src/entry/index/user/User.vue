@@ -18,26 +18,21 @@
         <mu-list-item class='list-item' title="个人信息">
           <mu-icon slot="left" value="account_circle"/>
         </mu-list-item>
-        <mu-list-item class='list-item' title="成为行家">
+        <mu-list-item href='/index.html' class='list-item' title="成为行家">
           <mu-icon slot="left" value="stars"/>
         </mu-list-item>
-        <mu-list-item class='list-item' title="技能管理">
-          <mu-icon slot="left" value="account_balance"/>
+        <mu-list-item to='skill' class='list-item' title="技能管理">
+          <mu-icon slot="left" value="book"/>
         </mu-list-item>
-      </mu-list>
-      <mu-list>
-        <mu-list-item class='list-item' title="约过我的">
-          <mu-icon slot="left" value="call_missed_outgoing"/>
-        </mu-list-item>
-        <mu-list-item class='list-item' title="我约过的">
-          <mu-icon slot="left" value="call_missed"/>
+        <mu-list-item to='/message' class='list-item' title="约见管理">
+          <mu-icon slot="left" value="email"/>
         </mu-list-item>
       </mu-list>
       <mu-list>
         <mu-list-item class='list-item' title="如何使用取经">
           <mu-icon slot="left" value="help_outline"/>
         </mu-list-item>
-        <mu-list-item class='list-item' title="关于我们">
+        <mu-list-item to="/aboutus" class='list-item' title="关于我们">
           <mu-icon slot="left" value="place"/>
         </mu-list-item>
       </mu-list>

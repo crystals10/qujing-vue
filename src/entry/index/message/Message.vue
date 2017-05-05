@@ -28,7 +28,7 @@ export default {
   name: "message",
   data: function data() {
     return {
-      m_active_tab: 'tab2',
+      m_active_tab: 'tab1',
       m_receive_message_data: [
         {
           status: 0,
