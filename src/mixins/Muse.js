@@ -11,6 +11,11 @@ import muRaisedButton from 'muse-components/raisedButton'
 import muTextField from 'muse-components/textField'
 import muAvatar from 'muse-components/avatar'
 import muIcon from 'muse-components/icon'
+import muTabs from 'muse-components/tabs/tabs'
+import muTab from 'muse-components/tabs/tab'
+import muDivider from 'muse-components/divider'
+import muList from 'muse-components/list/list'
+import muListItem from 'muse-components/list/listItem'
 import muStepper from 'muse-components/stepper/stepper'
 import muStep from 'muse-components/stepper/step'
 import muStepContent from 'muse-components/stepper/stepContent'
@@ -31,6 +36,11 @@ Muse.install = function (Vue, options) {
   Vue.component(muTextField.name, muTextField)
   Vue.component(muAvatar.name, muAvatar)
   Vue.component(muIcon.name, muIcon)
+  Vue.component(muTabs.name, muTabs)
+  Vue.component(muTab.name, muTab)
+  Vue.component(muDivider.name, muDivider)
+  Vue.component(muList.name, muList)
+  Vue.component(muListItem.name, muListItem)
   Vue.component(muStepper.name, muStepper)
   Vue.component(muStepLabel.name, muStepLabel)
   Vue.component(muStepContent.name, muStepContent)

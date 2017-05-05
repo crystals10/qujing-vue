@@ -41,7 +41,28 @@ export default {
   position: relative;
   border-radius: 4px;
   padding-left: 70px;
-  &:last-child{
+  position: relative;
+  &:before{
+    content: '';
+    height:16px;
+    width:16px;
+    border-radius: 50%;
+    background-color: $background-color;
+    position: absolute;
+    top:-8px;
+    left:62px;
+  }
+  &:after{
+    content: '';
+    height:16px;
+    width:16px;
+    border-radius: 50%;
+    background-color: $background-color;
+    position: absolute;
+    bottom:-8px;
+    left:62px;
+  }
+  &:first-child{
     margin-top: 0;
   }
   .avatar-wrap{

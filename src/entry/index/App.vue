@@ -17,9 +17,7 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  height: 100%;
   position: relative;
   padding-bottom: 56px;
-  background-color: #eee;
 }
 </style>

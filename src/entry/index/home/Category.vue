@@ -54,6 +54,7 @@ export default {
   .category-icon{
     color: #757575;
     margin-left: 0;
+    font-size: 18px;
   }
   .category-label{
     padding-right: 2px;
