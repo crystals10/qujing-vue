@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/entry/index/home/Home'
 import Message from '@/entry/index/message/Message'
 import Skill from '@/entry/index/skill/Skill'
+import AddSkill from '@/entry/index/skill/AddSkill'
 import User from '@/entry/index/user/User'
 import Detail from '@/entry/index/detail/Detail'
 import Order from '@/entry/index/order/Order'
@@ -46,6 +47,11 @@ export default new Router({
       path: '/skill',
       name: 'Skill',
       component: Skill
+    },
+    {
+      path: '/addskill',
+      name: 'AddSkill',
+      component: AddSkill
     },
     {
       path: '/user',

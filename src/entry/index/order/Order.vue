@@ -1,6 +1,6 @@
 <template>
 <div id='order'>
-  <mu-appbar title="预约行家" class='appbar' titleClass="appbar-title"></mu-appbar>
+  <mu-appbar title="预约行家" class='appbar' titleClass="appbar-title" />
   <mu-stepper class="order-stepper" :activeStep="activeStep">
     <mu-step>
       <mu-step-label class="order-step-label">预约</mu-step-label>
