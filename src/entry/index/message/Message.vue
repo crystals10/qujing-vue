@@ -136,7 +136,7 @@ export default {
     margin: 0 auto 10px;
   }
   .card-wrap{
-    padding: 10px 20px;
+    padding: 10px;
   }
 }
 </style>

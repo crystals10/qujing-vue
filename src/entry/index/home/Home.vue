@@ -14,7 +14,7 @@
 import Banner from './Banner'
 import Category from './Category'
 import Search from './Search'
-import SkillCard from '../SkillCard'
+import SkillCard from './HomeSkillCard'
 export default {
   name: "home",
   data: function data() {

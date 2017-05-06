@@ -1,134 +1,148 @@
 <template>
-  <div class="skill-card-item">
-    <div class="avatar-wrap">
-      <mu-avatar class="mu-avatar-back" src='http://www.muse-ui.org/images/uicon.jpg' :size='46' />
-      <p class="name txt-primary">掐断</p>
-      <p class='txt-center txt-primary'>9.5分</p>
+  <div>
+    <div id="skill-card" classs="clearfix">
+      <div class="card-left">
+        <p class="skill-title txt-em">{{m_skill_title}}</p>
+        <p class="skill-intro txt-small">{{m_skill_intro}}</p>
+      </div>
+      <div class="card-right txt-center">
+        <p class="skill-price"><span class="price">{{m_skill_price}}</span> 元</p>
+        <p class="skill-time"><span class="time">{{m_skill_time}}</span> 小时</p>
+        <p class="skill-tag"><span class="tag">{{m_skill_tag}}</span></p>
+      </div>
+      <slot>
+        <mu-flat-button class="skill-cancel-button" @click='f_open_dialog' label="删除" primary/>
+      </slot>
     </div>
-    <div class="skill-card-content">
-      <p class="header">做一款互联网产品没有你想象中</p>
-      <p class='info-item'>
-        <mu-icon value='person_pin_circle'></mu-icon><span>冰岩作坊前队长</span>
-      </p>
-      <p class='info-item'>
-        <mu-icon value='loyalty'></mu-icon><span>互联网、学习</span>
-      </p>
-      <p class='info-item'>
-        <mu-icon value='bookmark_border'></mu-icon><span>15人想见</span>
-      </p>
-      <p class='info-item'>
-        <mu-icon value='attach_money'></mu-icon><span>80元/1小时</span>
-      </p>
-      <mu-flat-button label='查看详情' to='/detail' class='detail' labelClass='detail-label'/>
-    </div>
+    <mu-dialog class="confirm-dialog" bodyClass='confirm-dialog-body' title="确定要删除这个技能吗？" titleClass="dialog-title" :open='m_dialog'>
+      <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
+      <mu-flat-button label="确定" slot="actions" @click='f_cancel_skill' primary/>
+    </mu-dialog>
   </div>
 </template>
 <script>
 export default {
   name: "skill-card",
   data: function data() {
-    return {}
+    return {
+      m_skill_title: this.data.skill_title,
+      m_skill_intro: this.data.skill_intro,
+      m_skill_price: this.data.skill_price,
+      m_skill_time: this.data.skill_time,
+      m_skill_tag: this.data.skill_tag,
+      m_skill_id: this.data.skill_id,
+      m_dialog: false
+    }
+  },
+  props:["data"],
+  methods: {
+    f_open_dialog: function () {
+      this.m_dialog = true
+    },
+    f_close_dialog: function () {
+      this.m_dialog = false
+    },
+    f_cancel_skill: function () {
+      this.f_close_dialog()
+    }
   }
 }
 </script>
 <style lang="scss">
-@import '../../scss/_variables.scss';
-.skill-card-item{
+@import "../../scss/_variables.scss";
+#skill-card{
   margin: 10px auto;
+  border-radius: 8px;
   background-color: #fff;
-  padding:10px;
-  position: relative;
-  border-radius: 4px;
-  padding-left: 70px;
+  padding-right: 100px;
   position: relative;
   box-shadow: 3px 3px 6px #ddd,
               -3px -3px 6px #ddd;
-  &:first-child{
-    margin-top: 0;
-  }
   &:before{
     content: '';
-    height:16px;
-    width:16px;
+    height:20px;
+    width:20px;
     border-radius: 50%;
     background-color: $background-color;
     position: absolute;
-    top:-8px;
-    left:62px;
+    top:-10px;
+    right:90px;
     box-shadow: inset 0 -3px 6px #ddd;
   }
   &:after{
     content: '';
-    height:16px;
-    width:16px;
+    height:20px;
+    width:20px;
     border-radius: 50%;
     background-color: $background-color;
     position: absolute;
-    bottom:-8px;
-    left:62px;
+    bottom:-10px;
+    right:90px;
     box-shadow: inset 3px 0px 6px #ddd;
   }
-  .avatar-wrap{
-    position: absolute;
-    top:10px;
-    left:10px;
-    width:46px;
-    .mu-avatar-back{
-      border-radius: 50%;
-      background-color: $primary-color;
-      box-shadow: 3px 3px 3px #eee,
-                  -3px -3px 3px #eee;
+  .card-left{
+    padding:15px;
+    text-align: justify;
+    min-height: 180px;
+    .skill-intro{
+      margin-top: 10px;
+      color: #666;
     }
-    p{
-      margin-bottom: 6px;
-    }
-    .name{
-      font-size: 15px;
-      font-weight: bold;
-      text-align: center;
-    }
+    border-right: 1px dashed $primary-color;
   }
-  .skill-card-content{
-    border-left: 1px dashed $primary-color;
-    padding-left: 10px;
-    position: relative;
-    .header{
-      letter-spacing: 0px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .info-item{
-      height: 22px;
-      line-height: 22px;
-      .mu-icon{
-        vertical-align: middle;
-        font-size: 14px;
-        color: #999;
-        padding-right: 4px;
-      }
-      span{
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 13px;
-        color: #666;
-      }
-      .em{
+  .card-right-wrap{
+    position: absolute;
+    top:0;
+    right:0;
+    width:100px;
+    height:100%;
+    background-color: #b388ff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  .card-right{
+    width:100px;
+    top:20px;
+    right:0;
+    position: absolute;
+    color: #fff;
+    .skill-price{
+      color: #666;
+      .price{
+        font-size: 24px;
         color: $primary-color;
-        font-weight: bold;
       }
     }
-    .detail{
-      height:26px;
-      line-height: 26px;
-      position: absolute;
-      bottom:-4px;
-      right:0;
-      min-width: 60px;
-      .detail-label{
+    .skill-time{
+      color: #666;
+      .time{
+        font-size: 24px;
+        color: $primary-color;
+      }
+    }
+    .skill-tag{
+      margin-top: 10px;
+      .tag{
+        border-radius: 20px;
+        display: inline-block;
+        padding:2px 6px;
         font-size: 12px;
         color: #666;
+        border: 1px solid #999;
       }
     }
   }
+  .skill-cancel-button{
+    position: absolute;
+    bottom: 5px;
+    right:6px;
+  }
 }
+.confirm-dialog-body{
+  padding: 0 !important;
+}
+.dialog-title{
+  font-size: 16px !important;
+}
+
 </style>
