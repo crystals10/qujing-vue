@@ -5,6 +5,7 @@ import Message from '@/entry/index/message/Message'
 import Skill from '@/entry/index/skill/Skill'
 import AddSkill from '@/entry/index/skill/AddSkill'
 import User from '@/entry/index/user/User'
+import Info from '@/entry/index/user/Info'
 import Detail from '@/entry/index/detail/Detail'
 import Order from '@/entry/index/order/Order'
 import NotFound from '@/entry/index/404.vue'
@@ -56,6 +57,11 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: User
+    },
+    {
+      path: '/info',
+      name: 'Info',
+      component: Info
     },
     {
       path: '/aboutus',
