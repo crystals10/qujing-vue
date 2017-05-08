@@ -25,7 +25,7 @@
     <template v-if="activeStep == 1">
       <div class="order-stepper-success">
         <p class='success-text'>预约成功，等待行家确认</p>
-        <mu-icon value="check_circle" color="#7e57c2" size='100' />
+        <mu-icon value="check_circle" color="#7e57c2" :size='100' />
       </div>
     </template>
     <p class='tip'>注意：见面的时间跟地点将在行家同意后由行家同您共同商定。</p>

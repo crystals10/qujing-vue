@@ -24,6 +24,7 @@ import muStepContent from 'muse-components/stepper/stepContent'
 import muStepLabel from 'muse-components/stepper/stepLabel'
 import muMenuItem from 'muse-components/menu/menuItem'
 import muSlider from 'muse-components/slider'
+import muIconButton from 'muse-components/iconButton'
 
 let Muse = {}
 
@@ -41,6 +42,7 @@ Muse.install = function (Vue, options) {
   Vue.component(muSelectField.name, muSelectField)
   Vue.component(muAvatar.name, muAvatar)
   Vue.component(muIcon.name, muIcon)
+  Vue.component(muIconButton.name, muIconButton)
   Vue.component(muTabs.name, muTabs)
   Vue.component(muTab.name, muTab)
   Vue.component(muDivider.name, muDivider)

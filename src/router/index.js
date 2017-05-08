@@ -25,7 +25,6 @@ export default new Router({
     },
     {
       path: '/home/:category',
-      name: 'Home',
       component: Home
     },
     {

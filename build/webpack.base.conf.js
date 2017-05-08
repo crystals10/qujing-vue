@@ -9,7 +9,9 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    index: './src/entry/index/index.js'
+    index: './src/entry/index/index.js',
+    auth: './src/entry/auth/auth.js',
+    login: './src/entry/login/login.js'
   },
   output: {
     path: config.build.assetsRoot,

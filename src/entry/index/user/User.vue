@@ -108,7 +108,7 @@ export default {
     }
     .mu-item{
       padding-left: 46px;
-      min-height: 40px;
+      min-height: 50px;
       padding-top: 14px;
       padding-bottom: 14px;
       border-bottom: 1px solid #eee;

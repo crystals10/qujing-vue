@@ -5,8 +5,12 @@ import App from './App'
 import router from 'router'
 import 'scss/index.scss'
 import Muse from '@/mixins/Muse.js'
+import LoginPanel from 'components/Login'
+import WarnPanel from 'components/Warn'
 
 Vue.use(Muse)
+Vue.use(LoginPanel)
+Vue.use(WarnPanel)
 
 /* eslint-disable no-new */
 new Vue({

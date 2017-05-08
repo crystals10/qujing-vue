@@ -2,7 +2,7 @@
   <div id="skill-manage">
     <div class="skill-card-wrap">
       <template>
-        <skill-card v-for='item in m_skill_datas' v-bind:data='item'></skill-card>
+        <skill-card v-for='(item, index) in m_skill_datas' :key='index' v-bind:data='item'></skill-card>
       </template>
     </div>
     <mu-float-button to="/addskill" class="add-skill-button" icon='add' />

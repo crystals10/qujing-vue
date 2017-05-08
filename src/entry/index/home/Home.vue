@@ -22,6 +22,9 @@ export default {
       m_skill_datas: [1,2,3,4,5]
     }
   },
+  mounted() {
+    // this.$showRegisterPanel(0)
+  },
   components: {
     Banner,
     Category,
