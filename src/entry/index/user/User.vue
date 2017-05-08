@@ -1,7 +1,9 @@
 <template>
   <div id="user">
     <div class="user-back">
-      <mu-avatar src='http://www.muse-ui.org/images/uicon.jpg' class="avatar-wrap" :size='100' ></mu-avatar>
+      <mu-avatar src='http://www.muse-ui.org/images/uicon.jpg' class="avatar-wrap" :size='100' >
+        <img src="../../../assets/vip.png" class='vip' alt="vip">
+      </mu-avatar>
     </div>
     <div class="intro-wrap">
       <p class='name'>子衿</p>
@@ -65,6 +67,14 @@ export default {
       padding: 2px;
       border-radius: 50%;
       background-color: #fff;
+      .vip{
+        position: absolute;
+        width:20px;
+        height: 20px;
+        top:0px;
+        right: 10px;
+        transform: rotateZ(30deg);
+      }
     }
   }
   .intro-wrap{
