@@ -12,12 +12,13 @@
         </div>
         <p class="name">取经，高校内的技能经验有偿分享平台</p>
         <div class="slogan-wrap">
-          <mu-flat-button class='slogan-button' label='申请接入' />
-          <mu-flat-button class='slogan-button' label='直接登录' />
+          <mu-flat-button class='slogan-button' @click='f_open_apply' label='申请接入' />
+          <mu-flat-button class='slogan-button' @click='f_open_login' label='直接登录' />
         </div>
       </div>
     </div>
     <div class="intro-wrap">
+      <p class='header'>关于"取经"</p>
       <div class="intro-inner-wrap">
         <div class="intro-item">
           <div class="intro-word">
@@ -42,26 +43,85 @@
         </div>
       </div>
     </div>
-    <div class="mp-wrap">
-      <mu-raised-button labelClass='label' label='申请开通您学校的取经分站' primary/>
+    <div class="intro-wrap">
+      <p class='header'>开通分站条件</p>
+      <div class="intro-inner-wrap">
+        <div class="intro-item">
+          <div class="intro-word">
+            <p class="detail">有运营能力的个人和团队</p>
+          </div>
+        </div>
+        <div class="intro-item">
+          <div class="intro-word">
+            <p class="detail">拥有一定体量粉丝的校内公众号</p>
+          </div>
+        </div>
+        <div class="intro-item">
+          <div class="intro-word">
+            <p class="detail">有一定访问量的校内门户网站</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="footer">
-      <ul class="links">
-          <li class="link-item"><a href="#" target="_blank">用户协议</a></li>
-          <li class="link-item"><a href="mailto:cmm@bingyan.net" target="_blank">用户反馈</a></li>
-          <li class="link-item"><a href="http://www.bingyan.net" target="_blank">关于我们</a></li>
-          <li class="link-item"><p class="copyright">Copyright © 2017 Zijin. All Rights Reserved.</p></li>
-      </ul>
-  </div>
+    <div class="mp-wrap">
+      <mu-raised-button labelClass='label' @click='f_open_apply' label='申请开通您学校的取经分站' primary/>
+    </div>
+    <manage-footer></manage-footer>
+    <mu-dialog :open="m_apply_dialog" dialogClass="apply-dialog" title="申请开通取经分站" titleClass='apply-dialog-title'>
+      <mu-icon-button icon="close" class="apply-close" @click='f_close_apply'/>
+      <div class="apply-form">
+        <mu-text-field class="register-text-field"  label='学校名称：' fullWidth/>
+        <mu-text-field class="register-text-field"  label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
+        <mu-text-field class="register-text-field"  label='公众号的粉丝数量或者网站的日访问量：' fullWidth/>
+        <mu-text-field class="register-text-field"  label='您的微信号：' fullWidth/>
+        <mu-text-field class="register-text-field"  label='您的邮箱：' fullWidth/>
+      </div>
+      <div class="button-wrap">
+        <mu-flat-button primary class='flat-button' @click="f_open_login" label="已有分站，直接登录"/>
+        <mu-raised-button primary class='raised-button' @click="f_close_apply" label="提交申请"/>
+      </div>
+  </mu-dialog>
+  <mu-dialog :open='m_login_dialog' dialogClass="apply-dialog" title="登录取经后台管理中心" titleClass='apply-dialog-title'>
+    <mu-icon-button icon="close" class="apply-close" @click='f_close_login'/>
+    <div class="apply-form">
+      <mu-text-field class="register-text-field"  label='您的邮箱：' fullWidth/>
+      <mu-text-field class="register-text-field"  label='登录密码：' type='password' fullWidth/>
+    </div>
+    <div class="button-wrap">
+      <mu-flat-button primary class='flat-button' @click="f_open_apply" label="尚无分站，前往注册"/>
+      <mu-raised-button primary class='raised-button' @click="f_close_login" label="提交登录"/>
+    </div>
+  </mu-dialog>
   </div>
 </template>
 <script>
+import ManageFooter from 'components/ManageFooter'
 export default {
   name: "manage",
   data: function data() {
     return {
-
+      m_apply_dialog: false,
+      m_login_dialog: false
     }
+  },
+  methods: {
+    f_close_apply () {
+      this.m_apply_dialog = false
+    },
+    f_open_apply () {
+      this.m_login_dialog = false
+      this.m_apply_dialog = true
+    },
+    f_close_login () {
+      this.m_login_dialog = false
+    },
+    f_open_login () {
+      this.m_apply_dialog = false
+      this.m_login_dialog = true
+    }
+  },
+  components: {
+    ManageFooter
   }
 }
 </script>
@@ -131,11 +191,20 @@ export default {
   }
   .intro-wrap{
     background-color: #FFF;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px dashed #ddd;
     .intro-inner-wrap{
       width:1100px;
       margin: 0 auto;
-      padding: 40px 0;
-      text-align: center;
+    }
+    .header{
+      font-size: 18px;
+      display: inline-block;
+      color: $primary-color;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 2px dashed $primary-color;
     }
     .intro-item{
       padding: 20px;
@@ -167,7 +236,6 @@ export default {
     }
   }
   .mp-wrap{
-    border-top: 1px dashed #eee;
     border-bottom: 1px dashed #eee;
     padding:40px 0;
     background-color: #fff;
@@ -182,32 +250,34 @@ export default {
       }
     }
   }
-  .footer{
-    background-color: #FFF;
-    padding: 24px 0;
-    min-width: 1100px;
-    .links{
-      font-size: 12px;
-      list-style: none;
-      text-align: center;
-      .link-item{
-        display: inline-block;
-        vertical-align: middle;
-        padding: 0 1em;
-        line-height: 1em;
-        border-left: 1px solid #d9dadc;
-        &:first-child{
-          border-left: none;
-        }
-        a{
-          color: inherit;
-          &:hover{
-            text-decoration: underline;
-          }
-        }
-      }
+}
+.apply-dialog{
+  width: 500px !important;
+  position: relative;
+  .mu-dialog-body{
+    padding-left: 40px;
+    padding-right: 40px;
+    .apply-close{
+      position: absolute;
+      font-size: 30px;
+      right:0px;
+      top:0px;
     }
   }
+  .button-wrap{
+    text-align: right;
+    .flat-button{
+      float: left;
+      margin-left: -16px;
+    }
+  }
+  .mu-dialog-actions{
+    display: none;
+  }
+  .apply-dialog-title{
+    display: block;
+    text-align: center;
+    font-size: 18px;
+  }
 }
-
 </style>
