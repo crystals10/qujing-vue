@@ -24,6 +24,7 @@ export default {
   },
   mounted() {
     // this.$showRegisterPanel(0)
+    // this.add_user()
   },
   components: {
     Banner,

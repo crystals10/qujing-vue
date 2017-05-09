@@ -4,8 +4,18 @@
       <mu-avatar src='http://www.muse-ui.org/images/uicon.jpg' class="avatar-wrap" :size='100' ></mu-avatar>
     </div>
     <div class="intro-wrap">
-      <p class='name'>子衿<span class='job'>（冰岩作坊前队长）</span></p>
-      <p class="job">冰岩作坊前队长</p>
+      <p class='name'>子衿</p>
+      <p class="job">13级软件学院学生</p>
+      <p class="title">
+          <svg viewBox="0 0 20 20" class="vip-svg" aria-hidden="true">
+            <g>
+              <g fill="none" fill-rule="evenodd">
+                <path d="M.64 11.39c1.068.895 1.808 2.733 1.66 4.113l.022-.196c-.147 1.384.856 2.4 2.24 2.278l-.198.016c1.387-.12 3.21.656 4.083 1.735l-.125-.154c.876 1.085 2.304 1.093 3.195.028l-.127.152c.895-1.068 2.733-1.808 4.113-1.66l-.198-.022c1.386.147 2.402-.856 2.28-2.238l.016.197c-.12-1.388.656-3.212 1.735-4.084l-.154.125c1.084-.876 1.093-2.304.028-3.195l.152.127c-1.068-.895-1.808-2.732-1.66-4.113l-.022.198c.147-1.386-.856-2.4-2.24-2.28l.198-.016c-1.387.122-3.21-.655-4.083-1.734l.125.153C10.802-.265 9.374-.274 8.483.79L8.61.64c-.895 1.068-2.733 1.808-4.113 1.662l.198.02c-1.386-.147-2.4.857-2.28 2.24L2.4 4.363c.12 1.387-.656 3.21-1.735 4.084l.154-.126C-.265 9.2-.274 10.626.79 11.517L.64 11.39z" fill="#7e57c2"></path>
+                <path d="M7.78 13.728l-2.633-3s-.458-.704.242-1.36c.7-.658 1.327-.22 1.327-.22L8.67 11.28l4.696-4.93s.663-.35 1.3.197c.635.545.27 1.382.27 1.382s-3.467 3.857-5.377 5.78c-.98.93-1.78.018-1.78.018z" fill="#FFF"></path>
+              </g>
+            </g>
+          </svg>
+          行家认证信息：冰岩作坊前队长</p>
       <p class="other">
         <span class="other-item"> <span class="em">9</span>人见过</span>
         <span class="other-item"> <span class="em">20</span>人想过</span>
@@ -94,9 +104,20 @@ export default {
       font-size: 16px;
       font-weight: bold;
     }
-    .job{
+    .job,.title{
       font-size: 12px;
       color:#666;
+    }
+    .title{
+      height: 24px;
+      line-height: 24px;
+      vertical-align: middle;
+      .vip-svg{
+        height: 16px;
+        width: 16px;
+        display: inline-block;
+        vertical-align: middle;
+      }
     }
     .other{
       padding: 10px;
