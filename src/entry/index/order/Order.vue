@@ -72,9 +72,14 @@ export default {
         this.add_order({
           introduction: this.m_introduction,
           wechat: this.m_wechat,
-          toUserId: this.m_user_id
+          toUserId: this.m_user_id,
+          skillId: this.m_select_value
         }).then(function (data) {
-          this.activeStep++
+          if (data.status == 'ok') {
+            this.activeStep++
+          } else {
+            this.$warn('约见出错，请重试')
+          }
         })
       }
     },

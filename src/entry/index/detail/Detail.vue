@@ -83,7 +83,8 @@ export default {
   },
   mounted: function mounted() {
     this.m_skill_id = this.$route.params.skillId
-    this.f_get_user_info(this.$route.params.userId)
+    this.m_user_id = this.$route.params.userId
+    this.f_get_user_info(this.m_user_id)
     this.f_get_skill_info(this.m_skill_id)
     this.f_get_skill_comments(this.m_skill_id)
   },
@@ -105,12 +106,14 @@ export default {
     },
     f_order () {
       this.is_login().then(function (data) {
-        if (data.result == 0) {
-          this.$showRegisterPanel(0, function () {
-            this.$router.push('/order')
-          }.bind(this))
+        if (data.result.loginStatus == 0) {
+          this.$warn('请先登录', function () {
+            this.$showRegisterPanel(0, function () {
+              this.$router.push('/order/' + this.m_user_id)
+            }.bind(this))
+          }.bind(this), 500)
         } else {
-          this.$router.push('/order')
+          this.$router.push('/order/' + this.m_user_id)
         }
       })
     }

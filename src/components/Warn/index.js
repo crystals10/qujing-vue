@@ -3,7 +3,7 @@ function install (Vue) {
   let alertInstance = null
   let body = document.getElementsByTagName('body')[0]
 
-  Vue.prototype.$warn = function (message, callback) {
+  Vue.prototype.$warn = function (message, callback, timer) {
     if (alertInstance) return
     alertInstance = new AlertConstructor({
       el: document.createElement('div'),
@@ -29,7 +29,7 @@ function install (Vue) {
     if (callback) {
       setTimeout(function () {
         callback && callback()
-      }, 1500)
+      }, timer || 1500)
     }
   }
 }
