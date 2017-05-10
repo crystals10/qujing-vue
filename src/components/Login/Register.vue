@@ -35,7 +35,7 @@
       </div>
       <div class="register-form" v-show='m_step==3'>
         <div class="register-success">
-          <p class='success-text'>注册成功</p>
+          <p class='success-text'>注册并登录成功</p>
           <mu-icon value="check_circle" color="#7e57c2" :size='100' />
         </div>
       </div>
@@ -63,7 +63,7 @@
 export default {
   data () {
     return {
-      m_step: 0,
+      m_step: 2,
       m_id_src: require('../../assets/id.png'),
       m_nickname: '',
       m_grade: '',
@@ -101,12 +101,16 @@ export default {
           this.$warn('信息不能为空')
           return
         }
+        this.m_step ++
+        return
       }
       if (this.m_step ==1) {
         if (this.m_id_img == "") {
-          this.$warn('请上传图片')
+          this.$warn('请上传学生证图片')
           return
         }
+        this.m_step ++
+        return
       }
       if (this.m_step == 2) {
         if (this.m_password.trim() == "" || this.m_password_again.trim() == "") {
@@ -118,14 +122,44 @@ export default {
           this.$warn('两次输入的密码不一致')
           return
         }
+
+        this.add_user({
+          nickname: this.m_nickname,
+          password: this.m_password,
+          grade: this.m_grade,
+          major: this.m_major,
+          subId: 1,
+          avatar: '/static/img/avatar/' + this.$random(1, 10) + '.png'
+        }).then(function (data) {
+          if (data.status == 'ok') {
+            this.m_step ++
+            let self = this
+            setTimeout(function () {
+              self.close()
+              self.f_callback()
+            }, 1000)
+          } else {
+            this.$warn('注册异常，请重试')
+          }
+        })
       }
-      this.m_step ++
     },
     f_login: function () {
       if (this.m_login_nickname.trim() == "" || this.m_login_password.trim() == "") {
         this.$warn('信息不能为空')
         return
       }
+      this.login({
+        nickname: this.m_login_nickname,
+        password: this.m_login_password
+      }).then(function (data) {
+        if (data.status == 'ok') {
+          this.$warn('登录成功', function () {
+            this.f_close()
+            this.f_callback()
+          }.bind(this))
+        }
+      })
     },
     f_change_login: function () {
       this.m_type = 0

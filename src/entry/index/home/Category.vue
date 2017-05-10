@@ -2,7 +2,7 @@
   <div id="category">
     <mu-flexbox class="category-flexbox">
       <mu-flexbox-item class="flex-item">
-        <mu-flat-button icon='music_note' to="/home/music" iconClass='category-icon' labelClass='category-label'  label='音乐'></mu-flat-button>
+        <mu-flat-button icon='music_note' to="/home/music" v-on:click='f_search_by_tag(1)' iconClass='category-icon' labelClass='category-label'  label='音乐'></mu-flat-button>
       </mu-flexbox-item>
       <mu-flexbox-item class="flex-item">
         <mu-flat-button icon='photo_camera' to="/home/photo" iconClass='category-icon' labelClass='category-label'  label='摄影'></mu-flat-button>
@@ -36,6 +36,11 @@ export default {
   data: function data() {
     return {
 
+    }
+  },
+  methods: {
+    f_search_by_tag: function (value) {
+      console.log(value)
     }
   }
 }

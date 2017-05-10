@@ -8,13 +8,22 @@ Http.install = function (Vue, options) {
       }
     },
     methods: {
-      add_user: function () {
-        return this.$http.post('/api/user/add', {
-          nickname: '子矜',
-          grade: '13',
-          major: '软件学院软件工程',
-          password: '19941210asdfg'
-        }).then(function (response) {
+      is_login () {
+        return this.$http.get('/api/user/status').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      fetch_all_skills (subId) {
+        return this.$http.get('/api/skill/search/all/' + subId).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      add_user: function (data) {
+        return this.$http.post('/api/user/add', data).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
@@ -32,11 +41,8 @@ Http.install = function (Vue, options) {
           })
         })
       },
-      login: function () {
-        return this.$http.post('/api/user/login', {
-          nickname: '子矜',
-          password: '19941210asdfg'
-        }).then(function (response) {
+      login: function (data) {
+        return this.$http.post('/api/user/login', data).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
@@ -50,7 +56,7 @@ Http.install = function (Vue, options) {
             })
           })
       },
-      get_user_info: function (userId) {
+      fetch_user_info: function (userId) {
         return this.$http.get('/api/user/info/' + userId)
           .then(function (response) {
             return new Promise(function (resolve) {
@@ -110,9 +116,8 @@ Http.install = function (Vue, options) {
           })
         })
       },
-      add_order: function () {
-        return this.$http.post('/api/order/add',{
-        }).then(function (response) {
+      add_order: function (data) {
+        return this.$http.post('/api/order/add',data).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })

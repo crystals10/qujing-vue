@@ -16,10 +16,10 @@
     <template v-if="activeStep == 0">
       <div class="order-stepper-form">
         <mu-select-field label='选择您请教行家的具体技能' fullWidth v-model='m_select_value' labelClass="input-label" inputClass='input-content'>
-          <mu-menu-item v-for="text,index in m_skills" :key="index" :value="index" :title="text" />
+          <mu-menu-item v-for="(item, index) in m_skills" :key="index" :value="item.skillId" :title="item.title" />
         </mu-select-field>
-        <mu-text-field label='个人情况描述' labelClass="input-label" inputClass='input-content' multiLine fullWidth :rows="2" :rowsMax="8" :maxLength="400" />
-        <mu-text-field label='联系方式（微信号）：' labelClass="input-label" inputClass='input-content'  fullWidth/>
+        <mu-text-field label='个人情况描述' v-model='m_introduction' labelClass="input-label" inputClass='input-content' multiLine fullWidth :rows="2" :rowsMax="8" :maxLength="400" />
+        <mu-text-field label='联系方式（微信号）：' v-model='m_wechat' labelClass="input-label" inputClass='input-content'  fullWidth/>
       </div>
     </template>
     <template v-if="activeStep == 1">
@@ -43,13 +43,51 @@ export default {
   data () {
     return {
       activeStep: 0,
-      m_select_value: 0,
-      m_skills:['做一款互联网产品没有你想象的那么难','两小时教你如何搭建取经这个网站及其后台']
+      m_user_id: '',
+      m_select_value: '',
+      m_introduction: '',
+      m_wechat: '',
+      m_skills:[]
     }
+  },
+  mounted() {
+    this.m_user_id = this.$route.params.userId
+    this.f_get_skill_lists(this.m_user_id)
   },
   methods: {
     handleNext () {
-      this.activeStep++
+      if (this.activeStep == 0) {
+        if (this.m_select_value == '') {
+          this.$warn('请选择具体的技能')
+          return
+        }
+        if (this.m_introduction.trim() == '') {
+          this.$warn('请填写您的详细情况')
+          return
+        }
+        if (this. m_wechat.trim() == '') {
+          this.$warn('请填写您的联系方式')
+          return
+        }
+        this.add_order({
+          introduction: this.m_introduction,
+          wechat: this.m_wechat,
+          toUserId: this.m_user_id
+        }).then(function (data) {
+          this.activeStep++
+        })
+      }
+    },
+    f_get_skill_lists (userId) {
+      this.fetch_skill_list(userId).then(function (data) {
+        this.m_select_value = data[0].skill.skillId
+        for (let i = 0, len = data.length; i < len; i++) {
+          this.m_skills.push({
+            title: data[i].skill.title,
+            skillId: data[i].skill.skillId
+          })
+        }
+      })
     }
   }
 }

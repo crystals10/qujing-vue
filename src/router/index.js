@@ -29,12 +29,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/detail',
+      path: '/detail/:userId/:skillId',
       name: 'Detail',
       component: Detail
     },
     {
-      path: '/order',
+      path: '/order/:userId',
       name: 'Order',
       component: Order
     },

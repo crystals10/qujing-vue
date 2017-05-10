@@ -1,25 +1,28 @@
 <template>
   <div id="home-skill-card-item">
     <div class="avatar-wrap">
-      <mu-avatar class="mu-avatar-back" src='http://www.muse-ui.org/images/uicon.jpg' :size='46' />
-      <p class="name txt-primary">掐断</p>
-      <p class='txt-center txt-primary'>9.5分</p>
+      <mu-avatar class="mu-avatar-back" :src='data.avatar' :size='46' />
+      <p class="name txt-primary">{{data.userName}}</p>
+      <p class='txt-center txt-primary'>{{data.userScore}}分</p>
     </div>
     <div class="skill-card-content">
-      <p class="header">做一款互联网产品没有你想象中</p>
+      <p class="header">{{data.skillTitle}}</p>
+      <!-- <p class='info-item'>
+        <mu-icon value='perm_identity'></mu-icon><span>{{data.nickname}}</span>
+      </p> -->
       <p class='info-item'>
-        <mu-icon value='person_pin_circle'></mu-icon><span>冰岩作坊前队长</span>
+        <mu-icon value='person_pin_circle'></mu-icon><span>{{data.userTitle}}</span>
       </p>
       <p class='info-item'>
-        <mu-icon value='loyalty'></mu-icon><span>互联网、学习</span>
+        <mu-icon value='loyalty'></mu-icon><span>{{data.tagName}}</span>
       </p>
       <p class='info-item'>
-        <mu-icon value='bookmark_border'></mu-icon><span>15人想见</span>
+        <mu-icon value='bookmark_border'></mu-icon><span>{{data.skillOrderTimes || 0}}人想见</span>
       </p>
       <p class='info-item'>
-        <mu-icon value='attach_money'></mu-icon><span>80元/1小时</span>
+        <mu-icon value='attach_money'></mu-icon><span>{{data.totalPrice}}元/{{data.totalTime}}小时</span>
       </p>
-      <mu-flat-button label='查看详情' to='/detail' class='detail' labelClass='detail-label'/>
+      <mu-flat-button label='查看详情' :to="'/detail/'+ data.userId + '/' + data.skillId" class='detail' labelClass='detail-label'/>
     </div>
   </div>
 </template>
@@ -28,7 +31,8 @@ export default {
   name: "skill-card",
   data: function data() {
     return {}
-  }
+  },
+  props: ['data']
 }
 </script>
 <style lang="scss">
@@ -75,16 +79,15 @@ export default {
     width:46px;
     .mu-avatar-back{
       border-radius: 50%;
-      background-color: $primary-color;
-      box-shadow: 3px 3px 3px #eee,
-                  -3px -3px 3px #eee;
+      background-color: #ededed;
     }
     p{
       margin-bottom: 6px;
     }
     .name{
-      font-size: 15px;
-      font-weight: bold;
+      margin-top: 6px;
+      font-size: 13px;
+      // font-weight: bold;
       text-align: center;
     }
   }

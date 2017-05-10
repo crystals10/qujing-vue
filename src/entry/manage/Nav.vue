@@ -1,22 +1,17 @@
 <template>
   <div id="manage-nav">
     <mu-list>
-      <p class='header'>用户管理</p>
-      <mu-list-item class='list-item' title="新增用户" />
-      <mu-list-item class='list-item' title="所有用户" />
+      <p class='header'>管理</p>
+      <mu-list-item class='list-item' title="用户管理" />
+      <mu-list-item class='list-item' title="约见管理" />
+      <mu-list-item class='list-item' title="行家管理" />
     </mu-list>
     <mu-list>
-      <p class='header'>约见管理</p>
-      <mu-list-item class='list-item' title="已拒绝" />
-      <mu-list-item class='list-item' title="待处理" />
-      <mu-list-item class='list-item' title="已完成" />
-      <mu-list-item class='list-item' title="进行中" />
-    </mu-list>
-    <mu-list>
-      <p class='header'>行家管理</p>
-      <mu-list-item class='list-item' title="待审核" />
-      <mu-list-item class='list-item' title="已认证" />
-      <mu-list-item class='list-item' title="已拒绝" />
+      <p class='header'>数据分析</p>
+      <mu-list-item class='list-item' title="访问分析" />
+      <mu-list-item class='list-item' title="用户分析" />
+      <mu-list-item class='list-item' title="约见分析" />
+      <mu-list-item class='list-item' title="行家分析" />
     </mu-list>
     <mu-list>
       <p class='header'>账号设置</p>

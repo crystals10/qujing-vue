@@ -1,6 +1,6 @@
 <template>
   <div id="search">
-    <mu-text-field icon='search' fullWidth hintText='搜索技能或行家' hintTextClass='hint-text' inputClass='search-input' underlineFocusClass='underline-focus'>
+    <mu-text-field icon='search' v-model='m_input' fullWidth hintText='搜索技能或行家' hintTextClass='hint-text' inputClass='search-input' underlineFocusClass='underline-focus' @change='f_search'>
     </mu-text-field>
   </div>
 </template>
@@ -9,7 +9,12 @@ export default {
   name: "search",
   data: function data() {
     return {
-
+      m_input:''
+    }
+  },
+  methods: {
+    f_search (value) {
+      this.$emit('search', this.m_input)
     }
   }
 }

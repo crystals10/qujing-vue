@@ -3,7 +3,7 @@ function install (Vue) {
   let registerInstance = null
   let body = document.getElementsByTagName('body')[0]
 
-  Vue.prototype.$showRegisterPanel = function (type) {
+  Vue.prototype.$showRegisterPanel = function (type, callback) {
     if (registerInstance) {
       registerInstance.m_register_dialog = true
       registerInstance.m_type = type
@@ -31,6 +31,9 @@ function install (Vue) {
         f_confirm: function (type) {
           registerInstance.resolve({type: type})
           registerInstance.f_close()
+        },
+        f_callback () {
+          callback && callback()
         }
       }
     })
