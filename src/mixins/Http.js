@@ -73,9 +73,8 @@ Http.install = function (Vue, options) {
           })
         })
       },
-      add_skill: function () {
-        return this.$http.post('/api/skill/add',{
-        }).then(function (response) {
+      add_skill: function (data) {
+        return this.$http.post('/api/skill/add',data).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
