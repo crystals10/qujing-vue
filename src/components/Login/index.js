@@ -28,10 +28,6 @@ function install (Vue) {
         f_close: function () {
           registerInstance.m_register_dialog = false
         },
-        f_confirm: function (type) {
-          registerInstance.resolve({type: type})
-          registerInstance.f_close()
-        },
         f_callback () {
           callback && callback()
         }

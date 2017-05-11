@@ -32,7 +32,7 @@
         </p>
         <p>
           <span class="txt-small">约见完成时请点击</span>
-          <mu-flat-button label='已完成此次约见' labelClass='button-over-label' @click='f_over' primary />
+          <mu-flat-button label='已完成此次约见' labelClass='button-over-label' @click='f_finish' primary />
         </p>
       </div>
       <div v-else-if="data.result==2" class="status-wrap">
@@ -41,18 +41,20 @@
       </div>
       <div v-else="data.result==3" class="status-wrap">
         <p class='txt-center'>您已 <span class='txt-big txt-em status'>完成</span> 这次约见。</p>
+        <p> <span class='reject-reason txt-small'>您对行家的评论是：</span>{{data.skillComment}}</p>
       </div>
     </div>
     <div class="card-footer txt-center txt-small">
         <p class='power-by'>POWERED BY BINGYAN STUDIO</p>
     </div>
-    <mu-dialog dialogClass="reject-reason" bodyClass='dialog-body' :open='m_dialog'>
-      <mu-text-field label='请您评价此次约见：' inputClass="reject-input" multiLine fullWidth :rows="2" :rowsMax="4" :maxLength="100"/>
+    <mu-dialog dialogClass="reject-reason" bodyClass='dialog-body' :open='m_finish_dialog'>
+      <mu-text-field v-model='m_comment' label='请您评价此次约见：' inputClass="reject-input" multiLine fullWidth :rows="2" :rowsMax="4" :maxLength="100"/>
       <div class="score-wrap">
         <p class="score-title"> 你给这个行家打几分呢？(<span class="txt-big txt-em txt-primary">{{m_score}}</span>分)</p>
         <mu-slider class="score-slider" :max=10 :min=1 :step=1 v-model='m_score' />
       </div>
-      <mu-flat-button label="确定" slot="actions" @click='f_comment' primary/>
+      <mu-flat-button label="取消" slot="actions" @click='f_close_finish_dialog' primary/>
+      <mu-flat-button label="确定" slot="actions" @click='f_comment(data.orderId, data.skillId)' primary/>
     </mu-dialog>
   </div>
 </template>
@@ -61,19 +63,46 @@ export default {
   name: "reseive-card",
   data: function data() {
     return {
-      m_status: '',
-      m_dialog: false,
-      m_score: ''
+      m_finish_dialog: false,
+      m_comment: '',
+      m_score: 10
     }
   },
   props: ['data'],
   methods:{
-    f_over: function () {
-      this. m_dialog = true
+    f_open_finish_dialog(){
+      this.m_finish_dialog = true
     },
-    f_comment: function () {
-      this.m_dialog = false
-      this.data.result = 3
+    f_close_finish_dialog(){
+      this.m_finish_dialog = true
+    },
+    f_finish() {
+      this. m_finish_dialog = true
+    },
+    f_comment(orderId, skillId) {
+      if (this.m_comment.trim() == '') {
+        this.$warn('请输入对此次约见的评论')
+        return
+      }
+      this.add_comment({
+        content: this.m_comment,
+        skillId: skillId,
+        score: this.m_score,
+        orderId: orderId
+      }).then(function (data) {
+        if (data.status == 'ok') {
+          this.finish_order(orderId).then(function (data) {
+            if (data.status == 'ok') {
+              this.m_finish_dialog = false
+              data.result = 3
+            } else {
+              this.$warn(data.message)
+            }
+          })
+        } else {
+          this.$warn(data.message)
+        }
+      })
     }
   }
 }

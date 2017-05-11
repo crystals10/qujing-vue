@@ -36,6 +36,7 @@ export default {
       m_major: '',
       m_wechat: '',
       m_type: '',
+      m_password: '',
       m_password_again: ''
     }
   },

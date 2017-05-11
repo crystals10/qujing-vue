@@ -58,11 +58,16 @@
         </mu-list-item>
       </mu-list>
       <mu-list>
-        <mu-list-item @click='f_logout' v-if='m_current_is_login' class='list-item' title="退出登录">
+        <mu-list-item @click='f_open_dialog' v-if='m_current_is_login' class='list-item' title="退出登录">
           <mu-icon slot="left" value="blur_off"/>
         </mu-list-item>
       </mu-list>
     </div>
+
+    <mu-dialog class="confirm-dialog" bodyClass='confirm-dialog-body' title="确定要退出登录吗？" titleClass="dialog-title" :open='m_dialog'>
+      <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
+      <mu-flat-button label="确定" slot="actions" @click='f_logout' primary/>
+    </mu-dialog>
   </div>
 </template>
 <script>
@@ -70,7 +75,7 @@ export default {
   name: "user",
   data: function data() {
     return {
-      m_current_is_login: false,
+      m_dialog: false,
       m_self_info: {}
     }
   },
@@ -82,9 +87,16 @@ export default {
     })
   },
   methods: {
+    f_init () {
+      this.is_login().then(function (data) {
+        if (data.status == 'ok') {
+          this.f_get_self_info()
+        }
+      })
+    },
     f_login () {
       this.$showRegisterPanel(0, function () {
-        this.f_get_self_info()
+        this.f_init()
       }.bind(this))
     },
     f_get_self_info () {
@@ -104,10 +116,17 @@ export default {
       this.logout().then(function (data) {
         if (data.status == 'unlogin' || data.status == 'ok') {
           this.$warn('退出登录成功')
+          this.f_close_dialog()
         } else {
           this.$warn(data.message)
         }
       })
+    },
+    f_close_dialog() {
+      this.m_dialog = false
+    },
+    f_open_dialog() {
+      this.m_dialog = true
     }
   }
 }

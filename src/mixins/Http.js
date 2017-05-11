@@ -4,10 +4,10 @@ Http.install = function (Vue, options) {
   Vue.mixin({
     data () {
       return {
-        m_current_user_id: '',
-        m_current_sub_id: '',
-        m_current_user_type: '',
-        m_current_is_login: false
+        m_current_user_id: localStorage.getItem('user_id'),
+        m_current_sub_id: localStorage.getItem('sub_id'),
+        m_current_user_type: localStorage.getItem('user_type'),
+        m_current_is_login: localStorage.getItem('is_login')
       }
     },
     mounted () {
@@ -31,7 +31,7 @@ Http.install = function (Vue, options) {
       },
       // 登陆的时候 把登陆状态 用户类型 分站 ID 存储在 localStorage 里面
       initLocalStorage (result) {
-        this.m_current_is_login = true
+        this.m_current_is_login = 1
         this.m_current_user_id = result.userId || ''
         this.m_current_sub_id = result.subId || ''
         this.m_current_user_type = result.type || ''
@@ -223,8 +223,16 @@ Http.install = function (Vue, options) {
         })
       },
       // 拒绝预约
-      reject_order: function (orderId) {
-        return this.$http.get('/api/order/reject/' + orderId).then(function (response) {
+      reject_order: function (orderId, data) {
+        return this.$http.post('/api/order/reject/' + orderId, data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      // 拒绝预约
+      agree_order: function (orderId) {
+        return this.$http.get('/api/order/agree/' + orderId).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
@@ -298,7 +306,7 @@ Http.install = function (Vue, options) {
       },
       // 申请认证成为行家
       apply_auth: function (data) {
-        return this.$http.get('/api/apply/add', data).then(function (response) {
+        return this.$http.post('/api/apply/add', data).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })

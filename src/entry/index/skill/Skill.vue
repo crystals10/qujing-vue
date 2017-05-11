@@ -30,7 +30,7 @@
         <div class="no-skill">
           <mu-icon value='account_circle' :size='80' />
           <p class='tip'>登录之后才可以查看自己的技能列表</p>
-          <mu-flat-button label='现在登陆' class='button' target="_blank" @click='f_login_right_now' primary />
+          <mu-flat-button label='现在登录' class='button' target="_blank" @click='f_login_right_now' primary />
         </div>
       </template>
 
@@ -48,13 +48,16 @@ export default {
     }
   },
   mounted() {
-    this.is_login().then(function (data) {
-    if (data.status == 'ok'){
-        this.f_get_self_skills()
-      }
-    })
+    this.f_init()
   },
   methods: {
+    f_init () {
+      this.is_login().then(function (data) {
+      if (data.status == 'ok'){
+          this.f_get_self_skills()
+        }
+      })
+    },
     f_get_self_skills() {
       this.fetch_self_skill_list().then(function (data) {
         this.m_skill_datas = data.result
@@ -62,7 +65,7 @@ export default {
     },
     f_login_right_now(){
       this.$showRegisterPanel(0, function () {
-        this.f_get_self_skills()
+        this.f_init()
       }.bind(this))
     }
   },
