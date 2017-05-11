@@ -28,7 +28,7 @@ export default {
   name: "message",
   data: function data() {
     return {
-      m_active_tab: 'tab1',
+      m_active_tab: 'tab2',
       m_receive_message_data: [
         {
           status: 0,
@@ -67,53 +67,20 @@ export default {
           order_create_time: '2017.03.03'
         }
       ],
-      m_send_message_data: [
-        {
-          status: 0,
-          ordered_name: '子矜',
-          order_id: '123456',
-          skill_intro: '两小时教你搭建『取经』这个网站包括后台',
-          order_intro: '我是一个技术小白，现在想入门前端以及互联网方向，但是不知道好的学习方法，想向您请教下。',
-          ordered_contact: 'cmm123456',
-          reject_reason: '',
-          order_create_time: '2017.03.03'
-        },
-        {
-          status: 1,
-          ordered_name: '子矜',
-          order_id: '123456',
-          skill_intro: '两小时教你搭建『取经』这个网站包括后台',
-          order_intro: '我是一个技术小白，现在想入门前端以及互联网方向，但是不知道好的学习方法，想向您请教下。',
-          ordered_contact: 'cmm123456',
-          reject_reason: '时间原因',
-          order_create_time: '2017.03.03'
-        },
-        {
-          status: 2,
-          ordered_name: '子矜',
-          order_id: '123456',
-          skill_intro: '两小时教你搭建『取经』这个网站包括后台',
-          order_intro: '我是一个技术小白，现在想入门前端以及互联网方向，但是不知道好的学习方法，想向您请教下。',
-          ordered_contact: 'cmm123456',
-          reject_reason: '时间原因',
-          order_create_time: '2017.03.03'
-        },
-        {
-          status: 3,
-          ordered_name: '子矜',
-          order_id: '123456',
-          skill_intro: '两小时教你搭建『取经』这个网站包括后台',
-          order_intro: '我是一个技术小白，现在想入门前端以及互联网方向，但是不知道好的学习方法，想向您请教下。',
-          ordered_contact: 'cmm123456',
-          reject_reason: '',
-          order_create_time: '2017.03.03'
-        }
-      ]
+      m_send_message_data: []
     }
+  },
+  mounted() {
+    this.f_get_send_message()
   },
   methods: {
     handleTabChange (val) {
       this.m_active_tab = val
+    },
+    f_get_send_message(){
+      this.fetch_send_order_list().then(function (data) {
+        this.m_send_message_data = data
+      })
     }
   },
   components: {

@@ -83,14 +83,16 @@ export default {
 }
 </script>
 <style lang="scss">
-.skill-card-wrap{
-  padding:10px;
-  .loading-wrap{
-    margin-top: 10px;
-    text-align: center;
-    transition: height 2s ease;
-    .loading-svg{
-      width:60px;
+#home{
+  .skill-card-wrap{
+    padding:10px;
+    .loading-wrap{
+      margin-top: 10px;
+      text-align: center;
+      transition: height 2s ease;
+      .loading-svg{
+        width:60px;
+      }
     }
   }
 }

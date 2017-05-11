@@ -151,7 +151,7 @@ Http.install = function (Vue, options) {
           })
         })
       },
-      fetch_order_list: function () {
+      fetch_send_order_list: function () {
         return this.$http.get('/api/order/list').then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)

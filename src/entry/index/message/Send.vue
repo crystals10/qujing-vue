@@ -1,9 +1,9 @@
 <template>
   <div id="message-card" clas='message-card'>
     <template>
-      <img v-if='m_status==1' src="../../../assets/agree.png" class="status-img" alt="">
-      <img v-else-if='m_status==2' src="../../../assets/reject.png" class="status-img" alt="">
-      <img v-else-if='m_status==3' src="../../../assets/over.png" class="status-img" alt="">
+      <img v-if='data.result==1' src="../../../assets/agree.png" class="status-img" alt="">
+      <img v-else-if='data.result==2' src="../../../assets/reject.png" class="status-img" alt="">
+      <img v-else-if='data.result==3' src="../../../assets/over.png" class="status-img" alt="">
     </template>
     <div class="card-top">
       <div class="card-tag txt-small txt-center">
@@ -22,10 +22,10 @@
       </div>
     </div>
     <div class="card-bottom">
-      <div v-if="m_status==0" class="status-wrap">
+      <div v-if="data.result==0" class="status-wrap">
         <p class='txt-center'>正在等待 <span class="name txt-em">{{m_ordered_name}}</span> 处理</p>
       </div>
-      <div v-else-if="m_status==1" class="status-wrap">
+      <div v-else-if="data.result==1" class="status-wrap">
         <p class='txt-center'> <span class="name txt-em">{{m_ordered_name}}</span> 已 <span class='txt-big txt-em status'>同意</span> 这次约见。</p>
         <p>
           您可以通过<span class="contact txt-em">『{{m_ordered_contact}}』</span>联系 <span class="name txt-em">{{m_ordered_name}}</span> 并与之共同商定见面的时间及地点，『取经』祝您有一次愉快的约见。
@@ -35,11 +35,11 @@
           <mu-flat-button label='已完成此次约见' labelClass='button-over-label' @click='f_over' primary />
         </p>
       </div>
-      <div v-else-if="m_status==2" class="status-wrap">
+      <div v-else-if="data.result==2" class="status-wrap">
         <p class='txt-center'> <span class="name txt-em">{{m_ordered_name}}</span> 已 <span class='txt-big txt-em status'>拒绝</span> 这次约见。</p>
         <p> <span class='reject-reason txt-small'>拒绝原因是：</span>{{m_reject_reason}}</p>
       </div>
-      <div v-else="m_status==3" class="status-wrap">
+      <div v-else="data.result==3" class="status-wrap">
         <p class='txt-center'>您已 <span class='txt-big txt-em status'>完成</span> 这次约见。</p>
       </div>
     </div>
@@ -61,15 +61,7 @@ export default {
   name: "reseive-card",
   data: function data() {
     return {
-      m_status: this.data.status,  //约见信息的状态 未处理：0 同意：1 拒绝：2  约见完成：3
-      m_ordered_name: this.data.ordered_name,
-      m_order_intro: this.data.order_intro,
-      m_ordered_contact: this.data.ordered_contact,
-      m_order_create_time: this.data.order_create_time,
-      m_skill_intro: this.data.skill_intro,
-      m_reject_reason: this.data.reject_reason,
-      m_dialog: false,
-      m_score: 10
+      m_status: ''
     }
   },
   props: ['data'],
@@ -79,7 +71,7 @@ export default {
     },
     f_comment: function () {
       this.m_dialog = false
-      this.m_status = 3
+      this.data.result = 3
     }
   }
 }
