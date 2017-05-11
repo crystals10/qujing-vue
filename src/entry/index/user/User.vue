@@ -16,7 +16,7 @@
             </g>
           </svg>
           行家认证信息：{{m_self_info.title}}-{{m_self_info.name}}</p>
-      <p class="other">
+      <p class="other" v-if='m_self_info.type =="m"'>
         <span class="other-item"> <span class="em">{{m_self_info.orderedTimes}}</span>人见过</span>
         <span class="other-item"> <span class="em">{{m_self_info.orderTimes}}</span>人想见</span>
         <span class="other-item"> <span class="em">{{m_self_info.score}}</span>分</span>
@@ -109,7 +109,7 @@ export default {
           this.m_is_login = false
           this.$warn('退出登录成功')
         } else {
-          this.$wran(data.message)
+          this.$warn(data.message)
         }
       })
     }
@@ -141,6 +141,7 @@ export default {
     border-bottom: 1px dashed #eee;
     background-color: #fff;
     padding-top: 20px;
+    padding-bottom: 10px;
     .login-button{
       margin-top: 10px;
       margin-bottom: 10px;
@@ -165,7 +166,7 @@ export default {
       }
     }
     .other{
-      padding: 10px;
+      margin-top: 10px;
       .other-item{
         display: inline-block;
         height: 16px;

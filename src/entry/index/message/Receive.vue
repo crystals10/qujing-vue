@@ -52,12 +52,6 @@ export default {
   name: "reseive-card",
   data: function data() {
     return {
-      m_status: this.data.status,  //约见信息的状态 未处理：0 同意：1 拒绝：2  约见完成：3
-      m_order_name: this.data.order_name,
-      m_order_intro: this.data.order_intro,
-      m_order_contact: this.data.order_contact,
-      m_order_create_time: this.data.order_create_time,
-      m_skill_intro: this.data.skill_intro,
       m_dialog: false
     }
   },

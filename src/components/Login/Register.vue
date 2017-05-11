@@ -16,8 +16,8 @@
       </mu-stepper>
       <div class="register-form" v-show='m_step==0'>
         <mu-text-field class="register-text-field" v-model='m_nickname' label='昵称：' labelClass='register-label' inputClass='register-input' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_major' label='院系：' labelClass='register-label' inputClass='register-input' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_grade' label='入学年份：' labelClass='register-label' inputClass='registerinput' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_major' label='院系（注册完成后不可修改）：' labelClass='register-label' inputClass='register-input' placeholder='如：软件学院软件工程' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_grade' label='入学年份注册完成后不可修改）：' labelClass='register-label' inputClass='registerinput' placeholder='如：2013' fullWidth/>
       </div>
       <div class="register-form" v-show='m_step==1'>
         <div class="id-img-wrap">
@@ -63,7 +63,7 @@
 export default {
   data () {
     return {
-      m_step: 2,
+      m_step: 0,
       m_id_src: require('../../assets/id.png'),
       m_nickname: '',
       m_grade: '',

@@ -84,7 +84,7 @@ export default {
       }
     },
     f_get_skill_lists (userId) {
-      this.fetch_skill_list(userId).then(function (data) {
+      this.fetch_user_skill_list(userId).then(function (data) {
         data = data.result
         this.m_select_value = data[0].skill.skillId
         for (let i = 0, len = data.length; i < len; i++) {
@@ -151,7 +151,9 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
     .order-stepper-button{
-      width: 160px;
+      width: 100%;
+      height:40px;
+      line-height: 40px;
     }
   }
 }

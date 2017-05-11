@@ -14,21 +14,21 @@
       <div class="card-content">
         <p class="txt-center">
           <span class="tip">您想向</span>
-          <span class="name txt-big txt-em">{{m_ordered_name}}</span>
+          <span class="name txt-big txt-em">{{data.toUserName}}</span>
           <span class="tip">请教</span></p>
-        <p class="txt-em">{{m_skill_intro}}</p>
-        <p class="intro"><span class="tip">这是您的描述：</span>{{m_order_intro}}</p>
-        <p class='time txt-small txt-right'>{{m_order_create_time}}</p>
+        <p class="txt-em">{{data.skillTitle}}</p>
+        <p class="intro"><span class="tip">这是您的描述：</span>{{data.orderIntroduction}}</p>
+        <p class='time txt-small txt-right'>{{data.createTime | timestampFormat}}</p>
       </div>
     </div>
     <div class="card-bottom">
       <div v-if="data.result==0" class="status-wrap">
-        <p class='txt-center'>正在等待 <span class="name txt-em">{{m_ordered_name}}</span> 处理</p>
+        <p class='txt-center'>正在等待 <span class="name txt-em">{{data.toUserName}}</span> 处理</p>
       </div>
       <div v-else-if="data.result==1" class="status-wrap">
-        <p class='txt-center'> <span class="name txt-em">{{m_ordered_name}}</span> 已 <span class='txt-big txt-em status'>同意</span> 这次约见。</p>
+        <p class='txt-center'> <span class="name txt-em">{{data.toUserName}}</span> 已 <span class='txt-big txt-em status'>同意</span> 这次约见。</p>
         <p>
-          您可以通过<span class="contact txt-em">『{{m_ordered_contact}}』</span>联系 <span class="name txt-em">{{m_ordered_name}}</span> 并与之共同商定见面的时间及地点，『取经』祝您有一次愉快的约见。
+          您可以通过<span class="contact txt-em">『{{data.toUserWeChat}}』</span>联系 <span class="name txt-em">{{data.toUserName}}</span> 并与之共同商定见面的时间及地点，『取经』祝您有一次愉快的约见。
         </p>
         <p>
           <span class="txt-small">约见完成时请点击</span>
@@ -36,8 +36,8 @@
         </p>
       </div>
       <div v-else-if="data.result==2" class="status-wrap">
-        <p class='txt-center'> <span class="name txt-em">{{m_ordered_name}}</span> 已 <span class='txt-big txt-em status'>拒绝</span> 这次约见。</p>
-        <p> <span class='reject-reason txt-small'>拒绝原因是：</span>{{m_reject_reason}}</p>
+        <p class='txt-center'> <span class="name txt-em">{{data.toUserName}}</span> 已 <span class='txt-big txt-em status'>拒绝</span> 这次约见。</p>
+        <p> <span class='reject-reason txt-small'>拒绝原因是：</span>{{data.rejectReason}}</p>
       </div>
       <div v-else="data.result==3" class="status-wrap">
         <p class='txt-center'>您已 <span class='txt-big txt-em status'>完成</span> 这次约见。</p>
@@ -61,7 +61,9 @@ export default {
   name: "reseive-card",
   data: function data() {
     return {
-      m_status: ''
+      m_status: '',
+      m_dialog: false,
+      m_score: ''
     }
   },
   props: ['data'],

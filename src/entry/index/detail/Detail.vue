@@ -18,7 +18,7 @@
           行家认证信息：{{m_user_info.title}}</p>
       <p class="other">
         <span class="other-item"> <span class="em">{{m_user_info.orderTimes || 0}}</span>人见过</span>
-        <span class="other-item"> <span class="em">{{m_user_info.orderedTimes || 0}}</span>人想过</span>
+        <span class="other-item"> <span class="em">{{m_user_info.orderedTimes || 0}}</span>人想见</span>
         <span class="other-item"> <span class="em">{{m_user_info.score || 0}}</span>分</span>
       </p>
     </div>
