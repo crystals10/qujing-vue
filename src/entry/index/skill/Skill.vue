@@ -62,8 +62,8 @@ export default {
     },
     f_login_right_now(){
       this.$showRegisterPanel(0, function () {
-        window.location.reload()
-      })
+        this.f_get_self_skills()
+      }.bind(this))
     }
   },
   components: {

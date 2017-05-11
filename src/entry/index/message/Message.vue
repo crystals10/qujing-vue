@@ -6,11 +6,11 @@
     </mu-tabs>
     <div class="card-wrap">
       <!-- 登录的状态 -->
-      <template v-if='get_is_login() == 1'>
+      <template v-if='m_current_is_login == 1'>
         <!-- 约我的信息 -->
         <template v-if='m_active_tab == "tab1"'>
           <!-- 是行家 -->
-          <template v-if='get_self_user_type() == "m"'>
+          <template v-if='m_current_user_type == "m"'>
             <!-- 有人约 -->
             <template v-if="m_receive_message_data.length > 0" >
               <receive  v-for='item,index in m_receive_message_data' :key='index' v-bind:data='item'></receive>
@@ -98,8 +98,9 @@ export default {
     },
     f_login_right_now(){
       this.$showRegisterPanel(0, function () {
-        window.location.reload()
-      })
+        this.f_get_send_message()
+        this.f_get_receive_message()
+      }.bind(this))
     }
   },
   components: {

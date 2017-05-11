@@ -49,7 +49,7 @@ Http.install = function (Vue, options) {
         localStorage.removeItem('user_id')
         localStorage.removeItem('user_type')
         localStorage.removeItem('sub_id')
-      }
+      },
       // 判断是否登录
       is_login () {
         return this.$http.get('/api/user/status').then(function (response) {
@@ -112,7 +112,7 @@ Http.install = function (Vue, options) {
       logout: function () {
         return this.$http.get('/api/user/logout').then(function (response) {
           let body = response.body
-          if (body.status == 'ok') {
+          if (body.status == 'ok' || data.status == 'unlogin') {
             this.restartLocalStorage()
           } else {
             console.log('登出失败')

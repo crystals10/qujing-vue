@@ -3,10 +3,10 @@
     <div class="user-back">
       <mu-avatar :src='m_self_info.avatar' class="avatar-wrap" :size='100' />
     </div>
-    <div class="intro-wrap" v-if='m_is_login'>
+    <div class="intro-wrap" v-if='m_current_is_login'>
       <p class='name'>{{m_self_info.nickname}}</p>
       <p class="job">{{m_self_info.grade}}级{{m_self_info.major}}</p>
-      <p class="title" v-if='m_self_info.type =="m"'>
+      <p class="title" v-if='m_current_user_type =="m"'>
           <svg viewBox="0 0 20 20" class="vip-svg" aria-hidden="true">
             <g>
               <g fill="none" fill-rule="evenodd">
@@ -16,7 +16,7 @@
             </g>
           </svg>
           行家认证信息：{{m_self_info.title}}-{{m_self_info.name}}</p>
-      <p class="other" v-if='m_self_info.type =="m"'>
+      <p class="other" v-if='m_current_user_type == "m"'>
         <span class="other-item"> <span class="em">{{m_self_info.orderedTimes}}</span>人见过</span>
         <span class="other-item"> <span class="em">{{m_self_info.orderTimes}}</span>人想见</span>
         <span class="other-item"> <span class="em">{{m_self_info.score}}</span>分</span>
@@ -33,10 +33,10 @@
         <mu-list-item @click='f_edit_info' class='list-item' title="修改信息">
           <mu-icon slot="left" value="account_circle"/>
         </mu-list-item>
-        <mu-list-item v-if='m_self_info.type =="c"' class='list-item' title="认证行家">
+        <mu-list-item v-if='m_current_user_type =="c"' class='list-item' title="认证行家">
           <mu-icon slot="left" value="stars"/>
         </mu-list-item>
-        <mu-list-item v-if='m_self_info.type =="m"' class='list-item' title="重新认证">
+        <mu-list-item v-if='m_current_user_type =="m"' class='list-item' title="重新认证">
           <mu-icon slot="left" value="stars"/>
         </mu-list-item>
         <!-- <mu-list-item href='/auth.html' class='list-item' title="修改认证信息"> -->
@@ -58,7 +58,7 @@
         </mu-list-item>
       </mu-list>
       <mu-list>
-        <mu-list-item @click='f_logout' v-if='m_is_login' class='list-item' title="退出登录">
+        <mu-list-item @click='f_logout' v-if='m_current_is_login' class='list-item' title="退出登录">
           <mu-icon slot="left" value="blur_off"/>
         </mu-list-item>
       </mu-list>
@@ -70,16 +70,13 @@ export default {
   name: "user",
   data: function data() {
     return {
-      m_is_login: false,
+      m_current_is_login: false,
       m_self_info: {}
     }
   },
   mounted () {
     this.is_login().then(function (data) {
-      if(data.status == 'unlogin') {
-        this.m_is_login = false
-      } else if (data.status == 'ok') {
-        this.m_is_login = true
+      if (data.status == 'ok') {
         this.f_get_self_info()
       }
     })
@@ -87,8 +84,8 @@ export default {
   methods: {
     f_login () {
       this.$showRegisterPanel(0, function () {
-          window.location.reload()
-      })
+        this.f_get_self_info()
+      }.bind(this))
     },
     f_get_self_info () {
       this.fetch_self_info().then(function (data) {
@@ -96,7 +93,7 @@ export default {
       })
     },
     f_edit_info () {
-      if (!this.m_is_login) {
+      if (!this.m_current_is_login) {
         this.$warn('请先登录')
         return
       } else {
@@ -105,8 +102,7 @@ export default {
     },
     f_logout () {
       this.logout().then(function (data) {
-        if (data.status == 'unlogin') {
-          this.m_is_login = false
+        if (data.status == 'unlogin' || data.status == 'ok') {
           this.$warn('退出登录成功')
         } else {
           this.$warn(data.message)
