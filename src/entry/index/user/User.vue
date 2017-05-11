@@ -1,12 +1,12 @@
 <template>
   <div id="user">
     <div class="user-back">
-      <mu-avatar src='http://www.muse-ui.org/images/uicon.jpg' class="avatar-wrap" :size='100' />
+      <mu-avatar :src='m_self_info.avatar' class="avatar-wrap" :size='100' />
     </div>
-    <div class="intro-wrap">
-      <p class='name'>子衿</p>
-      <p class="job">13级软件学院</p>
-      <p class="title">
+    <div class="intro-wrap" v-if='m_is_login'>
+      <p class='name'>{{m_self_info.nickname}}</p>
+      <p class="job">{{m_self_info.grade}}级{{m_self_info.major}}</p>
+      <p class="title" v-if='m_self_info.type =="m"'>
           <svg viewBox="0 0 20 20" class="vip-svg" aria-hidden="true">
             <g>
               <g fill="none" fill-rule="evenodd">
@@ -15,20 +15,28 @@
               </g>
             </g>
           </svg>
-          行家认证信息：冰岩作坊前队长</p>
+          行家认证信息：{{m_self_info.title}}-{{m_self_info.name}}</p>
       <p class="other">
-        <span class="other-item"> <span class="em">9</span>人见过</span>
-        <span class="other-item"> <span class="em">20</span>人想过</span>
-        <span class="other-item"> <span class="em">9.0</span>分</span>
+        <span class="other-item"> <span class="em">{{m_self_info.orderedTimes}}</span>人见过</span>
+        <span class="other-item"> <span class="em">{{m_self_info.orderTimes}}</span>人想见</span>
+        <span class="other-item"> <span class="em">{{m_self_info.score}}</span>分</span>
       </p>
+    </div>
+    <div v-else>
+      <div class="intro-wrap">
+        <mu-flat-button label='点此登录' @click='f_login' class='login-button' primary/>
+      </div>
     </div>
 
     <div class="list-wrap">
       <mu-list>
-        <mu-list-item to='/info' class='list-item' title="修改信息">
+        <mu-list-item @click='f_edit_info' class='list-item' title="修改信息">
           <mu-icon slot="left" value="account_circle"/>
         </mu-list-item>
-        <mu-list-item href='/auth.html' class='list-item' title="认证行家">
+        <mu-list-item v-if='m_self_info.type =="c"' class='list-item' title="认证行家">
+          <mu-icon slot="left" value="stars"/>
+        </mu-list-item>
+        <mu-list-item v-if='m_self_info.type =="m"' class='list-item' title="重新认证">
           <mu-icon slot="left" value="stars"/>
         </mu-list-item>
         <!-- <mu-list-item href='/auth.html' class='list-item' title="修改认证信息"> -->
@@ -49,6 +57,11 @@
           <mu-icon slot="left" value="place"/>
         </mu-list-item>
       </mu-list>
+      <mu-list>
+        <mu-list-item @click='f_logout' v-if='m_is_login' class='list-item' title="退出登录">
+          <mu-icon slot="left" value="blur_off"/>
+        </mu-list-item>
+      </mu-list>
     </div>
   </div>
 </template>
@@ -56,16 +69,57 @@
 export default {
   name: "user",
   data: function data() {
-    return {}
+    return {
+      m_is_login: false,
+      m_self_info: {}
+    }
   },
-  mounted: function mounted() {
-    // this.$showRegisterPanel(0)
+  mounted () {
+    this.is_login().then(function (data) {
+      if(data.status == 'unlogin') {
+        this.m_is_login = false
+      } else if (data.status == 'ok') {
+        this.m_is_login = true
+        this.f_get_self_info()
+      }
+    })
+  },
+  methods: {
+    f_login () {
+      this.$showRegisterPanel(0, function () {
+          window.location.reload()
+      })
+    },
+    f_get_self_info () {
+      this.fetch_self_info().then(function (data) {
+        this.m_self_info = data.result
+      })
+    },
+    f_edit_info () {
+      if (!this.m_is_login) {
+        this.$warn('请先登录')
+        return
+      } else {
+        this.$router.push('/info')
+      }
+    },
+    f_logout () {
+      this.logout().then(function (data) {
+        if (data.status == 'unlogin') {
+          this.m_is_login = false
+          this.$warn('退出登录成功')
+        } else {
+          this.$wran(data.message)
+        }
+      })
+    }
   }
 }
 </script>
 <style lang="scss">
 @import '../../../scss/_variables.scss';
 #user{
+  padding-bottom: 10px;
   .user-back{
     height:140px;
     background: url('../../../assets/user_back.jpg') no-repeat center center #fff;
@@ -79,6 +133,7 @@ export default {
       padding: 2px;
       border-radius: 50%;
       background-color: #fff;
+      border: 1px solid #eee;
     }
   }
   .intro-wrap{
@@ -86,6 +141,10 @@ export default {
     border-bottom: 1px dashed #eee;
     background-color: #fff;
     padding-top: 20px;
+    .login-button{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
     .name{
       font-size: 16px;
       font-weight: bold;

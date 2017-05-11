@@ -4,10 +4,27 @@ Http.install = function (Vue, options) {
   Vue.mixin({
     data () {
       return {
-
+        m_current_user_id: '',
+        m_current_sub_id: '',
+        m_is_login: false
       }
     },
+    mounted () {
+    },
     methods: {
+      auto_login () {
+        // 如果已经登录则不用再自动登录
+        if (this.m_is_login)
+          return
+        let nickname = localStorage.getItem('nickname')
+        let password = localStorage.getItem('password')
+        if (nickname!='undefined' && password!='undefined') {
+          this.login({
+            nickname: nickname,
+            password: password
+          })
+        }
+      },
       is_login () {
         return this.$http.get('/api/user/status').then(function (response) {
           return new Promise(function (resolve) {
@@ -43,8 +60,17 @@ Http.install = function (Vue, options) {
       },
       login: function (data) {
         return this.$http.post('/api/user/login', data).then(function (response) {
+          let body = response.body
+          if (body.status == 'ok') {
+            let result = body.result
+            this.m_is_login = true
+            this.m_current_user_id = result.userId
+            this.m_current_sub_id = result.subId
+          } else {
+            console.log('登录失败')
+          }
           return new Promise(function (resolve) {
-            resolve(response.body)
+            resolve(body)
           })
         })
       },
@@ -58,6 +84,14 @@ Http.install = function (Vue, options) {
       },
       fetch_user_info: function (userId) {
         return this.$http.get('/api/user/info/' + userId)
+          .then(function (response) {
+            return new Promise(function (resolve) {
+              resolve(response.body)
+            })
+          })
+      },
+      fetch_self_info: function () {
+        return this.$http.get('/api/user/info')
           .then(function (response) {
             return new Promise(function (resolve) {
               resolve(response.body)
@@ -89,6 +123,13 @@ Http.install = function (Vue, options) {
       },
       fetch_skill_list: function (userId) {
         return this.$http.get('/api/skill/list/' + userId).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      fetch_skill_list_except: function (userId, skillId) {
+        return this.$http.get('/api/skill/list/' + userId + '/' + skillId).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
@@ -151,7 +192,14 @@ Http.install = function (Vue, options) {
         })
       },
       fetch_send_order_list: function () {
-        return this.$http.get('/api/order/list').then(function (response) {
+        return this.$http.get('/api/order/from/list').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      fetch_receive_order_list: function () {
+        return this.$http.get('/api/order/to/list').then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })

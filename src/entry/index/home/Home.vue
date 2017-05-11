@@ -7,8 +7,16 @@
       <div v-show='m_loading_show' class="loading-wrap">
         <img src="../../../assets/loading.svg" class="loading-svg" alt="">
       </div>
-      <template v-for='item in m_skill_datas'>
-        <skill-card v-bind:data='item'></skill-card>
+      <template  v-if='m_skill_datas.length > 0'>
+        <template  v-for='item in m_skill_datas'>
+          <skill-card v-bind:data='item'></skill-card>
+        </template>
+      </template>
+      <template v-else>
+        <div class="no-skill">
+          <mu-icon value='pets' :size='80' />
+          <p class='tip'>技能列表为空</p>
+        </div>
       </template>
     </div>
   </div>
@@ -50,7 +58,7 @@ export default {
       this.m_loading_show = true
       if (!category) {
         this.fetch_all_skills(this.m_sub_id).then(function (data) {
-          this.m_skill_datas = data
+          this.m_skill_datas = data.result
           this.m_loading_show = false
         })
       } else {
@@ -60,7 +68,7 @@ export default {
     f_get_skills_by_tag (tagId) {
       this.m_loading_show = true
       this.search_skill_by_tag(this.m_sub_id, tagId).then(function (data) {
-        this.m_skill_datas = data
+        this.m_skill_datas = data.result
         this.m_loading_show = false
       })
     },
@@ -69,7 +77,7 @@ export default {
         return
       this.m_loading_show = true
       this.search_skill_by_keyword(this.m_sub_id, value).then(function (data) {
-        this.m_skill_datas = data
+        this.m_skill_datas = data.result
         this.m_loading_show = false
       })
     }
@@ -83,9 +91,15 @@ export default {
 }
 </script>
 <style lang="scss">
+@import "../../../scss/_variables.scss";
 #home{
   .skill-card-wrap{
     padding:10px;
+    .no-skill{
+      padding-top: 20px;
+      text-align: center;
+      color: rgba($primary-color, 0.6);
+    }
     .loading-wrap{
       margin-top: 10px;
       text-align: center;

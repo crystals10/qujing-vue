@@ -158,6 +158,8 @@ export default {
             this.f_close()
             this.f_callback()
           }.bind(this))
+        }else{
+          this.$warn(data.message)
         }
       })
     },

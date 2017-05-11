@@ -79,7 +79,7 @@ export default {
     },
     f_get_send_message(){
       this.fetch_send_order_list().then(function (data) {
-        this.m_send_message_data = data
+        this.m_send_message_data = data.result
       })
     }
   },

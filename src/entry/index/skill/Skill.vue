@@ -8,7 +8,6 @@
         <div class="no-skill">
           <mu-icon value='pets' :size='80' />
           <p class='tip'>暂时没有发布任何技能</p>
-          <p class='tip'>可点击右下角『+』按钮发布新技能</p>
         </div>
       </template>
       <p class='tip'>可点击右下角『+』按钮发布新技能</p>
@@ -31,7 +30,7 @@ export default {
   methods: {
     f_get_user_skills() {
       this.fetch_skill_list(1).then(function (data) {
-        this.m_skill_datas = data
+        this.m_skill_datas = data.result
       })
     }
   },

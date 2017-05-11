@@ -30,18 +30,24 @@
       <p class="header">技能详情</p>
       <div class="skill-item">
         <p class="skill-header">
-          <span class="em">{{m_skill_info.totalPrice}}￥/{{m_skill_info.totalTime}}h</span>
-          <span>{{m_skill_info.title}}</span></p>
-        <p class="skill-content">{{m_skill_info.description}}</p>
+          <span class='tag'>{{m_skill_info.tagName}}</span>
+          <span class='title'>{{!m_skill_info.skill?'':m_skill_info.skill.title}}</span>
+          <span class="em">{{!m_skill_info.skill?'':m_skill_info.skill.totalPrice}}￥/{{!m_skill_info.skill?'':m_skill_info.skill.totalTime}}h</span>
+        </p>
+        <p class="skill-content">{{!m_skill_info.skill?'':m_skill_info.skill.description}}</p>
       </div>
     </div>
-    <!-- <div class="skill-wrap other-skill-wrap">
+    <div class="skill-wrap other-skill-wrap">
       <p class="header">该行家其他技能</p>
-      <div class="skill-item">
-        <p class="skill-header"><span class="em">200￥/2h</span>两小时教你搭建『取经』这个网站包括后台</p>
-        <p class="skill-content">前端对于大部分人而言门槛较低，但知识点较杂，入门容易精通很难，平时可能大家联系的点还只是停留在css的属性联系，一些简单的效果Demo，以及javascript语法的学习，碰见具体的项目会感觉无从下手，再加上平时也缺少相关项目的指导与联系。『取经』这个网站的最初始的可用版本设计开发也只是用了一晚上的时间，我会在两小时之内还原这个网站的搭建过程。</p>
+      <div class="skill-item" v-for='item in m_skills_others'>
+        <p class="skill-header">
+          <span class='tag'>{{item.tagName}}</span>
+          <span class='title'>{{item.skill.title}}</span>
+          <span class="em">{{item.skill.totalPrice}}￥/{{item.skill.totalTime}}h</span>
+        </p>
+        <p class="skill-content">{{item.skill.description}}</p>
       </div>
-    </div> -->
+    </div>
     <div class="mp-info">
       关注『iKnow华科』公众号，查看更多。
     </div>
@@ -78,6 +84,8 @@ export default {
       m_skill_id: '',
       m_user_info: {},
       m_skill_info: {},
+      m_skill_tagName: '',
+      m_skills_others: [],
       m_skill_comments: []
     }
   },
@@ -87,35 +95,46 @@ export default {
     this.f_get_user_info(this.m_user_id)
     this.f_get_skill_info(this.m_skill_id)
     this.f_get_skill_comments(this.m_skill_id)
+    this.f_get_skill_except(this.m_user_id, this.m_skill_id)
   },
   methods: {
     f_get_user_info (userId) {
       this.fetch_user_info(userId).then(function (data) {
-        this.m_user_info = data
+        this.m_user_info = data.result
       })
     },
     f_get_skill_info (skillId) {
       this.fetch_skill_info(skillId).then(function (data) {
-        this.m_skill_info = data.skill
+        this.m_skill_info = data.result
+        this.m_skill_tagName = data.result.tagName
+      })
+    },
+    f_get_skill_except(userId, skillId){
+      this.fetch_skill_list_except(userId, skillId).then(function (data) {
+        this.m_skills_others = data.result
       })
     },
     f_get_skill_comments (skillId) {
       this.fetch_skill_comments(skillId).then(function (data) {
-        this.m_skill_comments = data
+        this.m_skill_comments = data.result
       })
     },
     f_order () {
-      this.is_login().then(function (data) {
-        if (data.result.loginStatus == 0) {
-          this.$warn('请先登录', function () {
-            this.$showRegisterPanel(0, function () {
-              this.$router.push('/order/' + this.m_user_id)
-            }.bind(this))
-          }.bind(this), 500)
-        } else {
-          this.$router.push('/order/' + this.m_user_id)
-        }
-      })
+      if (this.m_is_login) {
+        this.$router.push('/order/' + this.m_user_id)
+      } else {
+        this.is_login().then(function (data) {
+          if (data.status == 'unlogin') {
+            this.$warn('请先登录', function () {
+              this.$showRegisterPanel(0, function () {
+                this.$router.push('/order/' + this.m_user_id)
+              }.bind(this))
+            }.bind(this), 500)
+          } else {
+            this.$router.push('/order/' + this.m_user_id)
+          }
+        })
+      }
     }
   }
 }
@@ -226,13 +245,26 @@ export default {
         padding-right: 90px;
         padding-top: 10px;
         padding-bottom: 10px;
-      }
-      .em{
-        position: absolute;
-        font-weight: bold;
-        color: $primary-color;
-        top:10px;
-        right:0;
+        .tag{
+          font-size: 12px;
+          padding: 0 2px;
+          border: 1px solid $primary-color;
+          color: $primary-color;
+          border-radius: 4px;
+          height: 18px;
+          line-height:18px;
+          display: inline-block;
+        }
+        .title{
+          font-weight: bold;
+        }
+        .em{
+          position: absolute;
+          font-weight: bold;
+          color: $primary-color;
+          top:10px;
+          right:0;
+        }
       }
       .skill-content{
         text-align: justify;
