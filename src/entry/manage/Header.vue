@@ -3,11 +3,11 @@
     <div class="header-inner">
       <a href="javascript:void(0)；">
           <h1 class="logo-wrap">
-              <img src="/static/img/logo.png" class="logo" /><span class="slogan">任何人的技能都不该被埋没</span>
+              <img src="/static/img/logo.png" class="logo" /><span class="slogan">取经 - 让所有人的技能不再被埋没</span>
           </h1>
       </a>
       <div class="account right">
-          <img src="/static/img/logo.png" id="substation-logo" class="substation-logo none"/>
+          <!-- <img src="/static/img/logo.png" id="substation-logo" class="substation-logo none"/> -->
           <span class="name" id="substation-name">华中科技大学分站</span>
           |
           <a href="javascript:void(0);" class="logout" id="logout">退出</a>

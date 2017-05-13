@@ -1,30 +1,32 @@
 <template>
-  <div id="home-skill-card-item">
-    <div class="avatar-wrap">
-      <mu-avatar class="mu-avatar-back" :src='data.avatar' :size='46' />
-      <p class="name txt-primary">{{data.userName}}</p>
-      <p class='txt-center txt-primary'>{{data.userScore}}分</p>
+  <transition name='card-fade'>
+    <div id="home-skill-card-item">
+      <div class="avatar-wrap">
+        <mu-avatar class="mu-avatar-back" :src='data.avatar' :size='46' />
+        <p class="name txt-primary">{{data.userName}}</p>
+        <p class='txt-center txt-primary'>{{data.userScore}}分</p>
+      </div>
+      <div class="skill-card-content">
+        <p class="header">{{data.skillTitle}}</p>
+        <!-- <p class='info-item'>
+          <mu-icon value='perm_identity'></mu-icon><span>{{data.nickname}}</span>
+        </p> -->
+        <p class='info-item'>
+          <mu-icon value='person_pin_circle'></mu-icon><span>{{data.userTitle}}</span>
+        </p>
+        <p class='info-item'>
+          <mu-icon value='loyalty'></mu-icon><span>{{data.tagName}}</span>
+        </p>
+        <p class='info-item'>
+          <mu-icon value='bookmark_border'></mu-icon><span>{{data.skillOrderTimes || 0}}人想见</span>
+        </p>
+        <p class='info-item'>
+          <mu-icon value='attach_money'></mu-icon><span>{{data.totalPrice}}元/{{data.totalTime}}小时</span>
+        </p>
+        <mu-flat-button label='查看详情' :to="'/detail/'+ data.userId + '/' + data.skillId" class='detail' labelClass='detail-label'/>
+      </div>
     </div>
-    <div class="skill-card-content">
-      <p class="header">{{data.skillTitle}}</p>
-      <!-- <p class='info-item'>
-        <mu-icon value='perm_identity'></mu-icon><span>{{data.nickname}}</span>
-      </p> -->
-      <p class='info-item'>
-        <mu-icon value='person_pin_circle'></mu-icon><span>{{data.userTitle}}</span>
-      </p>
-      <p class='info-item'>
-        <mu-icon value='loyalty'></mu-icon><span>{{data.tagName}}</span>
-      </p>
-      <p class='info-item'>
-        <mu-icon value='bookmark_border'></mu-icon><span>{{data.skillOrderTimes || 0}}人想见</span>
-      </p>
-      <p class='info-item'>
-        <mu-icon value='attach_money'></mu-icon><span>{{data.totalPrice}}元/{{data.totalTime}}小时</span>
-      </p>
-      <mu-flat-button label='查看详情' :to="'/detail/'+ data.userId + '/' + data.skillId" class='detail' labelClass='detail-label'/>
-    </div>
-  </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -37,6 +39,15 @@ export default {
 </script>
 <style lang="scss">
 @import '../../../scss/_variables.scss';
+.card-fade-enter-active, .card-fade-leave-active {
+  transition: all .5s ease;
+  bottom: 0;
+  opacity: 1;
+}
+.card-fade-enter, .card-fade-leave-active {
+  opacity: 0;
+  bottom: -40px;
+}
 #home-skill-card-item{
   margin: 10px auto;
   background-color: #fff;

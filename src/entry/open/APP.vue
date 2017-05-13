@@ -70,26 +70,26 @@
     <mu-dialog :open="m_apply_dialog" dialogClass="apply-dialog" title="申请开通取经分站" titleClass='apply-dialog-title'>
       <mu-icon-button icon="close" class="apply-close" @click='f_close_apply'/>
       <div class="apply-form">
-        <mu-text-field class="register-text-field"  label='学校名称：' fullWidth/>
-        <mu-text-field class="register-text-field"  label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
-        <mu-text-field class="register-text-field"  label='公众号的粉丝数量或者网站的日访问量：' fullWidth/>
-        <mu-text-field class="register-text-field"  label='您的微信号：' fullWidth/>
-        <mu-text-field class="register-text-field"  label='您的邮箱：' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_school_name' label='学校名称：' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_mp_num' label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_mp_num' label='公众号的粉丝数量或者网站的日访问量：' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_wechat' label='您的微信号：' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_email' label='您的邮箱：' fullWidth/>
       </div>
       <div class="button-wrap">
         <mu-flat-button primary class='flat-button' @click="f_open_login" label="已有分站，直接登录"/>
-        <mu-raised-button primary class='raised-button' @click="f_close_apply" label="提交申请"/>
+        <mu-raised-button primary class='raised-button' @click="f_apply" label="提交申请"/>
       </div>
   </mu-dialog>
   <mu-dialog :open='m_login_dialog' dialogClass="apply-dialog" title="登录取经后台管理中心" titleClass='apply-dialog-title'>
     <mu-icon-button icon="close" class="apply-close" @click='f_close_login'/>
     <div class="apply-form">
-      <mu-text-field class="register-text-field"  label='您的邮箱：' fullWidth/>
-      <mu-text-field class="register-text-field"  label='登录密码：' type='password' fullWidth/>
+      <mu-text-field class="register-text-field" v-model='m_login_email'  label='您的邮箱：' fullWidth/>
+      <mu-text-field class="register-text-field" v-model='m_login_password' label='登录密码：' type='password' fullWidth/>
     </div>
     <div class="button-wrap">
       <mu-flat-button primary class='flat-button' @click="f_open_apply" label="尚无分站，前往注册"/>
-      <mu-raised-button primary class='raised-button' @click="f_close_login" label="提交登录"/>
+      <mu-raised-button primary class='raised-button' @click="f_login" label="提交登录"/>
     </div>
   </mu-dialog>
   </div>
@@ -101,7 +101,14 @@ export default {
   data: function data() {
     return {
       m_apply_dialog: false,
-      m_login_dialog: false
+      m_login_dialog: true,
+      m_school_name: '华中科技大学',
+      m_mp_name: '华科学习帝',
+      m_mp_num: '20000',
+      m_wechat: 'cmm020304',
+      m_email: 'cmm@bingyan.net',
+      m_login_email: 'cmm@bingyan.net',
+      m_login_password: '19941210asdfg'
     }
   },
   methods: {
@@ -118,6 +125,50 @@ export default {
     f_open_login () {
       this.m_apply_dialog = false
       this.m_login_dialog = true
+    },
+    f_apply () {
+      if (this.m_school_name.trim() == '') {
+        this.$warn('请填写您的学校名称')
+        return
+      }
+      if (this.m_mp_name.trim() == '') {
+        this.$warn('您所运营的公众号名称或者门户网站的网址')
+        return
+      }
+      if (this.m_mp_num.trim() == '') {
+        this.$warn('公众号的粉丝数量或者网站的日访问量')
+        return
+      }
+      if (this.m_wechat.trim() == '') {
+        this.$warn('请填写您的微信号')
+        return
+      }
+      if (this.m_email.trim() == '') {
+        this.$warn('请填写您的邮箱')
+        return
+      }
+    },
+    f_login () {
+      if (this.m_login_email.trim() == '') {
+        this.$warn('请填写您的登录邮箱')
+        return
+      }
+      if (this.m_login_password.trim() == '') {
+        this.$warn('请填写您的登录密码')
+        return
+      }
+      this.login_station({
+        email: this.m_login_email,
+        password: this.m_login_password
+      }).then(function (data) {
+        if (data.status == 'ok') {
+          this.$warn('登录成功', function () {
+            window.location.href = '/manage.html'
+          })
+        } else {
+          this.$warn(data.message)
+        }
+      })
     }
   },
   components: {

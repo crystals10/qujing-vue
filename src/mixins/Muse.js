@@ -25,6 +25,14 @@ import muStepLabel from 'muse-components/stepper/stepLabel'
 import muMenuItem from 'muse-components/menu/menuItem'
 import muSlider from 'muse-components/slider'
 import muIconButton from 'muse-components/iconButton'
+import muTable from 'muse-components/table/table'
+import muThead from 'muse-components/table/thead'
+import muTbody from 'muse-components/table/tbody'
+import muTfoot from 'muse-components/table/tfoot'
+import muTh from 'muse-components/table/th'
+import muTd from 'muse-components/table/td'
+import muTr from 'muse-components/table/tr'
+import muRadio from 'muse-components/radio'
 
 let Muse = {}
 
@@ -55,6 +63,14 @@ Muse.install = function (Vue, options) {
   Vue.component(muDialog.name, muDialog)
   Vue.component(muMenuItem.name, muMenuItem)
   Vue.component(muSlider.name, muSlider)
+  Vue.component(muTable.name, muTable)
+  Vue.component(muTbody.name, muTbody)
+  Vue.component(muThead.name, muThead)
+  Vue.component(muTfoot.name, muTfoot)
+  Vue.component(muTh.name, muTh)
+  Vue.component(muTr.name, muTr)
+  Vue.component(muTd.name, muTd)
+  Vue.component(muRadio.name, muRadio)
 }
 
 export default Muse

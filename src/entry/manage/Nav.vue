@@ -2,9 +2,9 @@
   <div id="manage-nav">
     <mu-list>
       <p class='header'>管理</p>
-      <mu-list-item class='list-item' title="用户管理" />
-      <mu-list-item class='list-item' title="约见管理" />
-      <mu-list-item class='list-item' title="行家管理" />
+      <mu-list-item to='/user' class='list-item' title="用户管理" />
+      <mu-list-item to='/major'class='list-item' title="行家管理" />
+      <mu-list-item to='/apply'class='list-item' title="行家认证" />
     </mu-list>
     <mu-list>
       <p class='header'>数据分析</p>
@@ -14,7 +14,8 @@
       <mu-list-item class='list-item' title="行家分析" />
     </mu-list>
     <mu-list>
-      <p class='header'>账号设置</p>
+      <p class='header'>高级设置</p>
+      <mu-list-item class='list-item' title="获取链接" />
       <mu-list-item class='list-item' title="账号安全" />
     </mu-list>
   </div>
@@ -30,9 +31,9 @@ export default {
 }
 </script>
 <style lang="scss">
+@import '../../scss/_variables.scss';
 #manage-nav{
   .mu-list{
-
     border-bottom: 1px solid #eee;
     .header{
       font-size: 16px;
@@ -48,13 +49,19 @@ export default {
     padding-top: 14px;
     padding-bottom: 14px;
     padding-left: 50px;
-    .mu-icon{
-      color:#999;
-      font-size: 20px;
-    }
+  }
+  .mu-icon{
+    color:#999;
+    font-size: 20px;
+  }
+  .mu-item-title{
+    color: #666;
+    font-size: 14px;
+  }
+  .router-link-active{
+    background-color: rgba($primary-color, 0.7);
     .mu-item-title{
-      color: #666;
-      font-size: 14px;
+      color: #fff;
     }
   }
 }

@@ -1,26 +1,28 @@
 <template>
-  <div>
-    <div id="skill-card" classs="clearfix">
-      <div class="card-left">
-        <p class="skill-title txt-em"><span class='tag'>{{data.tagName}}</span>{{data.skill.title}}</p>
-        <p class="skill-intro txt-small">{{data.skill.description}}</p>
+  <transition name='card-fade'>
+    <div class='card-fade-item'>
+      <div id="skill-card" classs="clearfix">
+        <div class="card-left">
+          <p class="skill-title txt-em"><span class='tag'>{{data.tagName}}</span>{{data.skill.title}}</p>
+          <p class="skill-intro txt-small">{{data.skill.description}}</p>
+        </div>
+        <div class="card-right txt-center">
+          <p class='time-and-price'>
+            <span class='time'>{{data.skill.totalTime}}小时/</span><span class='price'>{{data.skill.totalPrice}}元</span>
+          </p>
+          <p><span class="num">{{data.skill.orderTimes}}人/</span>想见</p>
+          <p><span class="num">{{data.skill.orderedTimes}}人/</span>见过</p>
+        </div>
+        <slot>
+          <mu-flat-button class="skill-cancel-button" @click='f_open_dialog' label="删除" primary/>
+        </slot>
       </div>
-      <div class="card-right txt-center">
-        <p class='time-and-price'>
-          <span class='time'>{{data.skill.totalTime}}小时/</span><span class='price'>{{data.skill.totalPrice}}元</span>
-        </p>
-        <p><span class="num">{{data.skill.orderTimes}}人/</span>想见</p>
-        <p><span class="num">{{data.skill.orderedTimes}}人/</span>见过</p>
-      </div>
-      <slot>
-        <mu-flat-button class="skill-cancel-button" @click='f_open_dialog' label="删除" primary/>
-      </slot>
+      <mu-dialog class="confirm-dialog" bodyClass='confirm-dialog-body' title="确定要删除这个技能吗？" titleClass="dialog-title" :open='m_dialog'>
+        <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
+        <mu-flat-button label="确定" slot="actions" @click='f_cancel_skill(data.skill.skillId)' primary/>
+      </mu-dialog>
     </div>
-    <mu-dialog class="confirm-dialog" bodyClass='confirm-dialog-body' title="确定要删除这个技能吗？" titleClass="dialog-title" :open='m_dialog'>
-      <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
-      <mu-flat-button label="确定" slot="actions" @click='f_cancel_skill(data.skill.skillId)' primary/>
-    </mu-dialog>
-  </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -52,6 +54,9 @@ export default {
 </script>
 <style lang="scss">
 @import "../../scss/_variables.scss";
+.card-fade-item{
+  position: relative;
+}
 #skill-card{
   margin: 0 auto 20px;
   border-radius: 8px;
