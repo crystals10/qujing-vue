@@ -9,10 +9,10 @@
         <p class="item-header">获取url链接 <span class="tip">(可放置在您的公众号菜单或者门户网站上)</span></p>
         <div class="item-content">
           <dl>
-            <dt>分站首页</dt> <dd>http://localhost:9010/#/home</dd>
-            <dt>用户约见信息页面</dt> <dd>http://localhost:9010/#/message</dd>
-            <dt>行家技能列表页面</dt> <dd>http://localhost:9010/#/skills</dd>
-            <dt>认证成为行家页面</dt> <dd>http://localhost:9010/auth.html</dd>
+            <dt>分站首页</dt> <dd>{{'http://localhost:9010/#/home?token=' + m_token}}</dd>
+            <dt>用户约见信息页面</dt> <dd>{{'http://localhost:9010/#/message?token=' + m_token}}</dd>
+            <dt>行家技能列表页面</dt> <dd>{{'http://localhost:9010/#/skills?token=' + m_token}}</dd>
+            <dt>认证成为行家页面</dt> <dd>{{'http://localhost:9010/auth.html?token=' + m_token}}</dd>
           </dl>
         </div>
       </div>
@@ -33,13 +33,20 @@ export default {
   name: "account-setting",
   data: function data() {
     return {
+      m_token: '',
       m_old_password: '',
       m_new_password: '',
       m_new_password_again: ''
     }
   },
   mounted(){
-    this.get_sub_token()
+    this.get_sub_token().then(function (data) {
+      if (data.status == 'ok') {
+        this.m_token = data.result
+      } else {
+        this.$warn(data.message)
+      }
+    })
   },
   methods: {
     f_alter_password(){

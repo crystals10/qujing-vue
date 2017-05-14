@@ -11,6 +11,13 @@ Admin.install = function (Vue, options) {
       }
     },
     methods:{
+      is_admin_login () {
+        return this.$http.get('/api/admin/status').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
       login_station (data) {
         return this.$http.post('/api/admin/login',data).then(function (response) {
           return new Promise(function (resolve) {
@@ -67,6 +74,20 @@ Admin.install = function (Vue, options) {
           })
         })
       },
+      on_shelf_master (userId) {
+        return this.$http.get('/api/admin/masterground/' + userId).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      off_shelf_master (userId, data) {
+        return this.$http.post('/api/admin/mastershelve/' + userId, data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
       get_apply_list (data) {
         return this.$http.post('/api/admin/applylist', data).then(function (response) {
           return new Promise(function (resolve) {
@@ -95,8 +116,8 @@ Admin.install = function (Vue, options) {
           })
         })
       },
-      cancel_reject_apply (data) {
-        return this.$http.post('/api/admin/cancelreject', data).then(function (response) {
+      cancel_reject_apply (applyId) {
+        return this.$http.get('/api/admin/cancelreject/'+ applyId).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })

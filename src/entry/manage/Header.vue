@@ -8,7 +8,7 @@
       </router-link>
       <div class="account right">
           <!-- <img src="/static/img/logo.png" id="substation-logo" class="substation-logo none"/> -->
-          <span class="name" id="substation-name">华中科技大学分站</span>
+          <span class="name" id="substation-name">{{m_mp_info.schoolName}}</span>
           |
           <a href="javascript:void(0);" v-on:click='f_logout' class="logout" id="logout">退出</a>
       </div>
@@ -27,10 +27,12 @@ export default {
     this.get_admin_info().then(function (data) {
       if (data.status == 'ok') {
         this.m_mp_info = data.result
-      } else {
+      } else if (data.status == 'unlogin'){
         this.$warn(data.message, function () {
           window.location.href = '/open.html'
         })
+      } else {
+        this.$warn(data.message)
       }
     })
   },

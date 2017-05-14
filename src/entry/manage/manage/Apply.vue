@@ -3,10 +3,10 @@
      <div class="manage-header">
        <span class="title">认证行家</span>
        <!-- <span class='tip'>（对本站所有行家的管理）</span> -->
-       <div class="search-wrap">
+       <!-- <div class="search-wrap">
          <mu-text-field icon='search' fullWidth hintText='搜索用户昵称' hintTextClass='hint-text' inputClass='search-input' underlineFocusClass='underline-focus'>
          </mu-text-field>
-       </div>
+       </div> -->
      </div>
      <div class="manage-content">
       <div class="content-left">
@@ -41,9 +41,9 @@
                  <mu-td><img :src="item.avatar" class="avatar"></mu-td>
                  <mu-td>{{item.createTime | timestampFormat}}</mu-td>
                  <mu-td>
-                    <mu-flat-button label="拒绝" v-show='item.result == 0' v-on:click='f_reject_apply(item.applyId)' secondary/>
-                    <mu-flat-button label="通过" v-show='item.result == 0' v-on:click='f_pass_apply(item.applyId)' primary/>
-                    <mu-flat-button label="撤销" v-show='item.result == 0' v-on:click='f_cancel_reject_apply(item.applyId)' primary/>
+                    <mu-flat-button label="拒绝" v-show='item.result == 0' v-on:click='f_open_dialog(item.applyId, $event)' secondary/>
+                    <mu-flat-button label="通过" v-show='item.result == 0' v-on:click='f_pass_apply(item.applyId, $event)' primary/>
+                    <mu-flat-button label="撤销" v-show='item.result == 2' v-on:click='f_cancel_reject_apply(item.applyId, $event)' primary/>
                  </mu-td>
                </mu-tr>
              </template>
@@ -65,21 +65,25 @@
           <!-- 用户基本信息 -->
           <div class="info-wrap-item" v-if='m_check_info'>
             <p class='header-wrap'><span class="header-title">基本信息</span></p>
-            <p class='single-line-p'>
+            <!-- <p class='single-line-p'>
               <span class='label'>用户头像：</span>
               <img :src="m_check_info.user.avatar" class="avatar" alt="">
-            </p>
+            </p> -->
             <p class='single-line-p'>
               <span class='label'>用户昵称：</span>
               <span class='content'>{{m_check_info.user.nickname}}</span>
             </p>
             <p class='single-line-p'>
               <span class='label'>用户类型：</span>
-              <span class='content'>{{m_check_info.user.type=="c"?'普通用户':(m_check_info.user.type=="m"?'行家':已下架的行家)}}</span>
+              <span class='content'>{{m_check_info.user.type=="c"?'普通用户':(m_check_info.user.type=="m"?'行家':'已下架的行家')}}</span>
             </p>
             <p class='single-line-p'>
               <span class='label'>用户状态：</span>
               <span class='content'>{{m_check_info.user.status=="1"?'正常用户':'黑名单用户'}}</span>
+            </p>
+            <p class='single-line-p' v-if='m_check_info.apply.result == "2"'>
+              <span class='label'>拒绝原因：</span>
+              <span class='content'>{{m_check_info.apply.rejectReason}}</span>
             </p>
             <p class='single-line-p'>
               <span class='label'>入学年份：</span>
@@ -131,6 +135,11 @@
         </div>
       </div>
      </div>
+     <mu-dialog dialogClass="black-reason" bodyClass='dialog-body' :open='m_black_dialog'>
+       <mu-text-field label='拒绝原因是：' v-model='m_black_reason' inputClass="reject-input" multiLine fullWidth :rows="2" :rowsMax="4" :maxLength="40"/>
+       <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
+       <mu-flat-button label="确定" slot="actions" @click='f_reject_apply' primary/>
+     </mu-dialog>
   </div>
 </template>
 <script>
@@ -140,6 +149,9 @@ export default {
     return {
       m_selected_tr: null,
       m_type: '0',
+      m_black_reason: '',
+      m_black_dialog: false,
+      m_cur_applyId: '',
       m_loading_check_list: true,
       m_loading_check_info: true,
       m_tbody_height: '460px',
@@ -165,13 +177,13 @@ export default {
       this.m_check_info = null
       this.get_apply_list({result: parseInt(this.m_type)}).then(function (data) {
         if (data.status == 'ok') {
-          this.m_loading_check_list = false
           this.m_check_list = data.result
           if (this.m_check_list.length > 0) {
             this.f_get_apply_info(this.m_check_list[0].applyId)
           } else {
             this.m_loading_check_info = false
           }
+          this.m_loading_check_list = false
         }
       })
     },
@@ -183,7 +195,15 @@ export default {
         this.m_loading_check_info = false
       })
     },
-    f_pass_apply (applyId) {
+    f_open_dialog(applyId, event) {
+      event.stopPropagation()
+      this.m_cur_applyId = applyId
+      this.m_black_dialog = true
+    },
+    f_close_dialog(){
+      this.m_black_dialog = false
+    },
+    f_pass_apply (applyId, event) {
       event.stopPropagation()
       this.pass_apply(applyId).then(function (data) {
         if (data.status == 'ok') {
@@ -194,7 +214,7 @@ export default {
         }
       })
     },
-    f_cancel_reject_apply (applyId) {
+    f_cancel_reject_apply (applyId, event) {
       event.stopPropagation()
       this.cancel_reject_apply(applyId).then(function (data) {
         if (data.status == 'ok') {
@@ -205,14 +225,18 @@ export default {
         }
       })
     },
-    f_reject_apply (applyId, reason) {
-      event.stopPropagation()
+    f_reject_apply () {
+      if (this.m_black_reason.trim() == '') {
+        this.$warn('请填写拒绝的原因')
+        return
+      }
       this.reject_apply({
-        rejectReason: reason || '这里是拒绝一个行家的理由',
-        applyId: applyId
+        rejectReason: this.m_black_reason,
+        applyId: this.m_cur_applyId
       }).then(function (data) {
         if (data.status == 'ok') {
           this.$warn('操作成功')
+          this.f_close_dialog()
           this.f_get_apply_list()
         } else {
           this.$warn(data.message)

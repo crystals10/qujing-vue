@@ -3,10 +3,10 @@
      <div class="manage-header">
        <span class="title">行家管理</span>
        <span class='tip'>（对本站所有行家的管理）</span>
-       <div class="search-wrap">
+       <!-- <div class="search-wrap">
          <mu-text-field icon='search' fullWidth hintText='搜索用户昵称' hintTextClass='hint-text' inputClass='search-input' underlineFocusClass='underline-focus'>
          </mu-text-field>
-       </div>
+       </div> -->
      </div>
      <div class="manage-content">
       <div class="content-left">
@@ -14,7 +14,7 @@
           <div class="filter-wrap">
             <div class="filter-item">
               <mu-radio label="在线的行家" name="type" nativeValue="m" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
-              <mu-radio label="已下架的行家" name="type" nativeValue="m_c" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
+              <mu-radio label="已下架的行家" name="type" nativeValue="m-c" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
             </div>
           </div>
           <mu-table class="manage-table" :fixedHeader=true :enableSelectAll=true  :multiSelectable=true :selectable=true :showCheckbox=false :height="m_tbody_height" @rowClick='f_select_row'>
@@ -44,10 +44,10 @@
                  <mu-td>{{item.createTime | timestampFormat}}</mu-td>
                  <mu-td>
                    <template v-if='item.type=="m"'>
-                     <mu-flat-button label="下架该行家" secondary/>
+                     <mu-flat-button label="下架该行家" @click='f_open_dialog(item, $event)' secondary/>
                    </template>
-                   <template v-else-if='item.status==0'>
-                     <mu-flat-button label="重新上架该行家" primary/>
+                   <template v-else-if='item.type=="m-c"'>
+                     <mu-flat-button label="重新上架该行家" @click='f_on_shelf_master(item, $event)' primary/>
                    </template>
                  </mu-td>
                </mu-tr>
@@ -72,21 +72,25 @@
           <!-- 用户基本信息 -->
           <div class="info-wrap-item" v-if='m_user_info'>
             <p class='header-wrap'><span class="header-title">基本信息</span></p>
-            <p class='single-line-p'>
+            <!-- <p class='single-line-p'>
               <span class='label'>用户头像：</span>
               <img :src="m_user_info.user.avatar" class="avatar" alt="">
-            </p>
+            </p> -->
             <p class='single-line-p'>
               <span class='label'>用户昵称：</span>
               <span class='content'>{{m_user_info.user.nickname}}</span>
             </p>
             <p class='single-line-p'>
               <span class='label'>用户类型：</span>
-              <span class='content'>{{m_user_info.user.type=="c"?'普通用户':(m_user_info.user.type=="m"?'行家':已下架的行家)}}</span>
+              <span class='content'>{{m_user_info.user.type=="c"?'普通用户':(m_user_info.user.type=="m"?'行家':'已下架的行家')}}</span>
             </p>
             <p class='single-line-p'>
               <span class='label'>用户状态：</span>
               <span class='content'>{{m_user_info.user.status=="1"?'正常用户':'黑名单用户'}}</span>
+            </p>
+            <p class='single-line-p' v-if='m_user_info.user.type=="m-c"'>
+              <span class='label'>下架原因：</span>
+              <span class='content'>{{m_user_info.user.shelveReason}}</span>
             </p>
             <p class='single-line-p'>
               <span class='label'>入学年份：</span>
@@ -160,6 +164,11 @@
         </div>
       </div>
      </div>
+     <mu-dialog dialogClass="black-reason" bodyClass='dialog-body' :open='m_black_dialog'>
+       <mu-text-field label='下架原因是：' v-model='m_black_reason' inputClass="reject-input" multiLine fullWidth :rows="2" :rowsMax="4" :maxLength="40"/>
+       <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
+       <mu-flat-button label="确定" slot="actions" @click='f_off_shelf_master' primary/>
+     </mu-dialog>
   </div>
 </template>
 <script>
@@ -170,6 +179,9 @@ export default {
       m_selected_tr: null,
       m_user_status: '1',
       m_user_type: 'm',
+      m_black_reason: '',
+      m_black_dialog: false,
+      m_cur_black_item: null,
       m_loading_user_list: true,
       m_loading_user_info: true,
       m_tbody_height: '460px',
@@ -201,6 +213,8 @@ export default {
           this.m_user_list = data.result
           if (this.m_user_list.length > 0) {
             this.f_get_user_info(this.m_user_list[0].userId)
+          } else {
+            this.m_loading_user_info = false
           }
           this.m_loading_user_list = false
         } else {
@@ -215,6 +229,40 @@ export default {
         if (data.status == 'ok') {
           this.m_user_info = data.result
           this.m_loading_user_info = false
+        } else {
+          this.$warn(data.message)
+        }
+      })
+    },
+    f_open_dialog(item, event) {
+      event.stopPropagation()
+      this.m_cur_black_item = item
+      this.m_black_dialog = true
+    },
+    f_close_dialog(){
+      this.m_black_dialog = false
+    },
+    f_off_shelf_master () {
+      if (this.m_black_reason.trim() == '') {
+        this.$warn('请填写下架的原因')
+        return
+      }
+      this.off_shelf_master(this.m_cur_black_item.userId, {shelveReason: this.m_black_reason}).then(function (data) {
+        if (data.status == 'ok') {
+          this.$warn('操作成功！')
+          this.f_close_dialog()
+          this.f_get_user_list()
+        } else {
+          this.$warn(data.message)
+        }
+      })
+    },
+    f_on_shelf_master (item, event) {
+      event.stopPropagation()
+      this.on_shelf_master(item.userId).then(function (data) {
+        if (data.status == 'ok') {
+          this.$warn('操作成功！')
+          this.f_get_user_list()
         } else {
           this.$warn(data.message)
         }
