@@ -11,6 +11,11 @@ import AdminHttp from '@/mixins/Admin.js'
 import Filter from '../../utils/Filter.js'
 import Utils from '../../utils/Utils.js'
 
+// 使用 vue-charts 组件 https://github.com/hchstera/vue-charts
+import 'chart.js'
+import 'hchs-vue-charts'
+Vue.use(window.VueCharts)
+
 Vue.use(Muse)
 Vue.use(WarnPanel)
 Vue.use(VueResource)

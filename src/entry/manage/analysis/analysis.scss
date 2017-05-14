@@ -1,0 +1,93 @@
+@import "../../../scss/_variables.scss";
+.analysis-wrap{
+  position: relative;
+  .analysis-header{
+    height: 70px;
+    line-height: 70px;
+    padding-left: 40px;
+    position:relative;
+    border-bottom: 1px solid #ddd;
+    .title{
+      font-size: 20px;
+    }
+    .search-wrap{
+      position: absolute;
+      height:100%;
+      right:0;
+      top:0;
+      width:320px;
+      padding-right: 20px;
+      .mu-text-field{
+        font-size: 14px;
+      }
+    }
+  }
+  .analysis-content{
+    padding:20px;
+    position: relative;
+    min-height: 400px;
+    height: 100%;
+  }
+  .filter-wrap{
+    border: 1px solid #ddd;
+    padding: 15px 0 15px 20px;
+    .filter-item{
+      height: 40px;
+      line-height:40px;
+      .filter-label{
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .mu-radio{
+        vertical-align: middle;
+        margin-right: 20px;
+      }
+      .mu-radio-icon{
+        height: 18px;
+        width: 18px;
+        margin-right: 4px;
+        .mu-radio-svg-icon{
+          width: 18px;
+          height: 18px;
+        }
+      }
+      .mu-radio-label{
+        font-size: 14px;
+      }
+    }
+    .date-picker-wrap{
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
+      vertical-align: middle;
+      .mu-date-picker{
+        width: 106px;
+        .mu-text-field{
+          width: 100%;
+        }
+      }
+    }
+  }
+  .loading-wrap{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: rgba($primary-color, 0.7);
+    min-height: 494px;
+    border: 1px solid #ddd;
+    border-top: none;
+    .loading-svg{
+      width:80px;
+    }
+    .loading-word{
+      margin-top: 10px;
+    }
+  }
+  .chart-wrap{
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 20px;
+    height: 494px;
+  }
+}

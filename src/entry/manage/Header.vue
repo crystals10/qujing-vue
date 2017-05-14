@@ -1,16 +1,16 @@
 <template>
   <div id="manage-header">
     <div class="header-inner">
-      <a href="javascript:void(0)；">
-          <h1 class="logo-wrap">
-              <img src="/static/img/logo.png" class="logo" /><span class="slogan">取经 - 让所有人的技能不再被埋没</span>
-          </h1>
-      </a>
+      <router-link to="home">
+        <h1 class="logo-wrap">
+            <img src="/static/img/logo.png" class="logo" /><span class="slogan">取经 - 让所有人的技能不再被埋没</span>
+        </h1>
+      </router-link>
       <div class="account right">
           <!-- <img src="/static/img/logo.png" id="substation-logo" class="substation-logo none"/> -->
           <span class="name" id="substation-name">华中科技大学分站</span>
           |
-          <a href="javascript:void(0);" class="logout" id="logout">退出</a>
+          <a href="javascript:void(0);" v-on:click='f_logout' class="logout" id="logout">退出</a>
       </div>
   </div>
   </div>
@@ -20,7 +20,29 @@ export default {
   name: "manage-header",
   data: function data() {
     return {
-
+      m_mp_info: {}
+    }
+  },
+  mounted(){
+    this.get_admin_info().then(function (data) {
+      if (data.status == 'ok') {
+        this.m_mp_info = data.result
+      } else {
+        this.$warn(data.message, function () {
+          window.location.href = '/open.html'
+        })
+      }
+    })
+  },
+  methods: {
+    f_logout(){
+      this.logout_station().then(function (data) {
+        if (data.status == 'ok') {
+          this.$warn('退出成功', function () {
+            window.location.href = '/open.html'
+          }.bind(this))
+        }
+      })
     }
   }
 }

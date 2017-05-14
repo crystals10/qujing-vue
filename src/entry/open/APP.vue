@@ -69,16 +69,23 @@
     <manage-footer></manage-footer>
     <mu-dialog :open="m_apply_dialog" dialogClass="apply-dialog" title="申请开通取经分站" titleClass='apply-dialog-title'>
       <mu-icon-button icon="close" class="apply-close" @click='f_close_apply'/>
-      <div class="apply-form">
-        <mu-text-field class="register-text-field" v-model='m_school_name' label='学校名称：' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_mp_num' label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_mp_num' label='公众号的粉丝数量或者网站的日访问量：' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_wechat' label='您的微信号：' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_email' label='您的邮箱：' fullWidth/>
+      <div v-show="m_register_step == 1">
+        <div class="apply-form">
+          <mu-text-field class="register-text-field" v-model='m_school_name' label='学校名称：' fullWidth/>
+          <mu-text-field class="register-text-field" v-model='m_mp_num' label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
+          <mu-text-field class="register-text-field" v-model='m_mp_num' label='公众号的粉丝数量或者网站的日访问量：' fullWidth/>
+          <mu-text-field class="register-text-field" v-model='m_wechat' label='您的微信号：' fullWidth/>
+          <mu-text-field class="register-text-field" v-model='m_email' label='您的邮箱：' fullWidth/>
+        </div>
+        <div class="button-wrap">
+          <mu-flat-button primary class='flat-button' @click="f_open_login" label="已有分站，直接登录"/>
+          <mu-raised-button primary class='raised-button' @click="f_apply" label="提交申请"/>
+        </div>
       </div>
-      <div class="button-wrap">
-        <mu-flat-button primary class='flat-button' @click="f_open_login" label="已有分站，直接登录"/>
-        <mu-raised-button primary class='raised-button' @click="f_apply" label="提交申请"/>
+      <div class="register-success txt-center" v-show="m_register_step == 2">
+        <mu-icon value="check_circle" color="#7e57c2" :size='100' />
+        <p class='success-text'>信息提交成功</p>
+        <p class='success-text'>我们会在一个工作日内审核您的信息</p>
       </div>
   </mu-dialog>
   <mu-dialog :open='m_login_dialog' dialogClass="apply-dialog" title="登录取经后台管理中心" titleClass='apply-dialog-title'>
@@ -101,14 +108,15 @@ export default {
   data: function data() {
     return {
       m_apply_dialog: false,
-      m_login_dialog: true,
-      m_school_name: '华中科技大学',
+      m_login_dialog: false,
+      m_register_step: 1,
+      m_school_name: '武汉大学',
       m_mp_name: '华科学习帝',
       m_mp_num: '20000',
       m_wechat: 'cmm020304',
       m_email: 'cmm@bingyan.net',
       m_login_email: 'cmm@bingyan.net',
-      m_login_password: '19941210asdfg'
+      m_login_password: '1234'
     }
   },
   methods: {
@@ -147,6 +155,19 @@ export default {
         this.$warn('请填写您的邮箱')
         return
       }
+      this.register_station({
+        schoolName: this.m_school_name,
+        mpName: this.m_mp_name,
+        mpNum: this.m_mp_num,
+        email: this.m_email,
+        wechat: this.m_wechat
+      }).then(function (data) {
+        if (data.status == 'ok') {
+          this.m_register_step = 2
+        } else {
+          this.$warn(data.message)
+        }
+      })
     },
     f_login () {
       if (this.m_login_email.trim() == '') {
@@ -314,6 +335,12 @@ export default {
       right:0px;
       top:0px;
     }
+  }
+  .register-success{
+    color: $primary-color;
+    font-size: 16px;
+    line-height: 2;
+    margin-top: 10px;
   }
   .button-wrap{
     text-align: right;

@@ -13,20 +13,11 @@
         <div class="manage-table-wrap">
           <div class="filter-wrap">
             <div class="filter-item">
-              <span class='filter-label'>选择用户状态：</span>
-              <!-- <mu-radio label="所有状态" name="status" nativeValue="" @change='f_get_user_list' v-model='m_user_status' class="filter-radio"/> -->
               <mu-radio label="正常用户" name="status" nativeValue="1" @change='f_get_user_list' v-model='m_user_status' class="filter-radio"/>
               <mu-radio label="黑名单用户" name="status" nativeValue="0" @change='f_get_user_list' v-model='m_user_status' class="filter-radio"/>
             </div>
-            <!-- <div class="filter-item">
-              <span class='filter-label'>选择用户类型：</span>
-              <mu-radio label="所有类型" name="type" nativeValue="" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
-              <mu-radio label="普通用户" name="type" nativeValue="c" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
-              <mu-radio label="行家用户" name="type" nativeValue="m" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
-              <mu-radio label="已下架行家用户" name="type" nativeValue="m_c" @change='f_get_user_list' v-model='m_user_type' class="filter-radio"/>
-            </div> -->
           </div>
-          <mu-table class="manage-table" :fixedHeader=true :enableSelectAll=true  :multiSelectable=true :selectable=true :showCheckbox=true :height="m_tbody_height" @rowClick='f_select_row'>
+          <mu-table class="manage-table" :fixedHeader=true :showCheckbox=false :height="m_tbody_height" @rowClick='f_select_row'>
             <div class='loading-wrap'  v-show='m_loading_user_list'>
               <img src="../../../assets/loading.svg" class="loading-svg">
               <p class='loading-word'>正在加载信息</p>
@@ -60,14 +51,6 @@
                </mu-tr>
              </template>
            </mu-tbody>
-           <mu-tfoot slot="footer" class='manage-tfoot'>
-             <mu-tr>
-               <mu-td>
-                <mu-flat-button label="批量加入黑名单" secondary/>
-                <mu-flat-button label="批量移除黑名单" primary/>
-               </mu-td>
-             </mu-tr>
-           </mu-tfoot>
          </mu-table>
         </div>
       </div>
@@ -112,7 +95,6 @@
               <span class='label'>专业院系：</span>
               <span class="content">{{m_user_info.user.major}}</span>
             </p>
-            <!-- <p class='single-line-p'><span class='label'>约&nbsp;见&nbsp;过：</span>10人</p> -->
             <p class='single-line-p'><span class='label'>学&nbsp;生&nbsp;证：</span>
               <img src="../../../assets/id.png" alt="">
             </p>
@@ -245,240 +227,5 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "../../../scss/_variables.scss";
-#user-manage{
-  position: relative;
-  .manage-header{
-    height: 70px;
-    line-height: 70px;
-    padding-left: 40px;
-    position:relative;
-    border-bottom: 1px solid #ddd;
-    .title{
-      font-size: 20px;
-    }
-    .search-wrap{
-      position: absolute;
-      height:100%;
-      right:0;
-      top:0;
-      width:320px;
-      padding-right: 20px;
-      .mu-text-field{
-        font-size: 14px;
-      }
-    }
-  }
-  .manage-content{
-    padding-right: 300px;
-    position: relative;
-    min-height: 400px;
-    height: 100%;
-    .content-right{
-      position: absolute;
-      right:20px;
-      width:280px;
-      height: 100%;
-      top:0;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      .loading-wrap,.tip-wrap{
-        text-align: center;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        color: rgba($primary-color, 0.7);
-        .loading-svg{
-          width:50px;
-        }
-        .loading-word{
-          margin-top: 10px;
-        }
-      }
-      .info-wrap{
-        height: 100%;
-        overflow: auto;
-        padding:50px 10px 10px;
-        border:1px solid #ddd;
-        .info-header{
-          height: 50px;
-          line-height: 50px;
-          position: absolute;
-          top:20px;
-          left:0;
-          width:100%;
-          text-align: center;
-          font-size: 16px;
-          font-weight: bold;
-          border: 1px solid #ddd;
-          background-color: #fff;
-          z-index: 2;
-        }
-        &::-webkit-scrollbar {
-          width:4px;
-        }
-        /* 滚动槽 */
-        &::-webkit-scrollbar-track {
-          -webkit-box-shadow:inset006pxrgba(0,0,0,0.3);
-          border-radius:4px;
-        }
-        /* 滚动条滑块 */
-        &::-webkit-scrollbar-thumb {
-          border-radius:4px;
-          background:rgba(0,0,0,0.1);
-          -webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
-        }
-      }
-      .info-wrap-item{
-        border-bottom: 1px dashed rgba($primary-color, 0.7);
-        &:last-child{
-          border-bottom: none;
-        }
-      }
-      .header-wrap{
-        padding-bottom: 10px;
-        .header-title{
-          display: inline-block;
-          line-height: 50px;
-          height: 50px;
-          color: rgba($primary-color, 0.7);
-          font-size: 16px;
-          font-weight: bold;
-          padding-right: 10px;
-          border-bottom: 4px solid rgba($primary-color, 0.7);
-        }
-      }
-      img{
-        max-width: 100%;
-        border-radius: 4px;
-        &.avatar{
-          width:50px;
-          height:50px;
-          border-radius: 50%;
-        }
-      }
-      .single-line-p{
-        min-height: 26px;
-        padding-left: 70px;
-        position: relative;
-        line-height: 26px;
-        font-size: 13px;
-        color: #555;
-        .label{
-          height: 26px;
-          line-height: 26px;
-          position: absolute;
-          top:0;
-          left:0;
-          width: 70px;
-          font-weight: bold;
-          color: rgba($primary-color, 0.7);
-        }
-        .content{
-          line-height: 1.4;
-          display: inline-block;
-          text-align: justify;
-        }
-      }
-      .skill-item{
-        padding: 5px;
-        border-radius: 4px;
-        border: 1px dashed rgba($primary-color, 0.3);
-        margin-bottom: 6px;
-      }
-    }
-    .content-left{
-      padding:20px;
-      .manage-table-wrap{
-        .loading-wrap,.tip-wrap{
-          text-align: center;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          display: table-caption;
-          color: rgba($primary-color, 0.7);
-          .loading-svg{
-            width:50px;
-          }
-          .loading-word{
-            margin-top: 10px;
-          }
-        }
-        .filter-wrap{
-          border: 1px solid #ddd;
-          border-bottom: none;
-          padding: 15px 0 15px 20px;
-          .filter-item{
-            height: 30px;
-            line-height:30px;
-          }
-          .filter-label{
-            font-weight: bold;
-            display: inline-block;
-            vertical-align: middle;
-          }
-          .mu-radio{
-            vertical-align: middle;
-            margin-right: 20px;
-          }
-          .mu-radio-icon{
-            height: 18px;
-            width: 18px;
-            margin-right: 4px;
-            .mu-radio-svg-icon{
-              width: 18px;
-              height: 18px;
-            }
-          }
-          .mu-radio-label{
-            font-size: 14px;
-          }
-
-        }
-        .manage-table{
-          border: 1px solid #ddd;
-          .mu-th{
-            font-size: 14px;
-            color: #333;
-            font-weight: bold;
-          }
-          .manage-tbody{
-            .mu-flat-button{
-              height: 30px;
-              line-height: 30px;
-              left:-12px;
-            }
-            .mu-flat-button-label{
-              padding-left: 4px;
-              padding-right: 4px;
-              font-size: 14px;
-            }
-            .mu-tr{
-              &.selected{
-                background-color: #fff;
-              }
-              &.active{
-                background-color: #f5f5f5;
-              }
-              &:last-child{
-                border-bottom: 1px solid rgba(#000, 0.24);
-              }
-            }
-            .avatar{
-              height:40px;
-              width:40px;
-              border-radius: 50%;
-              vertical-align: middle;
-            }
-          }
-          .manage-tfoot{
-            .mu-flat-button{
-              height: 30px;
-              line-height: 30px;
-              left: -16px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+@import "./manage.scss";
 </style>

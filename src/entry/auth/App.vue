@@ -34,7 +34,6 @@
           <mu-icon value="check_circle" color="#7e57c2" :size='100' />
           <p class='success-text'>信息提交成功</p>
           <p class='success-text'>我们会在一个工作日内审核您的信息</p>
-
         </div>
       </template>
       <p class='tip' v-show='activeStep<2'>注意：请如实填写上述信息，一个工作日内会有工作人员与您联系，认证您的行家身份。</p>

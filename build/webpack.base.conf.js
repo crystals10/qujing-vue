@@ -11,7 +11,6 @@ module.exports = {
   entry: {
     index: './src/entry/index/index.js',
     auth: './src/entry/auth/auth.js',
-    login: './src/entry/login/login.js',
     manage: './src/entry/manage/manage.js',
     open: './src/entry/open/open.js',
   },

@@ -33,6 +33,7 @@ import muTh from 'muse-components/table/th'
 import muTd from 'muse-components/table/td'
 import muTr from 'muse-components/table/tr'
 import muRadio from 'muse-components/radio'
+import muDatePicker from 'muse-components/DatePicker'
 
 let Muse = {}
 
@@ -71,6 +72,7 @@ Muse.install = function (Vue, options) {
   Vue.component(muTr.name, muTr)
   Vue.component(muTd.name, muTd)
   Vue.component(muRadio.name, muRadio)
+  Vue.component(muDatePicker.name, muDatePicker)
 }
 
 export default Muse

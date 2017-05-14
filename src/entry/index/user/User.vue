@@ -33,7 +33,7 @@
         <mu-list-item @click='f_edit_info' class='list-item' title="修改信息">
           <mu-icon slot="left" value="account_circle"/>
         </mu-list-item>
-        <mu-list-item v-if='m_current_user_type =="c"' class='list-item' title="认证行家">
+        <mu-list-item v-if='m_current_user_type =="c"' href='/auth.html' class='list-item' title="认证行家">
           <mu-icon slot="left" value="stars"/>
         </mu-list-item>
         <mu-list-item v-if='m_current_user_type =="m"' class='list-item' title="重新认证">

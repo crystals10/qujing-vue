@@ -2,21 +2,20 @@
   <div id="manage-nav">
     <mu-list>
       <p class='header'>管理</p>
-      <mu-list-item to='/user' class='list-item' title="用户管理" />
-      <mu-list-item to='/major'class='list-item' title="行家管理" />
-      <mu-list-item to='/apply'class='list-item' title="行家认证" />
+      <mu-list-item to='/userManage'  class='list-item' title="用户管理" />
+      <mu-list-item to='/majorManage' class='list-item' title="行家管理" />
+      <mu-list-item to='/applyManage' class='list-item' title="行家认证" />
     </mu-list>
     <mu-list>
       <p class='header'>数据分析</p>
-      <mu-list-item class='list-item' title="访问分析" />
-      <mu-list-item class='list-item' title="用户分析" />
-      <mu-list-item class='list-item' title="约见分析" />
-      <mu-list-item class='list-item' title="行家分析" />
+      <mu-list-item to='/accessAnalysis' class='list-item' title="技能分析" />
+      <mu-list-item to='/userAnalysis' class='list-item' title="用户分析" />
+      <mu-list-item to='/orderAnalysis' class='list-item' title="约见分析" />
+      <mu-list-item to='/majorAnalysis' class='list-item' title="行家分析" />
     </mu-list>
     <mu-list>
       <p class='header'>高级设置</p>
-      <mu-list-item class='list-item' title="获取链接" />
-      <mu-list-item class='list-item' title="账号安全" />
+      <mu-list-item to='/accountSetting' class='list-item' title="账号设置" />
     </mu-list>
   </div>
 </template>
@@ -24,9 +23,7 @@
 export default {
   name: "manage-nav",
   data: function data() {
-    return {
-
-    }
+    return {}
   }
 }
 </script>

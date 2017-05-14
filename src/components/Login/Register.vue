@@ -135,7 +135,7 @@ export default {
             this.m_step ++
             let self = this
             setTimeout(function () {
-              self.close()
+              self.f_close()
               self.f_callback()
             }, 1000)
           } else {

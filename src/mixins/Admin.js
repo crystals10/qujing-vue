@@ -18,6 +18,27 @@ Admin.install = function (Vue, options) {
           })
         })
       },
+      logout_station (data) {
+        return this.$http.get('/api/admin/logout').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      get_admin_info(){
+        return this.$http.get('/api/admin/info').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      register_station (data) {
+        return this.$http.post('/api/opensub/add',data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
       get_user_list (data) {
         return this.$http.post('/api/admin/user/list',data).then(function (response) {
           return new Promise(function (resolve) {
@@ -69,6 +90,41 @@ Admin.install = function (Vue, options) {
       },
       reject_apply (data) {
         return this.$http.post('/api/admin/rejectapply', data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      cancel_reject_apply (data) {
+        return this.$http.post('/api/admin/cancelreject', data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      alter_password (data) {
+        return this.$http.post('/api/admin/editpassword', data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      get_sub_token () {
+        return this.$http.get('/api/admin/token').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      get_statistic　(type, data) {
+        return this.$http.post('/api/statistic/' + type, data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      get_statistic_count () {
+        return this.$http.get('/api/statistic/count').then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
