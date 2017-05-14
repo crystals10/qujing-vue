@@ -10,9 +10,9 @@
         <div class="item-content">
           <dl>
             <dt>分站首页</dt> <dd>{{'http://localhost:9010/#/home?token=' + m_token}}</dd>
-            <dt>用户约见信息页面</dt> <dd>{{'http://localhost:9010/#/message?token=' + m_token}}</dd>
-            <dt>行家技能列表页面</dt> <dd>{{'http://localhost:9010/#/skills?token=' + m_token}}</dd>
-            <dt>认证成为行家页面</dt> <dd>{{'http://localhost:9010/auth.html?token=' + m_token}}</dd>
+            <dt>用户约见信息页面</dt> <dd>{{'http://localhost:9010/#/message'}}</dd>
+            <dt>行家技能列表页面</dt> <dd>{{'http://localhost:9010/#/skills'}}</dd>
+            <dt>认证成为行家页面</dt> <dd>{{'http://localhost:9010/auth.html'}}</dd>
           </dl>
         </div>
       </div>

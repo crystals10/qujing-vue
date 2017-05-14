@@ -13,6 +13,7 @@ module.exports = {
     auth: './src/entry/auth/auth.js',
     manage: './src/entry/manage/manage.js',
     open: './src/entry/open/open.js',
+    sub: './src/entry/sub/sub.js'
   },
   output: {
     path: config.build.assetsRoot,

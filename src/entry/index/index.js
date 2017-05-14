@@ -19,6 +19,13 @@ Vue.use(WarnPanel)
 Vue.use(Filter)
 Vue.use(Utils)
 
+// router.beforeEach((to, from, next) => {
+//   if (to.path.indexOf('/home') != -1) {
+//     console.log(to.path)
+//   }
+//   next()
+// })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -13,6 +13,34 @@ Http.install = function (Vue, options) {
     mounted () {
     },
     methods: {
+      get_sub_list () {
+        return this.$http.get('/api/user/sub/list').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      get_sub_id_by_token (token) {
+        return this.$http.get('/api/user/subid/' + token).then(function (response) {
+          let data = response.body
+          if (data.status == 'ok') {
+            this.m_current_sub_id = data.result
+            localStorage.setItem('sub_id', data.result)
+          } else {
+            this.$warn(data.message)
+          }
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      register_station (data) {
+        return this.$http.post('/api/opensub/add',data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
       // 从 localStorage 获取 userId
       get_self_user_id () {
         return localStorage.getItem('user_id')

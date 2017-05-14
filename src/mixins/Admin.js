@@ -3,12 +3,7 @@ let url = 'http://115.28.204.84'
 Admin.install = function (Vue, options) {
   Vue.mixin({
     data () {
-      return {
-        m_current_user_id: localStorage.getItem('user_id'),
-        m_current_sub_id: localStorage.getItem('sub_id'),
-        m_current_user_type: localStorage.getItem('user_type'),
-        m_current_is_login: localStorage.getItem('is_login')
-      }
+      return {}
     },
     methods:{
       is_admin_login () {

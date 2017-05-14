@@ -34,8 +34,8 @@ export default {
   name: "home",
   data: function data() {
     return {
-      m_sub_id: 1,
-      m_tag_id: 1,
+      m_token: '',
+      m_sub_id: '',
       m_loading_show: true,
       m_category_collection: {
         music: 1,
@@ -53,15 +53,46 @@ export default {
   watch: {
     '$route': ['f_get_all_skills']
   },
+  beforeRouteEnter (to, from, next) {
+    if (to.query.token) {
+      // 加 token 默认认为访问者在有倾向性的访问
+      next ()
+    } else {
+      if (!localStorage.getItem('sub_id')) {
+        window.location.href = '/sub.html'
+      } else {
+        next()
+      }
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (to.query.token) {
+      // 加 token 默认认为访问者在有倾向性的访问
+      next ()
+    } else {
+      if (!localStorage.getItem('sub_id')) {
+        window.location.href = './sub.html'
+      } else {
+        next()
+      }
+    }
+  },
   mounted() {
-    this.f_get_all_skills()
+    if (this.$route.query.token) {
+      this.get_sub_id_by_token(this.$route.query.token).then(function (data) {
+        this.m_sub_id = this.m_current_sub_id
+        this.f_get_all_skills()
+      })
+    } else if (localStorage.getItem('sub_id')) {
+      this.m_sub_id = this.m_current_sub_id
+      this.f_get_all_skills()
+    } else {
+      window.location.href = './sub.html'
+    }
   },
   methods:{
     f_hide_loading () {
       this.m_loading_show = false
-      // setTimeout(function () {
-      //   this.m_loading_show = false
-      // }.bind(this), 0)
     },
     f_get_all_skills () {
       let category = this.$route.params.category
@@ -111,7 +142,7 @@ export default {
 }
 #home{
   .skill-card-wrap{
-    padding:10px;
+    padding:0 10px;
     .no-skill{
       padding-top: 20px;
       text-align: center;
@@ -120,7 +151,6 @@ export default {
     .loading-wrap{
       margin-top: 10px;
       text-align: center;
-      // transition: height 2s ease;
       .loading-svg{
         width:60px;
       }

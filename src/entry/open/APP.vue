@@ -72,7 +72,7 @@
       <div v-show="m_register_step == 1">
         <div class="apply-form">
           <mu-text-field class="register-text-field" v-model='m_school_name' label='学校名称：' fullWidth/>
-          <mu-text-field class="register-text-field" v-model='m_mp_num' label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
+          <mu-text-field class="register-text-field" v-model='m_mp_name' label='您所运营的公众号名称或者门户网站的网址：' fullWidth/>
           <mu-text-field class="register-text-field" v-model='m_mp_num' label='公众号的粉丝数量或者网站的日访问量：' fullWidth/>
           <mu-text-field class="register-text-field" v-model='m_wechat' label='您的微信号：' fullWidth/>
           <mu-text-field class="register-text-field" v-model='m_email' label='您的邮箱：' fullWidth/>
@@ -110,13 +110,13 @@ export default {
       m_apply_dialog: false,
       m_login_dialog: false,
       m_register_step: 1,
-      m_school_name: '武汉大学',
-      m_mp_name: '华科学习帝',
-      m_mp_num: '20000',
-      m_wechat: 'cmm020304',
-      m_email: 'cmm@bingyan.net',
-      m_login_email: 'cmm@bingyan.net',
-      m_login_password: '1234'
+      m_school_name: '',
+      m_mp_name: '',
+      m_mp_num: '',
+      m_wechat: '',
+      m_email: '',
+      m_login_email: '',
+      m_login_password: ''
     }
   },
   methods: {
