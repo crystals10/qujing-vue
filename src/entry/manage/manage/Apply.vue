@@ -2,7 +2,7 @@
   <div id="apply-manage" class="manage-wrap">
      <div class="manage-header">
        <span class="title">认证行家</span>
-       <!-- <span class='tip'>（对本站所有行家的管理）</span> -->
+       <!-- <span class='tip'>（每晚12点钟更新前一天的数据信息）</span> -->
        <!-- <div class="search-wrap">
          <mu-text-field icon='search' fullWidth hintText='搜索用户昵称' hintTextClass='hint-text' inputClass='search-input' underlineFocusClass='underline-focus'>
          </mu-text-field>
@@ -94,7 +94,7 @@
               <span class="content">{{m_check_info.user.major}}</span>
             </p>
             <p class='single-line-p'><span class='label'>学&nbsp;生&nbsp;证：</span>
-              <img src="../../../assets/id.png" alt="">
+              <img :src="m_check_info.user.studentCard" alt="">
             </p>
           </div>
           <!-- 行家认证信息 -->

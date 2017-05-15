@@ -8,26 +8,30 @@
       </template>
       <div class="card-top">
         <div class="card-tag txt-small txt-center">
-          <p>message</p>
-          <p>由『取经』发送</p>
+          <p>发出的约见信息</p>
+          <p>By『取经』</p>
         </div>
         <div class="top-line"></div>
         <div class="card-content">
           <p class="txt-center">
             <span class="tip">您想向</span>
             <span class="name txt-big txt-em">{{data.toUserName}}</span>
-            <span class="tip">请教</span></p>
+            <span class="tip">请教</span>
+          </p>
           <p class="txt-em">{{data.skillTitle}}</p>
           <p class="intro"><span class="tip">这是您的描述：</span>{{data.orderIntroduction}}</p>
           <p class='time txt-small txt-right'>{{data.createTime | timestampFormat}}</p>
         </div>
       </div>
       <div class="card-bottom">
+        <!-- 等待行家处理的状态 -->
         <div v-if="data.result==0" class="status-wrap">
           <p class='txt-center'>正在等待 <span class="name txt-em">{{data.toUserName}}</span> 处理</p>
         </div>
+        <!-- 行家已经同意的状态 -->
         <div v-else-if="data.result==1" class="status-wrap">
-          <p class='txt-center'> <span class="name txt-em">{{data.toUserName}}</span> 已 <span class='txt-big txt-em status'>同意</span> 这次约见。</p>
+          <p class='txt-center'>
+            <span class="name txt-em">{{data.toUserName}}</span> 已 <span class='txt-big txt-em status'>同意</span> 这次约见。</p>
           <p>
             您可以通过<span class="contact txt-em">『{{data.toUserWeChat}}』</span>联系 <span class="name txt-em">{{data.toUserName}}</span> 并与之共同商定见面的时间及地点，『取经』祝您有一次愉快的约见。
           </p>
@@ -36,13 +40,15 @@
             <mu-flat-button label='已完成此次约见' labelClass='button-over-label' @click='f_open_finish_dialog' primary />
           </p>
         </div>
+        <!-- 行家拒绝的状态 -->
         <div v-else-if="data.result==2" class="status-wrap">
           <p class='txt-center'> <span class="name txt-em">{{data.toUserName}}</span> 已 <span class='txt-big txt-em status'>拒绝</span> 这次约见。</p>
-          <p> <span class='reject-reason txt-small'>拒绝原因是：</span>{{data.rejectReason}}</p>
+          <p><span class='reject-reason txt-small'>拒绝原因是：</span>{{data.rejectReason}}</p>
         </div>
+        <!-- 预约完成的状态 -->
         <div v-else="data.result==3" class="status-wrap">
           <p class='txt-center'>您已 <span class='txt-big txt-em status'>完成</span> 这次约见。</p>
-          <p> <span class='reject-reason txt-small'>您对行家的评论是：</span>{{data.skillComment}}</p>
+          <p> <span class='reject-reason txt-small'>您对行家的评论是：</span>{{data.commentContent}}</p>
         </div>
       </div>
       <div class="card-footer txt-center txt-small">

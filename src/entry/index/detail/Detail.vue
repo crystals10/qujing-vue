@@ -19,13 +19,16 @@
       <p class="other">
         <span class="other-item"> <span class="em">{{m_user_info.orderTimes || 0}}</span>人见过</span>
         <span class="other-item"> <span class="em">{{m_user_info.orderedTimes || 0}}</span>人想见</span>
-        <span class="other-item"> <span class="em">{{m_user_info.score || 0}}</span>分</span>
+        <span class="other-item" v-if='m_user_info.score'> <span class="em" >{{m_user_info.score}}</span>分</span>
+        <span class="other-item" v-if='!m_user_info.score'> <span class="em" >暂无评分</span></span>
       </p>
     </div>
     <div class="intro-detail">
       <p class="header">个人信息</p>
       <p class="intro-content">{{m_user_info.introduce}}</p>
     </div>
+
+    <!-- 当前技能的详情 -->
     <div class="skill-wrap">
       <p class="header">技能详情</p>
       <div class="skill-item">
@@ -37,6 +40,8 @@
         <p class="skill-content">{{!m_skill_info.skill?'':m_skill_info.skill.description}}</p>
       </div>
     </div>
+
+    <!-- 该行家的其他技能 -->
     <div class="skill-wrap other-skill-wrap">
       <p class="header">该行家其他技能</p>
       <div class="skill-item" v-for='item in m_skills_others'>
@@ -48,34 +53,14 @@
         <p class="skill-content">{{item.skill.description}}</p>
       </div>
     </div>
-    <div class="mp-info">
-      关注『iKnow华科』公众号，查看更多。
-    </div>
-    <div class="comment-wrap">
-      <p class="header">约见者评论
-        <span class='tip' v-if='m_skill_comments.length > 0'>共 {{m_skill_comments.length}} 条评论</span>
-      </p>
-      <template v-if='m_skill_comments.length > 0'>
-        <template v-for='(item, index) in m_skill_comments'>
-          <div class="comment-item" :key='index'>
-            <mu-avatar class='avatar' src='http://www.muse-ui.org/images/uicon.jpg'></mu-avatar>
-            <div class="comment-detail">
-              <p class="comment-content-header"><span>子矜</span>·<span>{{item.createTime | timestampFormat}}</span></p>
-              <p class="comment-content">{{item.content}}</p>
-            </div>
-          </div>
-        </template>
-      </template>
-      <template v-else>
-        <p class='no-comments'>
-          暂时没有评论🙊🙊🙊
-        </p>
-      </template>
-    </div>
+
+    <!-- 用户所有技能的评论 -->
+    <comments v-bind:data='m_user_comments' />
     <mu-float-button class="yue-button" @click='f_order' icon='add'></mu-float-button>
   </div>
 </template>
 <script>
+import Comments from './Comments'
 export default {
   name: "detail",
   data: function data() {
@@ -86,7 +71,7 @@ export default {
       m_skill_info: {},
       m_skill_tagName: '',
       m_skills_others: [],
-      m_skill_comments: []
+      m_user_comments: []
     }
   },
   mounted: function mounted() {
@@ -94,7 +79,7 @@ export default {
     this.m_user_id = this.$route.params.userId
     this.f_get_user_info(this.m_user_id)
     this.f_get_skill_info(this.m_skill_id)
-    this.f_get_skill_comments(this.m_skill_id)
+    this.f_get_user_comments(this.m_user_id)
     this.f_get_skill_except(this.m_user_id, this.m_skill_id)
   },
   methods: {
@@ -114,9 +99,9 @@ export default {
         this.m_skills_others = data.result
       })
     },
-    f_get_skill_comments (skillId) {
-      this.fetch_skill_comments(skillId).then(function (data) {
-        this.m_skill_comments = data.result
+    f_get_user_comments (userId) {
+      this.fetch_user_comments(userId).then(function (data) {
+        this.m_user_comments = data.result
       })
     },
     f_order () {
@@ -136,13 +121,16 @@ export default {
         })
       }
     }
+  },
+  components: {
+    Comments
   }
 }
 </script>
 <style lang="scss">
 @import '../../../scss/_variables.scss';
 #detail{
-  padding-bottom: 15px;
+  padding-bottom: 10px;
   .detail-back{
     height:180px;
     background: url('../../../assets/detail_back.jpg') no-repeat center center;
@@ -205,7 +193,6 @@ export default {
     }
   }
   .intro-detail{
-    margin-top: 15px;
     padding:10px 20px;
     background-color: #fff;
     border-bottom: 1px dashed #eee;
@@ -224,7 +211,7 @@ export default {
     background-color: #fff;
     padding:10px 20px;
     &.other-skill-wrap{
-      margin-top: 15px;
+      border-top: 1px dashed #eee;
     }
     .header{
       font-size: 16px;
@@ -233,7 +220,7 @@ export default {
     .skill-item{
       padding-top: 5px;
       padding-bottom: 5px;
-      border-bottom: 1px dashed $primary-color;
+      border-bottom: 1px dashed #ddd;
       &:first-child{
         padding-top: 0;
       }
@@ -270,57 +257,6 @@ export default {
         text-align: justify;
         color: #666;
         font-size:12px;
-      }
-    }
-  }
-  .mp-info{
-    padding:10px 20px;
-    color: $primary-color;
-    background-color: #fff;
-  }
-  .comment-wrap{
-    padding:10px 20px;
-    background-color: #fff;
-    margin-top: 15px;
-    .header{
-      font-size: 16px;
-      font-weight: bold;
-      padding: 6px 0;
-      .tip{
-        font-size: 13px;
-        color: #666;
-      }
-    }
-    .no-comments{
-      padding: 15px;
-      text-align: center;
-      font-size: 14px;
-      color: #666;
-    }
-    .comment-item{
-      padding-left: 50px;
-      position: relative;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-top: 1px dashed #eee;
-      min-height: 50px;
-      &:last-child{
-        border-bottom: 1px dashed #eee;
-      }
-      .avatar{
-        position: absolute;
-        top: 8px;
-        left:0;
-      }
-      .comment-content-header{
-        font-weight: bold;
-        line-height: 20px;
-        height:20px;
-      }
-      .comment-detail{
-        font-size: 13px;
-        color: #666;
-        text-align: justify;
       }
     }
   }

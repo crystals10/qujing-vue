@@ -84,7 +84,7 @@ export default {
         this.f_get_all_skills()
       })
     } else if (localStorage.getItem('sub_id')) {
-      this.m_sub_id = this.m_current_sub_id
+      this.m_sub_id = localStorage.getItem('sub_id')
       this.f_get_all_skills()
     } else {
       window.location.href = './sub.html'

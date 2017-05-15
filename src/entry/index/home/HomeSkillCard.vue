@@ -4,21 +4,16 @@
       <div class="avatar-wrap">
         <mu-avatar class="mu-avatar-back" :src='data.avatar' :size='46' />
         <p class="name txt-primary">{{data.userName}}</p>
-        <p class='txt-center txt-primary'>{{data.userScore}}分</p>
+        <p class='name txt-center txt-primary' v-if='data.userScore'>{{data.userScore}}分</p>
       </div>
       <div class="skill-card-content">
-        <p class="header">{{data.skillTitle}}</p>
-        <!-- <p class='info-item'>
-          <mu-icon value='perm_identity'></mu-icon><span>{{data.nickname}}</span>
-        </p> -->
+        <p class="header"><span class="tag">{{data.tagName}}</span>{{data.skillTitle}}</p>
         <p class='info-item'>
           <mu-icon value='person_pin_circle'></mu-icon><span>{{data.userTitle}}</span>
         </p>
         <p class='info-item'>
-          <mu-icon value='loyalty'></mu-icon><span>{{data.tagName}}</span>
-        </p>
-        <p class='info-item'>
-          <mu-icon value='bookmark_border'></mu-icon><span>{{data.skillOrderTimes || 0}}人想见</span>
+          <mu-icon value='bookmark_border' />
+          <span>{{data.skillOrderTimes || 0}}人想见/{{data.skillOrderedTimes || 0}}人见过见</span>
         </p>
         <p class='info-item'>
           <mu-icon value='attach_money'></mu-icon><span>{{data.totalPrice}}元/{{data.totalTime}}小时</span>
@@ -98,7 +93,6 @@ export default {
     .name{
       margin-top: 6px;
       font-size: 13px;
-      // font-weight: bold;
       text-align: center;
     }
   }
@@ -110,6 +104,19 @@ export default {
       letter-spacing: 0px;
       font-weight: bold;
       margin-bottom: 10px;
+      .tag{
+        font-size: 12px;
+        font-weight: lighter;
+        vertical-align: 1px;
+        padding: 0 2px;
+        margin-right: 4px;
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        border-radius: 4px;
+        height: 18px;
+        line-height:18px;
+        display: inline-block;
+      }
     }
     .info-item{
       height: 22px;

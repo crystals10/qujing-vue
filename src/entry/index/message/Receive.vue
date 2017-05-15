@@ -8,8 +8,8 @@
       </template>
       <div class="card-top">
         <div class="card-tag txt-small txt-center">
-          <p>message</p>
-          <p>由『取经』发送</p>
+          <p>收到的约见信息</p>
+          <p>By『取经』</p>
         </div>
         <div class="top-line"></div>
         <div class="card-content">
@@ -27,16 +27,18 @@
         <div v-else-if="data.result==1" class="status-wrap">
           <p class='txt-center'>已 <span class='txt-big txt-em status'>同意</span> 这次约见。</p>
           <p>您可以通过<span class="contact txt-em">『{{data.fromUserWeChat}}』</span>联系<span class="name txt-em"> 子矜 </span>并与之共同商定见面的时间及地点，『取经』祝您有一次愉快的约见。</p>
-          <p>
+          <!-- <p>
             <span class="txt-small">约见完成时请点击</span>
             <mu-flat-button label='已完成此次约见' labelClass='button-over-label' @click='f_over(data.orderId)' primary />
-          </p>
+          </p> -->
         </div>
         <div v-else-if="data.result==2" class="status-wrap">
           <p class='txt-center'>已 <span class='txt-big txt-em status'>拒绝</span> 这次约见。</p>
+          <p> <span class='reject-reason txt-small'>您的拒绝原因是：</span>{{data.rejectReason}}</p>
         </div>
         <div v-else="data.result==3" class="status-wrap">
           <p class='txt-center'>已 <span class='txt-big txt-em status'>完成</span> 这次约见。</p>
+          <p> <span class='reject-reason txt-small'>{{data.fromUserNickname}}对您的评论是：</span>{{data.commentContent}}</p>
         </div>
       </div>
       <div class="card-footer txt-center txt-small">

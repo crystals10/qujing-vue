@@ -11,7 +11,7 @@
        </p>
        <p class="item">
          <span class='num'>{{mp_statistic.apply}}</span>
-         <span class="tip">行家总申请数</span>
+         <span class="tip">未处理行家申请数</span>
        </p>
        <p class="item">
          <span class='num'>{{mp_statistic.skill}}</span>

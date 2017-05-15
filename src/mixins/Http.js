@@ -71,12 +71,10 @@ Http.install = function (Vue, options) {
       restartLocalStorage () {
         this.m_current_is_login = false
         this.m_current_user_id = ''
-        this.m_current_sub_id = ''
         this.m_current_user_type = ''
         localStorage.removeItem('is_login')
         localStorage.removeItem('user_id')
         localStorage.removeItem('user_type')
-        localStorage.removeItem('sub_id')
       },
       // 判断是否登录
       is_login () {
@@ -168,11 +166,29 @@ Http.install = function (Vue, options) {
             })
           })
       },
+      // 获取技能的评论
+      fetch_user_comments: function (userId) {
+        return this.$http.get('/api/user/comments/' + userId).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      // 上传学生证照片
+      upload_student_card: function (data) {
+        var formData = new FormData()
+        formData.append('image', data)
+        return this.$http.post('/api/user/studentCard/upload', formData).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
       // 更新头像
-      update_avatar: function () {
-        return this.$http.post('/api/user/avatar/upload',{
-          images:''
-        }).then(function (response) {
+      upload_avatar: function (data) {
+        var formData = new FormData()
+        formData.append('image', data)
+        return this.$http.post('/api/user/avatar/upload', formData).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
@@ -315,10 +331,8 @@ Http.install = function (Vue, options) {
         })
       },
       // 添加评论
-      add_comment: function () {
-        return this.$http.post('/api/skill/comment/add', {
-
-        }).then(function (response) {
+      add_comment: function (data) {
+        return this.$http.post('/api/skill/comment/add', data).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })

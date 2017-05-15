@@ -5,7 +5,7 @@
         <p class="big">行家指路</p>
         <p class="line"></p>
         <p class="big">省却人情</p>
-        <p class="slogan-intro"> <span class='em'>取经</span> - 华科校内知识、技能共享平台 </p>
+        <p class="slogan-intro"> <span class='em'>取经</span> - 校内知识、技能共享平台 </p>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@ export default {
   name: "banner",
   data: function data() {
     return {
-      
+
     }
   }
 }

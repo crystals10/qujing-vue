@@ -154,9 +154,10 @@ export default {
   }
   .button-wrap{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     .button{
       width:200px;
+      border-radius: 40px;
       line-height: 40px;
       height: 40px;
     }

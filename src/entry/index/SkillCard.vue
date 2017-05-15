@@ -140,16 +140,16 @@ export default {
         color: $primary-color;
       }
     }
-    .tag{
-      position: absolute;
-      top: -30px;
-      right:6px;
-      border-radius: 4px;
-      display: inline-block;
-      padding:2px 6px;
-      color: #666;
-      border: 1px solid #999;
-    }
+    // .tag{
+    //   position: absolute;
+    //   top: -30px;
+    //   right:6px;
+    //   border-radius: 4px;
+    //   display: inline-block;
+    //   padding:2px 6px;
+    //   color: #666;
+    //   border: 1px solid #999;
+    // }
   }
   .skill-cancel-button{
     position: absolute;

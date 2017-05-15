@@ -2,7 +2,7 @@
   <div id="user-analysis" class="analysis-wrap">
     <div class="analysis-header">
       <span class="title">行家分析</span>
-      <!-- <span class='tip'>（对本站所有行家的管理）</span> -->
+      <span class='tip'>（每晚12点钟更新前一天的数据信息）</span>
     </div>
     <div class="analysis-content">
       <div class="filter-wrap">

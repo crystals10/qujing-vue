@@ -19,7 +19,8 @@
       <p class="other" v-if='m_current_user_type == "m"'>
         <span class="other-item"> <span class="em">{{m_self_info.orderedTimes}}</span>人见过</span>
         <span class="other-item"> <span class="em">{{m_self_info.orderTimes}}</span>人想见</span>
-        <span class="other-item"> <span class="em">{{m_self_info.score}}</span>分</span>
+        <span class="other-item"> <span class="em">{{m_self_info.score || '暂无评分'}}
+           <template v-if='m_self_info.score'>分</template></span></span>
       </p>
     </div>
     <div v-else>
@@ -36,9 +37,9 @@
         <mu-list-item v-if='m_current_user_type =="c"' href='/auth.html' class='list-item' title="认证行家">
           <mu-icon slot="left" value="stars"/>
         </mu-list-item>
-        <mu-list-item v-if='m_current_user_type =="m"' class='list-item' title="重新认证">
+        <!-- <mu-list-item v-if='m_current_user_type =="m"' class='list-item' title="重新认证">
           <mu-icon slot="left" value="stars"/>
-        </mu-list-item>
+        </mu-list-item> -->
         <!-- <mu-list-item href='/auth.html' class='list-item' title="修改认证信息"> -->
           <!-- <mu-icon slot="left" value="mode_edit"/>
         </mu-list-item> -->

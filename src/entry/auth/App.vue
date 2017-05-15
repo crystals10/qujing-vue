@@ -75,17 +75,16 @@ export default {
           this.$warn('请填写校内头衔')
           return
         }
-        if (this.m_title.trim() == '') {
+        if (this.m_wechat.trim() == '') {
           this.$warn('请填写微信号')
           return
         }
-        if (this.m_title.trim() == '') {
+        if (this.m_phone.trim() == '') {
           this.$warn('请填写手机号')
           return
         }
         this.activeStep ++
-      }
-      if (this.activeStep == 1) {
+      } else if (this.activeStep == 1) {
         if (this.m_introduce.trim() == '') {
           this.$warn('请填写个人介绍')
           return

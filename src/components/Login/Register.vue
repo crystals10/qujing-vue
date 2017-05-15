@@ -16,8 +16,8 @@
       </mu-stepper>
       <div class="register-form" v-show='m_step==0'>
         <mu-text-field class="register-text-field" v-model='m_nickname' label='昵称：' labelClass='register-label' inputClass='register-input' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_major' label='院系（注册完成后不可修改）：' labelClass='register-label' inputClass='register-input' placeholder='如：软件学院软件工程' fullWidth/>
-        <mu-text-field class="register-text-field" v-model='m_grade' label='入学年份注册完成后不可修改）：' labelClass='register-label' inputClass='registerinput' placeholder='如：2013' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_major' label='院系（注册完成后不可修改）：' labelClass='register-label' inputClass='register-input' hintText='如：软件学院软件工程' fullWidth/>
+        <mu-text-field class="register-text-field" v-model='m_grade' label='入学年份注册完成后不可修改）：' labelClass='register-label' inputClass='registerinput' hintText='如：2013' fullWidth/>
       </div>
       <div class="register-form" v-show='m_step==1'>
         <div class="id-img-wrap">
@@ -65,13 +65,14 @@ export default {
     return {
       m_step: 0,
       m_id_src: require('../../assets/id.png'),
-      m_nickname: '',
-      m_grade: '',
-      m_major: '',
+      m_nickname: '武汉大学用户2',
+      m_grade: '2014',
+      m_major: '数学学院',
       m_password: '',
       m_password_again: '',
       m_login_nickname: '',
       m_login_password: '',
+      m_sub_id: localStorage.getItem('sub_id'),
       m_id_img: ''
     }
   },
@@ -87,15 +88,21 @@ export default {
       if(file.size/1024 > 4096){
         return this.$warn.log("图片最大不能超过4Mb")
       }
-      this.m_id_img = file
-      let reader = new FileReader()
-      let self = this
-      reader.onload = function(e){
-        self.m_id_src = e.target.result
-      }
-      reader.readAsDataURL(file)
+      this.upload_student_card(file).then(function(data){
+        if (data.status == 'ok') {
+          this.m_id_src = data.result
+          this.m_id_img = data.result
+        } else {
+          this.$warn(data.message)
+        }
+      })
     },
     f_next: function () {
+      if (this.m_sub_id == '') {
+        this.$warn('检测到您未在任何分站中', function () {
+          window.location.href = './sub.html'
+        })
+      }
       if (this.m_step == 0){
         if (this.m_nickname.trim() == "" || this.m_major.trim() == "" || this.m_grade.trim() == "" ) {
           this.$warn('信息不能为空')
@@ -128,7 +135,7 @@ export default {
           password: this.m_password,
           grade: this.m_grade,
           major: this.m_major,
-          subId: 1,
+          subId: this.m_sub_id,
           avatar: '/static/img/avatar/' + this.$random(1, 10) + '.png'
         }).then(function (data) {
           if (data.status == 'ok') {
@@ -216,6 +223,9 @@ export default {
     }
     .register-input{
       font-size: 14px;
+    }
+    .mu-text-field-hint{
+      font-size: 12px;
     }
     .register-label{
       font-size: 18px;

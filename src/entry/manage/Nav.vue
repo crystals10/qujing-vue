@@ -8,10 +8,10 @@
     </mu-list>
     <mu-list>
       <p class='header'>数据分析</p>
-      <mu-list-item to='/accessAnalysis' class='list-item' title="技能分析" />
-      <mu-list-item to='/userAnalysis' class='list-item' title="用户分析" />
-      <mu-list-item to='/orderAnalysis' class='list-item' title="约见分析" />
-      <mu-list-item to='/majorAnalysis' class='list-item' title="行家分析" />
+      <mu-list-item to='/accessAnalysis' class='list-item' title="技能数据" />
+      <mu-list-item to='/userAnalysis' class='list-item' title="用户数据" />
+      <mu-list-item to='/orderAnalysis' class='list-item' title="约见数据" />
+      <mu-list-item to='/majorAnalysis' class='list-item' title="行家数据" />
     </mu-list>
     <mu-list>
       <p class='header'>高级设置</p>

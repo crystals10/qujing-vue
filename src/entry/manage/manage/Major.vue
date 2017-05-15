@@ -102,7 +102,7 @@
             </p>
             <!-- <p class='single-line-p'><span class='label'>约&nbsp;见&nbsp;过：</span>10人</p> -->
             <p class='single-line-p'><span class='label'>学&nbsp;生&nbsp;证：</span>
-              <img src="../../../assets/id.png" alt="">
+              <img :src="m_user_info.user.studentCard" alt="">
             </p>
           </div>
 
