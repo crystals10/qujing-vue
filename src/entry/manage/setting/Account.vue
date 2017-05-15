@@ -9,10 +9,10 @@
         <p class="item-header">获取url链接 <span class="tip">(可放置在您的公众号菜单或者门户网站上)</span></p>
         <div class="item-content">
           <dl>
-            <dt>分站首页</dt> <dd>{{'http://localhost:9010/#/home?token=' + m_token}}</dd>
-            <dt>用户约见信息页面</dt> <dd>{{'http://localhost:9010/#/message'}}</dd>
-            <dt>行家技能列表页面</dt> <dd>{{'http://localhost:9010/#/skills'}}</dd>
-            <dt>认证成为行家页面</dt> <dd>{{'http://localhost:9010/auth.html'}}</dd>
+            <dt>分站首页</dt> <dd>{{'http://115.28.204.84/#/home?token=' + m_token}}</dd>
+            <dt>用户约见信息页面</dt> <dd>{{'http://115.28.204.84/#/message'}}</dd>
+            <dt>行家技能列表页面</dt> <dd>{{'http://115.28.204.84/#/skills'}}</dd>
+            <dt>认证成为行家页面</dt> <dd>{{'http://115.28.204.84/auth.html'}}</dd>
           </dl>
         </div>
       </div>

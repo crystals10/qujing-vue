@@ -6,9 +6,9 @@ import List from './List'
 import Open from './Open'
 import Muse from '@/mixins/Muse.js'
 import Router from 'vue-router'
-import 'scss/index.scss'
+import '@/scss/index.scss'
 import Http from '@/mixins/Http.js'
-import WarnPanel from 'components/Warn'
+import WarnPanel from '@/components/Warn'
 import VueResource from 'vue-resource'
 
 Vue.use(Http)

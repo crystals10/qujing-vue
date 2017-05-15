@@ -2,11 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import 'scss/index.scss'
+import '@/scss/index.scss'
 import Muse from '@/mixins/Muse.js'
 import Http from '@/mixins/Http.js'
-import LoginPanel from 'components/Login'
-import WarnPanel from 'components/Warn'
+import LoginPanel from '@/components/Login'
+import WarnPanel from '@/components/Warn'
 import VueResource from 'vue-resource'
 
 Vue.use(Http)

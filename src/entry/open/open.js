@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import Muse from '@/mixins/Muse.js'
-import 'scss/manage.scss'
-import WarnPanel from 'components/Warn'
+import '@/scss/manage.scss'
+import WarnPanel from '@/components/Warn'
 import VueResource from 'vue-resource'
 import AdminHttp from '@/mixins/Admin.js'
 

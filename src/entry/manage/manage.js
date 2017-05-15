@@ -2,14 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from 'router/manage.js'
+import router from '@/router/manage.js'
 import VueResource from 'vue-resource'
 import Muse from '@/mixins/Muse.js'
-import 'scss/manage.scss'
-import WarnPanel from 'components/Warn'
+import '@/scss/manage.scss'
+import WarnPanel from '@/components/Warn'
 import AdminHttp from '@/mixins/Admin.js'
-import Filter from '../../utils/Filter.js'
-import Utils from '../../utils/Utils.js'
+import Filter from '@/utils/Filter.js'
+import Utils from '@/utils/Utils.js'
 
 // 使用 vue-charts 组件 https://github.com/hchstera/vue-charts
 import 'chart.js'
