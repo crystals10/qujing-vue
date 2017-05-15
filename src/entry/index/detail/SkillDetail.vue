@@ -1,8 +1,8 @@
 <template>
   <div class="skill-detail-item">
     <p class="skill-header">
-      <span class='tag'>{{tagName}}</span>
-      <span class='title'>{{data.title}}</span>
+      <span class='tag'>{{data.tagName}}</span>
+      <span class='title'>{{data.skillTitle}}</span>
       <span class="em">{{data.totalPrice}}￥/{{data.totalTime}}h</span>
     </p>
     <p class="skill-content">{{data.description}}</p>

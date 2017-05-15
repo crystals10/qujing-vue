@@ -22,7 +22,7 @@ export default {
   left:0;
   width:100%;
   height:50px;
-  box-shadow: 0px -3px 3px #ddd;
+  box-shadow: 0px -1px 1px #ddd;
   .router-link-active{
     .mu-icon{
       color: $primary-color;

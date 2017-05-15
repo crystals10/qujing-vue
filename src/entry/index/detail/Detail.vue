@@ -31,13 +31,13 @@
     <!-- 当前技能的详情 -->
     <div class="skill-wrap">
       <p class="header">技能详情</p>
-      <skill-detail :tagName='m_skill_info.tagName' :data='m_skill_info.skill||{}' />
+      <skill-detail :data='m_skill_info' />
     </div>
 
     <!-- 该行家的其他技能 -->
     <div class="skill-wrap other-skill-wrap">
       <p class="header">该行家其他技能</p>
-      <skill-detail v-for='item,index in m_skills_others' :tagName='item.tagName' :data='item.skill||{}' :key='index'/>
+      <skill-detail v-for='item,index in m_skills_others' :data='item' :key='index'/>
     </div>
 
     <!-- 用户所有技能的评论 -->
@@ -58,7 +58,6 @@ export default {
       m_skill_id: '',
       m_user_info: {},
       m_skill_info: {},
-      m_skill_tagName: '',
       m_skills_others: [],
       m_user_comments: []
     }
@@ -80,7 +79,6 @@ export default {
     f_get_skill_info (skillId) {
       this.fetch_skill_info(skillId).then(function (data) {
         this.m_skill_info = data.result
-        this.m_skill_tagName = data.result.tagName
       })
     },
     f_get_skill_except(userId, skillId){

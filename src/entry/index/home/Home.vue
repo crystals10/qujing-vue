@@ -3,23 +3,18 @@
     <banner></banner>
     <category></category>
     <search v-on:search='f_search_skills_by_keyword'></search>
+    <div class="search-label">
+      <span class="label" @click='f_choose_label("new")' v-bind:class="{'active': m_search_label == 'new'}">最新</span>
+      <span class="label" @click='f_choose_label("hot")' v-bind:class="{'active': m_search_label == 'hot'}">最热</span>
+    </div>
     <div class="skill-card-wrap">
-      <!-- loading 的过渡动画 -->
-      <div v-show='m_loading_show' class="loading-wrap">
-        <img src="../../../assets/loading.svg" class="loading-svg" alt="">
-      </div>
       <template  v-if='m_skill_datas.length > 0'>
         <template  v-for='item in m_skill_datas'>
           <skill-card v-bind:data='item'></skill-card>
         </template>
       </template>
-      <template v-else-if='!m_loading_show && m_skill_datas.length==0'>
-        <div class="no-skill">
-          <mu-icon value='pets' :size='80' />
-          <p class='tip'>技能列表为空</p>
-        </div>
-      </template>
     </div>
+    <mu-infinite-scroll :loading="loading" :loadingText='""' @load="loadMore"/>
   </div>
 </template>
 <script>
@@ -31,6 +26,12 @@ export default {
   name: "home",
   data: function data() {
     return {
+      m_scroller_el: null,
+      loading: false,
+      m_cur_page: 0,
+      m_page_num: 2,
+      m_scroller: true,
+      m_search_label: 'hot',
       m_token: '',
       m_sub_id: '',
       m_loading_show: true,
@@ -48,7 +49,7 @@ export default {
     }
   },
   watch: {
-    '$route': ['f_get_all_skills']
+    '$route': ['f_init']
   },
   beforeRouteEnter (to, from, next) {
     if (to.query.token) {
@@ -78,11 +79,11 @@ export default {
     if (this.$route.query.token) {
       this.get_sub_id_by_token(this.$route.query.token).then(function (data) {
         this.m_sub_id = this.m_current_sub_id
-        this.f_get_all_skills()
+        this.f_init()
       })
     } else if (localStorage.getItem('sub_id')) {
       this.m_sub_id = localStorage.getItem('sub_id')
-      this.f_get_all_skills()
+      this.f_init()
     } else {
       window.location.href = './sub.html'
     }
@@ -93,33 +94,110 @@ export default {
         this.m_loading_show = false
       }.bind(this), 100)
     },
-    f_get_all_skills () {
+    f_init () {
       let category = this.$route.params.category
-      this.m_loading_show = true
       if (!category) {
-        this.fetch_all_skills(this.m_sub_id).then(function (data) {
-          this.m_skill_datas = data.result
-          this.f_hide_loading()
-        })
+        this.f_get_all_skills()
       } else {
         this.f_get_skills_by_tag(this.m_category_collection[category])
       }
     },
+    f_get_all_skills () {
+      this.m_loading_show = true
+      this.m_cur_page = 0
+      this.m_scroller = true
+      if (this.m_search_label == 'new') {
+        this.fetch_all_skills(this.m_sub_id, this.m_cur_page).then(function (data) {
+          this.m_skill_datas = data.result
+          this.f_hide_loading()
+        })
+      } else if (this.m_search_label == 'hot') {
+        this.fetch_all_hotest_skills(this.m_sub_id, this.m_cur_page ).then(function (data) {
+          this.m_skill_datas = data.result
+          this.f_hide_loading()
+        })
+      }
+    },
     f_get_skills_by_tag (tagId) {
       this.m_loading_show = true
-      this.search_skill_by_tag(this.m_sub_id, tagId).then(function (data) {
-        this.m_skill_datas = data.result
-        this.f_hide_loading()
-      })
+      this.m_cur_page = 0
+      this.m_scroller = true
+      if (this.m_search_label == 'new') {
+        this.search_skill_by_tag(this.m_sub_id, tagId, this.m_cur_page).then(function (data) {
+          this.m_skill_datas = data.result
+          this.f_hide_loading()
+        })
+      } else if (this.m_search_label == 'hot') {
+        this.search_hotest_skill_by_tag(this.m_sub_id, tagId, this.m_cur_page).then(function (data) {
+          this.m_skill_datas = data.result
+          this.f_hide_loading()
+        })
+      }
     },
     f_search_skills_by_keyword (value) {
       if (value.trim() == '')
         return
       this.m_loading_show = true
-      this.search_skill_by_keyword(this.m_sub_id, value).then(function (data) {
+      this.m_cur_page = 0
+      this.m_scroller = false
+      this.search_skill_by_keyword(this.m_sub_id, value, this.m_cur_page).then(function (data) {
         this.m_skill_datas = data.result
         this.f_hide_loading()
       })
+    },
+    f_choose_label (value) {
+      let category = this.$route.params.category
+      this.m_search_label = value
+      if (!category) {
+        this.f_get_all_skills()
+      } else {
+        this.f_get_skills_by_tag(this.m_category_collection[category])
+      }
+    },
+    loadMore () {
+      if (!this.m_scroller || this.loading) {
+        return
+      }
+      this.loading = true
+      let category = this.$route.params.category
+      if (!category) {
+        if (this.m_search_label == 'new') {
+          this.fetch_all_skills(this.m_sub_id, ++this.m_cur_page).then(function (data) {
+            if (data.result.length < this.m_page_num) {
+              this.m_scroller = false
+            }
+            this.m_skill_datas = this.m_skill_datas.concat(data.result)
+            this.loading = false
+          })
+        } else if (this.m_search_label == 'hot') {
+          this.fetch_all_hotest_skills(this.m_sub_id, ++this.m_cur_page ).then(function (data) {
+            if (data.result.length < this.m_page_num) {
+              this.m_scroller = false
+            }
+            this.m_skill_datas = this.m_skill_datas.concat(data.result)
+            console.log(this.m_skill_datas)
+            this.loading = false
+          })
+        }
+      } else {
+        if (this.m_search_label == 'new') {
+          this.search_skill_by_tag(this.m_sub_id, this.m_category_collection[category], ++this.m_cur_page).then(function (data) {
+            if (data.result.length < this.m_page_num) {
+              this.m_scroller = false
+            }
+            this.m_skill_datas = this.m_skill_datas.concat(data.result)
+            this.loading = false
+          })
+        } else if (this.m_search_label == 'hot') {
+          this.search_hotest_skill_by_tag(this.m_sub_id, this.m_category_collection[category], ++this.m_cur_page ).then(function (data) {
+            if (data.result.length < this.m_page_num) {
+              this.m_scroller = false
+            }
+            this.m_skill_datas = this.m_skill_datas.concat(data.result)
+            this.loading = false
+          })
+        }
+      }
     }
   },
   components: {
@@ -132,15 +210,40 @@ export default {
 </script>
 <style lang="scss">
 @import "../../../scss/_variables.scss";
-.loading-enter-active, .loading-leave-active {
-  transition: opacity .5s;
-  opacity: 1;
-}
-.loading-enter, .loading-leave-active {
-  opacity: 0.4;
-}
 #home{
+  .search-label{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0;
+    .label{
+      height: 30px;
+      line-height: 30px;
+      border: 1px solid #ddd;
+      display: inline-block;
+      border-right: 0;
+      width:80px;
+      color: #666;
+      font-size: 12px;
+      &.active{
+        background-color: $primary-color;
+        border-color: $primary-color;
+        color: #fff;
+      }
+      &:first-child{
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+      &:last-child{
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-right: 1px solid #ddd;
+        position: relative;
+        left:-1px;
+      }
+    }
+  }
   .skill-card-wrap{
+    margin-top: 10px;
     padding:0 10px;
     .no-skill{
       padding-top: 20px;

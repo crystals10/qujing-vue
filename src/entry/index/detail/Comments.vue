@@ -7,7 +7,7 @@
       <template v-if='data.length > 0'>
         <template v-for='(item, index) in data'>
           <div class="comment-item" :key='index'>
-            <mu-avatar class='avatar' src='http://www.muse-ui.org/images/uicon.jpg'></mu-avatar>
+            <mu-avatar class='avatar' :src='item.avatar'></mu-avatar>
             <div class="comment-detail">
               <p class="comment-content-header"><span>{{item.nickName}}</span>·<span>{{item.createTime | timestampFormat}}</span></p>
               <p class="comment-content">{{item.content}}</p>

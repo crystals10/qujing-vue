@@ -91,8 +91,16 @@ Http.install = function (Vue, options) {
         })
       },
       // 获取整个分站的所有技能列表
-      fetch_all_skills (subId) {
-        return this.$http.get('/api/skill/search/all/' + subId).then(function (response) {
+      fetch_all_skills (subId, pageNo) {
+        return this.$http.get('/api/skill/search/all/' + subId + '/' + pageNo).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      // 获取整个分站的所有技能列表
+      fetch_all_hotest_skills (subId, pageNo) {
+        return this.$http.get('/api/skill/search/hotest/' + subId + '/' + pageNo).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
@@ -243,16 +251,24 @@ Http.install = function (Vue, options) {
         })
       },
       // 通过关键字搜索
-      search_skill_by_keyword: function (subId,keyword) {
-        return this.$http.get('/api/skill/search/keyword/' + subId + '/' + keyword).then(function (response) {
+      search_skill_by_keyword: function (subId,keyword, pageNo) {
+        return this.$http.get('/api/skill/search/keyword/' + subId + '/' + keyword + '/' + pageNo).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
         })
       },
       // 通过标签搜索
-      search_skill_by_tag: function (subId,tag) {
-        return this.$http.get('/api/skill/search/tag/' + subId + '/' + tag).then(function (response) {
+      search_skill_by_tag: function (subId,tag, pageNo) {
+        return this.$http.get('/api/skill/search/tag/' + subId + '/' + tag + '/' + pageNo).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      // 通过标签搜索
+      search_hotest_skill_by_tag: function (subId,tag, pageNo) {
+        return this.$http.get('/api/skill/search/hotest/' + subId + '/' + tag + '/' + pageNo).then(function (response) {
           return new Promise(function (resolve) {
             resolve(response.body)
           })
