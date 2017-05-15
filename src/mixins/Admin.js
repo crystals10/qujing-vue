@@ -55,6 +55,22 @@ Admin.install = function (Vue, options) {
           })
         })
       },
+      edit_user_info (userId, data) {
+        return this.$http.post('/api/admin/edit/' + userId, data).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      upload_user_avatar (userId, data) {
+        var formData = new FormData()
+        formData.append('image', data)
+        return this.$http.post('/api/admin/avatar/upload/' + userId, formData).then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
       add_black_list (userId, data) {
         return this.$http.post('/api/admin/deleteuser/' + userId, data).then(function (response) {
           return new Promise(function (resolve) {

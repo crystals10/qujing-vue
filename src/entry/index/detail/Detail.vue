@@ -31,36 +31,25 @@
     <!-- 当前技能的详情 -->
     <div class="skill-wrap">
       <p class="header">技能详情</p>
-      <div class="skill-item">
-        <p class="skill-header">
-          <span class='tag'>{{m_skill_info.tagName}}</span>
-          <span class='title'>{{!m_skill_info.skill?'':m_skill_info.skill.title}}</span>
-          <span class="em">{{!m_skill_info.skill?'':m_skill_info.skill.totalPrice}}￥/{{!m_skill_info.skill?'':m_skill_info.skill.totalTime}}h</span>
-        </p>
-        <p class="skill-content">{{!m_skill_info.skill?'':m_skill_info.skill.description}}</p>
-      </div>
+      <skill-detail :tagName='m_skill_info.tagName' :data='m_skill_info.skill||{}' />
     </div>
 
     <!-- 该行家的其他技能 -->
     <div class="skill-wrap other-skill-wrap">
       <p class="header">该行家其他技能</p>
-      <div class="skill-item" v-for='item in m_skills_others'>
-        <p class="skill-header">
-          <span class='tag'>{{item.tagName}}</span>
-          <span class='title'>{{item.skill.title}}</span>
-          <span class="em">{{item.skill.totalPrice}}￥/{{item.skill.totalTime}}h</span>
-        </p>
-        <p class="skill-content">{{item.skill.description}}</p>
-      </div>
+      <skill-detail v-for='item,index in m_skills_others' :tagName='item.tagName' :data='item.skill||{}' :key='index'/>
     </div>
 
     <!-- 用户所有技能的评论 -->
     <comments v-bind:data='m_user_comments' />
+
+    <!-- 约见的按钮 -->
     <mu-float-button class="yue-button" @click='f_order' icon='add'></mu-float-button>
   </div>
 </template>
 <script>
 import Comments from './Comments'
+import SkillDetail from './SkillDetail'
 export default {
   name: "detail",
   data: function data() {
@@ -123,7 +112,8 @@ export default {
     }
   },
   components: {
-    Comments
+    Comments,
+    SkillDetail
   }
 }
 </script>
@@ -216,48 +206,6 @@ export default {
     .header{
       font-size: 16px;
       font-weight: bold;
-    }
-    .skill-item{
-      padding-top: 5px;
-      padding-bottom: 5px;
-      border-bottom: 1px dashed #ddd;
-      &:first-child{
-        padding-top: 0;
-      }
-      &:last-child{
-        border-bottom: none;
-      }
-      .skill-header{
-        position: relative;
-        padding-right: 90px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        .tag{
-          font-size: 12px;
-          padding: 0 2px;
-          border: 1px solid $primary-color;
-          color: $primary-color;
-          border-radius: 4px;
-          height: 18px;
-          line-height:18px;
-          display: inline-block;
-        }
-        .title{
-          font-weight: bold;
-        }
-        .em{
-          position: absolute;
-          font-weight: bold;
-          color: $primary-color;
-          top:10px;
-          right:0;
-        }
-      }
-      .skill-content{
-        text-align: justify;
-        color: #666;
-        font-size:12px;
-      }
     }
   }
   .yue-button{

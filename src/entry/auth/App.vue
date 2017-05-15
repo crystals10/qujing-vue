@@ -176,6 +176,7 @@ export default {
     padding-bottom: 10px;
     .auth-stepper-button{
       width: 40%;
+      border-radius: 20px;
     }
   }
 }

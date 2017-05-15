@@ -6,6 +6,18 @@
     <div class="intro-wrap" v-if='m_current_is_login'>
       <p class='name'>{{m_self_info.nickname}}</p>
       <p class="job">{{m_self_info.grade}}级{{m_self_info.major}}</p>
+      <p class="title" v-if='m_current_user_type !="m" && m_apply_info'>
+        行家认证申请信息：{{m_apply_info.title}}-{{m_apply_info.name}}
+      </p>
+      <p class="title" v-if='m_apply_info.result == "0"'>
+        行家认证状态： <span class="status">待审核</span>
+      </p>
+      <p class="title" v-if='m_apply_info.result == "2"'>
+        行家认证状态： <span class="status">被拒绝</span>
+      </p>
+      <p class="title" v-if='m_apply_info.result == "2"'>
+        原因如下： <span class="status">{{m_apply_info.rejectReason}}</span>
+      </p>
       <p class="title" v-if='m_current_user_type =="m"'>
           <svg viewBox="0 0 20 20" class="vip-svg" aria-hidden="true">
             <g>
@@ -77,21 +89,19 @@ export default {
   data: function data() {
     return {
       m_dialog: false,
-      m_self_info: {}
+      m_self_info: {},
+      m_apply_info: {}
     }
   },
   mounted () {
-    this.is_login().then(function (data) {
-      if (data.status == 'ok') {
-        this.f_get_self_info()
-      }
-    })
+    this.f_init()
   },
   methods: {
     f_init () {
       this.is_login().then(function (data) {
         if (data.status == 'ok') {
           this.f_get_self_info()
+          this.f_get_latest_apply_info()
         }
       })
     },
@@ -103,6 +113,11 @@ export default {
     f_get_self_info () {
       this.fetch_self_info().then(function (data) {
         this.m_self_info = data.result
+      })
+    },
+    f_get_latest_apply_info(){
+      this.get_latest_apply_info().then(function (data) {
+        this.m_apply_info = data.result
       })
     },
     f_edit_info () {
@@ -179,6 +194,9 @@ export default {
         width: 16px;
         display: inline-block;
         vertical-align: middle;
+      }
+      .status{
+        color: $primary-color;
       }
     }
     .other{

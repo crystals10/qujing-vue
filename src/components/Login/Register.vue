@@ -136,7 +136,7 @@ export default {
           grade: this.m_grade,
           major: this.m_major,
           subId: this.m_sub_id,
-          avatar: '/static/img/avatar/' + this.$random(1, 10) + '.png'
+          avatar: '/static/img/avatar/avatar_' + this.$random(1, 48) + '.png'
         }).then(function (data) {
           if (data.status == 'ok') {
             this.m_step ++

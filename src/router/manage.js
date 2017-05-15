@@ -5,6 +5,7 @@ import Home from '../entry/manage/Home'
 import UserManage from '../entry/manage/manage/User'
 import MajorManage from '../entry/manage/manage/Major'
 import ApplyManage from '../entry/manage/manage/Apply'
+import EditInfo from '../entry/manage/manage/Edit'
 
 import AccessAnalysis from '../entry/manage/analysis/Access'
 import OrderAnalysis from '../entry/manage/analysis/Order'
@@ -29,6 +30,11 @@ export default new Router({
       path: '/userManage',
       name: 'UserManage',
       component: UserManage
+    },
+    {
+      path: '/editinfo/:userId',
+      name: 'EditInfo',
+      component: EditInfo
     },
     {
       path: '/applyManage',

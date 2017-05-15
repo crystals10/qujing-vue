@@ -4,7 +4,7 @@
     <div class="add-skill-form">
       <div class="order-stepper-form">
         <mu-text-field label='技能标题' v-model='m_skill_title' labelClass="input-label" inputClass='input-content' fullWidth :maxLength="30" />
-        <mu-text-field label='个人情况描述' v-model='m_skill_description' labelClass="input-label" inputClass='input-content' multiLine fullWidth :rows="2" :rowsMax="8" :maxLength="400" :minLength="100" />
+        <mu-text-field label='技能具体描述' v-model='m_skill_description' labelClass="input-label" inputClass='input-content' multiLine fullWidth :rows="2" :rowsMax="8" :maxLength="400" :minLength="100" />
         <mu-text-field label='技能总价格：' v-model='m_skill_price' labelClass="input-label" inputClass='input-content' type="number" fullWidth/>
         <mu-text-field label='技能时常：' v-model='m_skill_time' labelClass="input-label" inputClass='input-content' type="number" fullWidth/>
         <mu-text-field label='作品链接（非必须）：' v-model='m_skill_works' labelClass="input-label" inputClass='input-content' type="url" fullWidth/>

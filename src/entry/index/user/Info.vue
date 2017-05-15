@@ -13,7 +13,7 @@
         <mu-text-field label='昵称：' v-model='m_nickname' labelClass="input-label" inputClass='input-content'  fullWidth/>
         <mu-text-field label='修改密码：' v-model='m_password' labelClass="input-label" inputClass='input-content'  type='password' hintText='需要修改密码时填写此项' fullWidth/>
         <mu-text-field label='确认密码：' v-model='m_password_again' labelClass="input-label" inputClass='input-content'  type='password' fullWidth/>
-        <p class=tip>注意：入学年份与院系信息不可修改。<span v-if='m_type=="c"'>为方便您之后约见行家建议您绑定微信号。</span></p>
+        <p class=tip>注意：入学年份与院系信息不可修改。</p>
         <div class="button-wrap" >
           <mu-raised-button class="info-edit-button"  @click='f_edit' label="确定修改" primary />
         </div>
@@ -53,9 +53,6 @@ export default {
         let result = data.result
         this.m_avatar = result.avatar
         this.m_nickname = result.nickname
-        this.m_wechat = result.wechat
-        this.m_password = result.password
-        this.m_type = result.type
       })
     },
     f_upload_avatar (event) {

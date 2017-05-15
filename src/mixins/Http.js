@@ -353,6 +353,20 @@ Http.install = function (Vue, options) {
             resolve(response.body)
           })
         })
+      },
+      get_latest_apply_info () {
+        return this.$http.get('/api/apply/latest').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
+      },
+      get_apply_list () {
+        return this.$http.get('/api/apply/list').then(function (response) {
+          return new Promise(function (resolve) {
+            resolve(response.body)
+          })
+        })
       }
     }
   })

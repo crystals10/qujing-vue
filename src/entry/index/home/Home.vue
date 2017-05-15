@@ -5,12 +5,9 @@
     <search v-on:search='f_search_skills_by_keyword'></search>
     <div class="skill-card-wrap">
       <!-- loading 的过渡动画 -->
-      <transition name='loading'>
-        <div v-show='m_loading_show' class="loading-wrap">
-          <img src="../../../assets/loading.svg" class="loading-svg" alt="">
-        </div>
-      </transition>
-
+      <div v-show='m_loading_show' class="loading-wrap">
+        <img src="../../../assets/loading.svg" class="loading-svg" alt="">
+      </div>
       <template  v-if='m_skill_datas.length > 0'>
         <template  v-for='item in m_skill_datas'>
           <skill-card v-bind:data='item'></skill-card>
@@ -92,7 +89,9 @@ export default {
   },
   methods:{
     f_hide_loading () {
-      this.m_loading_show = false
+      setTimeout(function () {
+        this.m_loading_show = false
+      }.bind(this), 100)
     },
     f_get_all_skills () {
       let category = this.$route.params.category

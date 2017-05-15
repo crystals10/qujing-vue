@@ -44,7 +44,8 @@
                  <mu-td v-if='item.status == 0'>{{item.deleteReason | ellipsis(9)}}</mu-td>
                  <mu-td>
                    <template v-if='item.status==1'>
-                     <mu-flat-button label="加入黑名单" v-on:click='f_open_black_dialog(item, $event)' secondary/>
+                     <mu-flat-button label="拉黑" v-on:click='f_open_black_dialog(item, $event)' secondary/>
+                     <mu-flat-button label="修改信息" :to='"/editinfo/" + item.userId' primary/>
                    </template>
                    <template v-else-if='item.status==0'>
                      <mu-flat-button label="移除黑名单" v-on:click='f_remove_black_list(item, $event)' primary/>

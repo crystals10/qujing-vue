@@ -13,7 +13,7 @@
         </p>
         <p class='info-item'>
           <mu-icon value='bookmark_border' />
-          <span>{{data.skillOrderTimes || 0}}人想见/{{data.skillOrderedTimes || 0}}人见过见</span>
+          <span>{{data.skillOrderTimes || 0}}人想见/{{data.skillOrderedTimes || 0}}人见过</span>
         </p>
         <p class='info-item'>
           <mu-icon value='attach_money'></mu-icon><span>{{data.totalPrice}}元/{{data.totalTime}}小时</span>

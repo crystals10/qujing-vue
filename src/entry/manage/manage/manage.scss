@@ -8,7 +8,7 @@
     position:relative;
     border-bottom: 1px solid #ddd;
     .title{
-      font-size: 20px;
+      font-size: 18px;
     }
     .search-wrap{
       position: absolute;
@@ -198,6 +198,10 @@
               line-height: 30px;
               left:-12px;
               min-width: 0;
+              vertical-align: middle;
+              &:hover{
+                background-color: rgba(0,0,0,0.1);
+              }
             }
             .mu-flat-button-label{
               padding-left: 4px;

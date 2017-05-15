@@ -44,7 +44,8 @@
                  <mu-td>{{item.createTime | timestampFormat}}</mu-td>
                  <mu-td>
                    <template v-if='item.type=="m"'>
-                     <mu-flat-button label="下架该行家" @click='f_open_dialog(item, $event)' secondary/>
+                     <mu-flat-button label="下架" @click='f_open_dialog(item, $event)' secondary/>
+                     <mu-flat-button label="修改信息" target='_blank' :to='"/editinfo/" + item.userId' primary/>
                    </template>
                    <template v-else-if='item.type=="m-c"'>
                      <mu-flat-button label="重新上架该行家" @click='f_on_shelf_master(item, $event)' primary/>
@@ -72,10 +73,6 @@
           <!-- 用户基本信息 -->
           <div class="info-wrap-item" v-if='m_user_info'>
             <p class='header-wrap'><span class="header-title">基本信息</span></p>
-            <!-- <p class='single-line-p'>
-              <span class='label'>用户头像：</span>
-              <img :src="m_user_info.user.avatar" class="avatar" alt="">
-            </p> -->
             <p class='single-line-p'>
               <span class='label'>用户昵称：</span>
               <span class='content'>{{m_user_info.user.nickname}}</span>
