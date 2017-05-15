@@ -6,14 +6,13 @@
         <div class="avatar-edit-wrap">
           <mu-avatar :src='m_avatar' class="avatar-wrap" :size='80' />
           <br>
-          <mu-flat-button class="avatar-button" primary type='file' labelClass='register-button' label='点此重新上传头像'>
+          <mu-flat-button class="avatar-button" primary type='file' labelClass='register-button' label='点此修改头像'>
             <input type="file" class="file-button" @change='f_upload_avatar($event)'>
           </mu-flat-button>
         </div>
         <mu-text-field label='昵称：' v-model='m_nickname' labelClass="input-label" inputClass='input-content'  fullWidth/>
-        <mu-text-field label='登录密码：' v-model='m_password' labelClass="input-label" inputClass='input-content'  type='password' fullWidth/>
+        <mu-text-field label='修改密码：' v-model='m_password' labelClass="input-label" inputClass='input-content'  type='password' hintText='需要修改密码时填写此项' fullWidth/>
         <mu-text-field label='确认密码：' v-model='m_password_again' labelClass="input-label" inputClass='input-content'  type='password' fullWidth/>
-        <mu-text-field v-if='m_type == "c"' label='微信号（建议绑定）：' v-model='m_wechat' labelClass="input-label" inputClass='input-content'  fullWidth/>
         <p class=tip>注意：入学年份与院系信息不可修改。<span v-if='m_type=="c"'>为方便您之后约见行家建议您绑定微信号。</span></p>
         <div class="button-wrap" >
           <mu-raised-button class="info-edit-button"  @click='f_edit' label="确定修改" primary />
@@ -29,13 +28,8 @@ export default {
   data () {
     return {
       activeStep: 0,
-      m_select_value: 0,
       m_avatar: '',
       m_nickname: '',
-      m_grade: '',
-      m_major: '',
-      m_wechat: '',
-      m_type: '',
       m_password: '',
       m_password_again: ''
     }
@@ -45,8 +39,8 @@ export default {
       if (data.status == 'unlogin') {
         this.$warn('请先登录', function () {
           this.$showRegisterPanel(0, function () {
-            window.location.reload()
-          })
+            this.f_get_self_info()
+          }.bind(this))
         }.bind(this), 500)
       } else if (data.status == 'ok') {
         this.f_get_self_info()
@@ -72,13 +66,12 @@ export default {
       if(file.size/1024 > 4096){
         return this.$warn.log("图片最大不能超过4Mb")
       }
-      this.m_id_img = file
-      let reader = new FileReader()
-      let self = this
-      reader.onload = function(e){
-        self.m_avatar = e.target.result
-      }
-      reader.readAsDataURL(file)
+       this.upload_avatar(file).then(function (data) {
+         if (data.status == 'ok') {
+           this.m_avatar = data.result
+           this.$warn('头像修改成功')
+         }
+       })
     },
     f_edit () {
       if(this.m_avatar == '') {
@@ -101,9 +94,7 @@ export default {
 
       this.edit_user({
         nickname: this.m_nickname,
-        wechat: this.m_wechat,
-        password: this.m_password,
-        avatar: this.m_avatar
+        password: this.m_password
       }).then(function (data) {
         if (data.status == 'unlogin') {
           this.$warn('登录失效，请重新登录')
@@ -150,6 +141,9 @@ export default {
       font-size: 14px;
       color: $primary-color;
     }
+    .mu-text-field-hint{
+      font-size: 14px;
+    }
     .tip{
       color: #666;
       font-size: 12px;
@@ -159,8 +153,10 @@ export default {
   }
   .button-wrap{
     text-align: center;
+    padding: 10px;
     .info-edit-button{
-      width: 100%;
+      width: 200px;
+      border-radius: 20px;
       height: 40px;
     }
   }

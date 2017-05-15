@@ -22,7 +22,7 @@
         <template v-if="m_send_message_data.length == 0 && m_receive_message_data.length == 0 && !m_loading">
           <div class="no-message">
             <mu-icon value='pets' :size='80' />
-            <p class='tip'>没有约见信息</p>
+            <p class='tip'>暂时没有约见信息</p>
           </div>
         </template>
       </template>
@@ -100,12 +100,8 @@ export default {
       width:60px;
     }
   }
-  .appbar{
-    height: 50px;
-    .appbar-title{
-      text-align: center;
-      font-size: 16px;
-    }
+  .card-wrap{
+    padding: 10px;
   }
   .no-message{
     padding-top: 40px;
@@ -118,9 +114,6 @@ export default {
         text-decoration: underline;
       }
     }
-  }
-  .card-wrap{
-    padding: 10px;
   }
 }
 </style>

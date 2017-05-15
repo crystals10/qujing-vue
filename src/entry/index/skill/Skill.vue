@@ -11,17 +11,18 @@
           <template v-else>
             <div class="no-skill">
               <mu-icon value='pets' :size='80' />
-              <p class='tip'>暂时没有发布任何技能</p>
+              <p>暂时没有发布任何技能</p>
             </div>
           </template>
           <p class='tip'>可点击右下角『+』按钮发布新技能</p>
         </template>
+
         <!-- 不是行家 -->
         <template v-else>
           <div class="no-skill">
             <mu-icon value='stars' :size='80' />
             <p class='tip'>需要认证成为行家才可以发布技能</p>
-            <mu-flat-button label='现在去认证' class='button' target="_blank" href="/auth.html" primary />
+            <mu-flat-button label='现在去认证' class='button' href="/auth.html" primary />
           </div>
         </template>
       </template>
@@ -30,7 +31,7 @@
         <div class="no-skill">
           <mu-icon value='account_circle' :size='80' />
           <p class='tip'>登录之后才可以查看自己的技能列表</p>
-          <mu-flat-button label='现在登录' class='button' target="_blank" @click='f_login_right_now' primary />
+          <mu-flat-button label='现在登录' class='button' @click='f_login_right_now' primary />
         </div>
       </template>
 
@@ -78,14 +79,13 @@ export default {
 @import "../../../scss/_variables.scss";
 #skill-manage{
   .skill-card-wrap{
-    padding: 20px 10px 0;
+    padding:10px;
   }
   .tip{
     margin-top: 10px;
     text-align: center;
     color: rgba($primary-color, 0.6);
   }
-  padding-bottom: 60px;
   .no-skill{
     padding-top: 40px;
     text-align: center;
