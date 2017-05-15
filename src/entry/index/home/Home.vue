@@ -175,7 +175,6 @@ export default {
               this.m_scroller = false
             }
             this.m_skill_datas = this.m_skill_datas.concat(data.result)
-            console.log(this.m_skill_datas)
             this.loading = false
           })
         }

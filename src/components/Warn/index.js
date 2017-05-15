@@ -36,4 +36,4 @@ function install (Vue) {
 let Warn = {
   install: install
 }
-module.exports = Warn
+export default Warn

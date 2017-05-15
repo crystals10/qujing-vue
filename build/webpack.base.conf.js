@@ -40,9 +40,9 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
-        test: /muse-ui.src.*?js$/,
+        test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/muse-ui/src')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

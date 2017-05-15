@@ -43,4 +43,4 @@ let MyPlugin = {
   install: install
 }
 
-module.exports = MyPlugin
+export default MyPlugin
