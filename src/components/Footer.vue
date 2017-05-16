@@ -22,6 +22,7 @@ export default {
   left:0;
   width:100%;
   height:50px;
+  z-index: 90;
   box-shadow: 0px -1px 1px #ddd;
   .router-link-active{
     .mu-icon{
