@@ -76,18 +76,18 @@ export default {
         return
       }
 
-      if (this.m_nickname.trim() == '') {
-        this.$warn('请填写昵称')
-        return
-      }
-      if (this.m_password.trim() == '') {
-        this.$warn('请填写密码')
-        return
-      }
-      if(this.m_password.trim() != this.m_password_again) {
-        this.$warn('两次输入的密码不一致')
-        return
-      }
+      // if (this.m_nickname.trim() == '') {
+      //   this.$warn('请填写昵称')
+      //   return
+      // }
+      // if (this.m_password.trim() == '') {
+      //   this.$warn('请填写密码')
+      //   return
+      // }
+      // if(this.m_password.trim() != this.m_password_again) {
+      //   this.$warn('两次输入的密码不一致')
+      //   return
+      // }
 
       this.edit_user({
         nickname: this.m_nickname,

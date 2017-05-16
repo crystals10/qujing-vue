@@ -65,9 +65,9 @@ export default {
     return {
       m_step: 0,
       m_id_src: require('../../assets/id.png'),
-      m_nickname: '武汉大学用户2',
-      m_grade: '2014',
-      m_major: '数学学院',
+      m_nickname: '',
+      m_grade: '',
+      m_major: '',
       m_password: '',
       m_password_again: '',
       m_login_nickname: '',
