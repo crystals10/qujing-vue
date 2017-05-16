@@ -14,7 +14,7 @@
         </template>
       </template>
     </div>
-    <mu-infinite-scroll :loading="loading" :loadingText='""' @load="loadMore"/>
+    <mu-infinite-scroll :scroller='m_scroller_el' :loading="loading" :loadingText='""' @load="loadMore"/>
   </div>
 </template>
 <script>
@@ -76,6 +76,7 @@ export default {
     }
   },
   mounted() {
+    this.m_scroller_el = this.$el
     if (this.$route.query.token) {
       this.get_sub_id_by_token(this.$route.query.token).then(function (data) {
         this.m_sub_id = this.m_current_sub_id
@@ -210,6 +211,9 @@ export default {
 <style lang="scss">
 @import "../../../scss/_variables.scss";
 #home{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   .search-label{
     margin-top: 10px;
     text-align: center;

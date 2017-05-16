@@ -118,6 +118,9 @@ export default {
 <style lang="scss">
 @import '../../../scss/_variables.scss';
 #detail{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 10px;
   .detail-back{
     height:180px;

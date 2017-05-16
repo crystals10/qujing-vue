@@ -21,6 +21,9 @@ export default {
 <style lang="scss">
 @import "../../scss/_variables.scss";
 .NotFound{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   padding-top:60px;
   text-align: center;
   img{

@@ -17,7 +17,7 @@ export default {
 <style lang="scss">
 @import '../scss/_variables.scss';
 #footer{
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left:0;
   width:100%;

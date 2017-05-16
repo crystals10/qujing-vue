@@ -91,6 +91,9 @@ export default {
 <style lang="scss">
 @import '../../../scss/_variables.scss';
 #message{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   .loading-wrap{
     margin-top: 10px;
     text-align: center;

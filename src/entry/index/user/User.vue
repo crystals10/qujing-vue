@@ -150,6 +150,9 @@ export default {
 <style lang="scss">
 @import '../../../scss/_variables.scss';
 #user{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 10px;
   .user-back{
     height:140px;

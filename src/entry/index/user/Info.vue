@@ -109,6 +109,9 @@ export default {
 <style lang="scss">
 @import '../../../scss/_variables.scss';
 #info{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 10px;
   .appbar{
     height: 50px;

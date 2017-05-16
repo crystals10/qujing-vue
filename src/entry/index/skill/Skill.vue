@@ -78,6 +78,9 @@ export default {
 <style lang="scss">
 @import "../../../scss/_variables.scss";
 #skill-manage{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   .skill-card-wrap{
     padding:10px;
   }

@@ -50,6 +50,9 @@ export default {
 </script>
 <style lang="scss">
 #aboutus{
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   text-align: justify;
   background-color: #fff;
   padding: 20px 30px;
