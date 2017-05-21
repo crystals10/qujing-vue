@@ -27,7 +27,7 @@
       </div>
       <div class="base-info-wrap edit-info-wrap">
         <p class="header"><span>修改基本用户认证信息</span></p>
-        <div class="base-info-form edit-info-form" v-if='m_user_info.tye=="m"'>
+        <div class="base-info-form edit-info-form" v-if='m_user_info.type=="m"'>
           <mu-text-field label='真实姓名：' v-model='m_name' labelClass="input-label" inputClass='input-content'  fullWidth/>
           <mu-text-field label='校内头衔：' v-model='m_title' labelClass="input-label" inputClass='input-content'  fullWidth/>
           <mu-text-field label='个人情况描述' v-model='m_introduce' labelClass="input-label" inputClass='input-content' multiLine fullWidth :rows="3" :rowsMax="3" :maxLength="600" />

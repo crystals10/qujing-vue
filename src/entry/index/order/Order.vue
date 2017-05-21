@@ -86,11 +86,11 @@ export default {
     f_get_skill_lists (userId) {
       this.fetch_user_skill_list(userId).then(function (data) {
         data = data.result
-        this.m_select_value = data[0].skill.skillId
+        this.m_select_value = data[0].skillId
         for (let i = 0, len = data.length; i < len; i++) {
           this.m_skills.push({
-            title: data[i].skill.title,
-            skillId: data[i].skill.skillId
+            title: data[i].skillTitle,
+            skillId: data[i].skillId
           })
         }
       })

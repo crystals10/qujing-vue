@@ -6,7 +6,7 @@
     <div class="intro-wrap" v-if='m_current_is_login'>
       <p class='name'>{{m_self_info.nickname}}</p>
       <p class="job">{{m_self_info.grade}}级{{m_self_info.major}}</p>
-      <p class="title" v-if='m_current_user_type !="m" && m_apply_info'>
+      <p class="title" v-if='m_current_user_type =="c" && m_apply_info.title'>
         行家认证申请信息：{{m_apply_info.title}}-{{m_apply_info.name}}
       </p>
       <p class="title" v-if='m_apply_info.result == "0"'>
@@ -118,6 +118,7 @@ export default {
     f_get_latest_apply_info(){
       this.get_latest_apply_info().then(function (data) {
         this.m_apply_info = data.result
+        console.log(this.m_apply_info)
       })
     },
     f_edit_info () {

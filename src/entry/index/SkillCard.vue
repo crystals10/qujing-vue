@@ -3,15 +3,15 @@
     <div class='card-fade-item'>
       <div id="skill-card" classs="clearfix">
         <div class="card-left">
-          <p class="skill-title txt-em"><span class='tag'>{{data.tagName}}</span>{{data.skill.title}}</p>
-          <p class="skill-intro txt-small">{{data.skill.description}}</p>
+          <p class="skill-title txt-em"><span class='tag'>{{data.tagName}}</span>{{data.skillTitle}}</p>
+          <p class="skill-intro txt-small">{{data.description}}</p>
         </div>
         <div class="card-right txt-center">
           <p class='time-and-price'>
-            <span class='time'>{{data.skill.totalTime}}小时/</span><span class='price'>{{data.skill.totalPrice}}元</span>
+            <span class='time'>{{data.totalTime}}小时/</span><span class='price'>{{data.totalPrice}}元</span>
           </p>
-          <p><span class="num">{{data.skill.orderTimes}}人/</span>想见</p>
-          <p><span class="num">{{data.skill.orderedTimes}}人/</span>见过</p>
+          <p><span class="num">{{data.skillOrderTimes}}人/</span>想见</p>
+          <p><span class="num">{{data.skillOrderedTimes}}人/</span>见过</p>
         </div>
         <slot>
           <mu-flat-button class="skill-cancel-button" @click='f_open_dialog' label="删除" primary/>
@@ -19,7 +19,7 @@
       </div>
       <mu-dialog class="confirm-dialog" bodyClass='confirm-dialog-body' title="确定要删除这个技能吗？" titleClass="dialog-title" :open='m_dialog'>
         <mu-flat-button label="取消" slot="actions" @click='f_close_dialog' primary/>
-        <mu-flat-button label="确定" slot="actions" @click='f_cancel_skill(data.skill.skillId)' primary/>
+        <mu-flat-button label="确定" slot="actions" @click='f_cancel_skill(data.skillId)' primary/>
       </mu-dialog>
     </div>
   </transition>

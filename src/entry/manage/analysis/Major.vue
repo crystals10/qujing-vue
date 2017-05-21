@@ -80,7 +80,7 @@ export default {
         this.$warn('起始时间不能大于结束时间')
         return
       }
-      this.get_statistic_base()
+      this.f_get_statistic_base()
     },
     f_get_statistic_base () {
       this.m_loading = true
